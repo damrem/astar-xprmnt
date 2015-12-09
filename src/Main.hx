@@ -18,11 +18,9 @@ class Main extends Sprite
 {
 	static public inline var THRESHOLD:Float = 50;
 	
-	var selectedP0:AStarWaypoint;
-	var selectedSpr0:Sprite;
+	var selectedTile0:Tile;
+	var selectedTile1:Tile;
 	
-	var selectedP1:AStarWaypoint;
-	var selectedSpr1:Sprite;
 	var astar:AStar;
 	var graph:Graph<AStarWaypoint>;
 	
@@ -52,25 +50,13 @@ class Main extends Sprite
 			for (v in 0 ... maxV)
 			{
 				var tile = new Tile(u, v, graph);
-				trace(tile);
 				addChild(tile);
-				trace(tile.parent);
 				
-				/*
-				var spr = new Sprite();
-				spr.graphics.beginFill(0xffff0000);
-				spr.graphics.drawCircle(0, 0, 4);
-				spr.graphics.endFill();
-				spr.x = p.x;
-				spr.y = p.y;
-				addChild(spr);
-				
-				
-				spr.addEventListener(MouseEvent.CLICK, function(evt:MouseEvent)
+				tile.addEventListener(MouseEvent.CLICK, function(evt:MouseEvent)
 				{
-					select(spr, p);
+					select(tile);
 				});
-				*/
+				
 			}
 		}
 		
@@ -96,36 +82,33 @@ class Main extends Sprite
 		
 	}
 	
-	function select(spr:Sprite, p:AStarWaypoint)
+	function select(tile:Tile)
 	{
 		for (i in 0...numChildren)
 		{
 			getChildAt(i).alpha = 1;
 		}
 		
-		selectedSpr0 = selectedSpr1;
-		selectedSpr1 = spr;
-		if (selectedSpr1 != null)
+		selectedTile0 = selectedTile1;
+		selectedTile1 = tile;
+		if (selectedTile1 != null)
 		{
-			selectedSpr1.alpha = 0.5;
+			selectedTile1.alpha = 0.5;
 		}
-		if (selectedSpr0 != null)
+		if (selectedTile0 != null)
 		{
-			selectedSpr0.alpha = 0.5;
+			selectedTile0.alpha = 0.5;
 		}
 
-		selectedP0 = selectedP1;
-		selectedP1 = p;
-		
 		pathCanvas.graphics.clear();
 		pathCanvas.graphics.lineStyle(5, 0xffffff00);
 		
 		var path = new DA<AStarWaypoint>();
 		
-		if (selectedP0 != null && selectedP1 != null)
+		if (selectedTile0 != null && selectedTile1 != null)
 		{
 			//astar.find(graph, se
-			if (astar.find(graph, selectedP0, selectedP1, path))
+			if (astar.find(graph, selectedTile0.point, selectedTile1.point, path))
 			{
 				pathCanvas.graphics.moveTo(path.get(0).x, path.get(0).y);
 				for (p in path) {

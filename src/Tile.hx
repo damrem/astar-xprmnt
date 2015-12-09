@@ -18,7 +18,7 @@ class Tile extends Sprite
 	public var left:Bool;
 	public var top:Bool;
 	
-	var point:AStarWaypoint;
+	public var point:AStarWaypoint;
 	var openness:Int;
 	
 	public function new(u:Float,v:Float,graph:Graph<AStarWaypoint>) 
