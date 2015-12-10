@@ -20,20 +20,29 @@ class Tile extends Sprite
 	
 	public var point:AStarWaypoint;
 	var openness:Int;
+	public var v:Float;
+	public var u:Float;
 	
 	public function new(u:Float,v:Float,graph:Graph<AStarWaypoint>) 
 	{
 		super();
+		this.v = v;
+		this.u = u;
+		
+		
 		
 		point = new AStarWaypoint();
 		point.node = new GraphNode<AStarWaypoint>(graph, point);
 		graph.addNode(point.node);
 		
-		x = point.x = u * SIZE;
-		y = point.y = v * SIZE;
+		point.x = u;
+		point.y = v;
+		
+		x = (u+0.5) * SIZE;
+		y = (v+0.5) * SIZE;
 		
 		openness = Std.random(16);
-		trace(openness);
+		
 		right = openness & 1 > 0;
 		bottom = openness & 2 > 0;
 		left = openness & 4 > 0;
@@ -64,7 +73,7 @@ class Tile extends Sprite
 		bound();
 		
 		graphics.endFill();
-		trace(this, parent, x, y, width, height);
+		
 	}
 	
 	function dl()
@@ -117,16 +126,74 @@ class Tile extends Sprite
 		var bound = new Shape();
 		addChild(bound);
 		bound.graphics.lineStyle(1, 0xff0000);
-		bound.graphics.drawRect( 0, 0, SIZE-1, SIZE-1);
+		bound.graphics.drawRect( -SIZE/2, -SIZE/2, SIZE, SIZE);
 		bound.graphics.endFill();
 	}
 	
+	public function sameRow(otherTile:Tile)
+	{
+		return v == otherTile.v;
+	}
 	
+	public function sameCol(otherTile:Tile)
+	{
+		return u == otherTile.u;
+	}
+	
+	public function hasLeftNeighbor(otherTile:Tile)
+	{
+		return sameRow(otherTile) && u == otherTile.u + 1;
+	}
+	
+	public function hasRightNeighbor(otherTile:Tile)
+	{
+		return sameRow(otherTile) && u == otherTile.u - 1;
+	}
+	
+	public function hasTopNeighbor(otherTile:Tile)
+	{
+		return sameCol(otherTile) && v == otherTile.v + 1;
+	}
+	
+	public function hasBottomNeighbor(otherTile:Tile)
+	{
+		return sameCol(otherTile) && v == otherTile.v - 1;
+	}
+	
+	public function hasNeighbor(otherTile:Tile)
+	{
+		return hasBottomNeighbor(otherTile) || hasTopNeighbor(otherTile) || hasRightNeighbor(otherTile) || hasLeftNeighbor(otherTile);
+	}
+	
+	public function hasLeftConnection(otherTile:Tile)
+	{
+		return hasLeftNeighbor(otherTile) && left && otherTile.right;
+	}
+	
+	public function hasRightConnection(otherTile:Tile)
+	{
+		return hasRightNeighbor(otherTile) && right && otherTile.left;
+	}
+	
+	public function hasTopConnection(otherTile:Tile)
+	{
+		return hasTopNeighbor(otherTile) && top && otherTile.bottom;
+	}
+	
+	public function hasBottomConnection(otherTile:Tile)
+	{
+		return hasBottomNeighbor(otherTile) && bottom && otherTile.top;
+	}
+	
+	public function hasConnection(otherTile:Tile)
+	{
+		return hasLeftConnection(otherTile) || hasRightConnection(otherTile) || hasTopConnection(otherTile) || hasBottomConnection(otherTile);
+	}
 	
 	function dq(x:Float, y:Float, w:Float, h:Float)
 	{
 		var s = SIZE / 4;
-		graphics.drawRect(x * s, y * s, w * s, h * s);
+		graphics.drawRect((x-2) * s, (y-2) * s, w * s, h * s);
 	}
 	
 	override public function toString():String

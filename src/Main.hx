@@ -25,6 +25,7 @@ class Main extends Sprite
 	var graph:Graph<AStarWaypoint>;
 	
 	var pathCanvas:Shape;
+	var tiles:Array<Tile>;
 
 	public function new() 
 	{
@@ -35,12 +36,18 @@ class Main extends Sprite
 		
 		graph = new Graph<AStarWaypoint>();
 		
+		tiles = [];
+		var tileCanvas = new Sprite();
+		addChild(tileCanvas);
+		
 		var arcsHolder = new Sprite();
 		addChild(arcsHolder);
-		arcsHolder.graphics.lineStyle(1, 0xffff0000);
+		arcsHolder.graphics.lineStyle(1, 0xffff00ff);
 		
 		pathCanvas = new Shape();
 		addChild(pathCanvas);
+		
+		
 		
 		var maxU = Std.int(Lib.current.stage.stageWidth / 50);
 		var maxV = Std.int(Lib.current.stage.stageHeight / 50);
@@ -50,7 +57,8 @@ class Main extends Sprite
 			for (v in 0 ... maxV)
 			{
 				var tile = new Tile(u, v, graph);
-				addChild(tile);
+				tiles.push(tile);
+				tileCanvas.addChild(tile);
 				
 				tile.addEventListener(MouseEvent.CLICK, function(evt:MouseEvent)
 				{
@@ -60,6 +68,22 @@ class Main extends Sprite
 			}
 		}
 		
+		for (tile0 in tiles)
+		{
+			for (tile1 in tiles)
+			{
+				if (tile0.hasConnection(tile1))
+				{
+					tile0.point.node.addArc(tile1.point.node);
+					arcsHolder.graphics.moveTo(tile0.x, tile0.y);
+					arcsHolder.graphics.lineTo(tile1.x, tile1.y);
+				}
+			}
+		}
+				
+				
+				
+			
 		/*
 		for (po in graph)
 		{
@@ -112,9 +136,9 @@ class Main extends Sprite
 			{
 				pathCanvas.graphics.moveTo(path.get(0).x, path.get(0).y);
 				for (p in path) {
-					trace(p);
+					
 					pathCanvas.graphics.lineTo(p.x, p.y);
-					trace(pathCanvas.x, pathCanvas.y, pathCanvas.width, pathCanvas.height, pathCanvas.parent);
+					
 				}
 			}
 			
