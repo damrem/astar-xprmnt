@@ -40,14 +40,8 @@ class Main extends Sprite
 		var tileCanvas = new Sprite();
 		addChild(tileCanvas);
 		
-		var arcsHolder = new Sprite();
-		addChild(arcsHolder);
-		arcsHolder.graphics.lineStyle(1, 0xffff00ff);
-		
 		pathCanvas = new Shape();
 		addChild(pathCanvas);
-		
-		
 		
 		var maxU = Std.int(Lib.current.stage.stageWidth / 50);
 		var maxV = Std.int(Lib.current.stage.stageHeight / 50);
@@ -75,13 +69,11 @@ class Main extends Sprite
 				if (tile0.hasConnection(tile1))
 				{
 					tile0.point.node.addArc(tile1.point.node);
-					arcsHolder.graphics.moveTo(tile0.x, tile0.y);
-					arcsHolder.graphics.lineTo(tile1.x, tile1.y);
 				}
 			}
 		}
 				
-				
+		
 				
 			
 		/*
@@ -108,20 +100,20 @@ class Main extends Sprite
 	
 	function select(tile:Tile)
 	{
-		for (i in 0...numChildren)
+		for (anyTile in tiles)
 		{
-			getChildAt(i).alpha = 1;
+			anyTile.select(false);
 		}
 		
 		selectedTile0 = selectedTile1;
 		selectedTile1 = tile;
 		if (selectedTile1 != null)
 		{
-			selectedTile1.alpha = 0.5;
+			selectedTile1.select();
 		}
 		if (selectedTile0 != null)
 		{
-			selectedTile0.alpha = 0.5;
+			selectedTile0.select();
 		}
 
 		pathCanvas.graphics.clear();
@@ -131,13 +123,13 @@ class Main extends Sprite
 		
 		if (selectedTile0 != null && selectedTile1 != null)
 		{
-			//astar.find(graph, se
 			if (astar.find(graph, selectedTile0.point, selectedTile1.point, path))
 			{
-				pathCanvas.graphics.moveTo(path.get(0).x, path.get(0).y);
+				trace(path);
+				pathCanvas.graphics.moveTo((path.get(0).x+0.5)*Tile.SIZE, (path.get(0).y+0.5)*Tile.SIZE);
 				for (p in path) {
 					
-					pathCanvas.graphics.lineTo(p.x, p.y);
+					pathCanvas.graphics.lineTo((p.x+0.5)*Tile.SIZE, (p.y+0.5)*Tile.SIZE);
 					
 				}
 			}

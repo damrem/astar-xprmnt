@@ -3,8 +3,10 @@ package;
 import de.polygonal.ai.pathfinding.AStarWaypoint;
 import de.polygonal.ds.Graph;
 import de.polygonal.ds.GraphNode;
+import openfl.Assets;
 import openfl.display.Shape;
 import openfl.display.Sprite;
+import openfl.geom.ColorTransform;
 /**
  * ...
  * @author damrem
@@ -20,6 +22,7 @@ class Tile extends Sprite
 	
 	public var point:AStarWaypoint;
 	var openness:Int;
+	var bound:openfl.display.Shape;
 	public var v:Float;
 	public var u:Float;
 	
@@ -41,7 +44,11 @@ class Tile extends Sprite
 		x = (u+0.5) * SIZE;
 		y = (v+0.5) * SIZE;
 		
-		openness = Std.random(16);
+		do
+		{
+			openness = Std.random(16);
+		}
+		while (openness==0||openness == 1 || openness == 2 || openness == 4 || openness == 8);
 		
 		right = openness & 1 > 0;
 		bottom = openness & 2 > 0;
@@ -56,7 +63,8 @@ class Tile extends Sprite
 		var far = SIZE * 3 / 4;
 		var halfSize = SIZE / 2;
 		graphics.clear();
-		graphics.beginFill(0xffffff);
+		//graphics.beginFill(0xffffff);
+		graphics.beginBitmapFill(Assets.getBitmapData("img/stones.jpg"));
 		
 		dtl();
 		dtr();
@@ -70,7 +78,9 @@ class Tile extends Sprite
 		if (!left)		dl();
 		if (!top)		dt();
 		
-		bound();
+		drawBound();
+		drawZone();
+		select(false);
 		
 		graphics.endFill();
 		
@@ -121,13 +131,27 @@ class Tile extends Sprite
 		dq(1, 1, 2, 2);
 	}
 	
-	function bound()
+	function drawBound()
 	{
-		var bound = new Shape();
+		bound = new Shape();
 		addChild(bound);
-		bound.graphics.lineStyle(1, 0xff0000);
-		bound.graphics.drawRect( -SIZE/2, -SIZE/2, SIZE, SIZE);
+		bound.graphics.lineStyle(1, 0x000000);
+		bound.graphics.drawRect( -SIZE/2, -SIZE/2, SIZE-1, SIZE-1);
 		bound.graphics.endFill();
+	}
+	
+	function drawZone()
+	{
+		var zone = new Shape();
+		addChild(zone);
+		zone.graphics.beginFill(0, 0);
+		zone.graphics.drawRect( -SIZE / 2, -SIZE / 2, SIZE, SIZE);
+		zone.graphics.endFill();
+	}
+	
+	public function select(yes:Bool=true)
+	{
+		bound.transform.colorTransform = new ColorTransform(1, 1, 1, yes?1:0.25, yes?255:0, yes?255:0, yes?255:0);
 	}
 	
 	public function sameRow(otherTile:Tile)
