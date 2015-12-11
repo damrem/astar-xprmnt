@@ -5,8 +5,10 @@ import de.polygonal.ai.pathfinding.AStarWaypoint;
 import de.polygonal.ds.DA;
 import de.polygonal.ds.Graph;
 import de.polygonal.ds.GraphNode;
+import motion.Actuate;
 import openfl.display.Shape;
 import openfl.display.Sprite;
+import openfl.events.KeyboardEvent;
 import openfl.events.MouseEvent;
 import openfl.Lib;
 
@@ -26,6 +28,9 @@ class Main extends Sprite
 	
 	var pathCanvas:Shape;
 	var tiles:Array<Tile>;
+	
+	var hero:Hero;
+	var heroIsMoving:Bool;
 
 	public function new() 
 	{
@@ -35,30 +40,37 @@ class Main extends Sprite
 		// openfl.Assets.getBitmapData("img/assetname.jpg");
 		
 		graph = new Graph<AStarWaypoint>();
+		astar = new AStar(graph);
 		
 		tiles = [];
 		var tileCanvas = new Sprite();
 		addChild(tileCanvas);
 		
-		pathCanvas = new Shape();
-		addChild(pathCanvas);
-		
 		var maxU = Std.int(Lib.current.stage.stageWidth / 50);
 		var maxV = Std.int(Lib.current.stage.stageHeight / 50);
 		
-		for(u in 0 ... maxU)
+		for (v in 0 ... maxV)
 		{
-			for (v in 0 ... maxV)
+			for(u in 0 ... maxU)
 			{
 				var tile = new Tile(u, v, graph);
 				tiles.push(tile);
 				tileCanvas.addChild(tile);
 				
 				tile.addEventListener(MouseEvent.CLICK, function(evt:MouseEvent)
-				{
-					select(tile);
-				});
+					{
+						select(tile);
+					}
+				);
 				
+			}
+		}
+		
+		for (v in 0 ... maxV)
+		{
+			for (u in 0 ... maxU)
+			{
+				tiles[v * maxU + u].rightNeighbor = tiles[v * maxU + u + 1];
 			}
 		}
 		
@@ -73,30 +85,40 @@ class Main extends Sprite
 			}
 		}
 				
+		pathCanvas = new Shape();
+		addChild(pathCanvas);
 		
-				
-			
-		/*
-		for (po in graph)
-		{
-			for (pt in graph)
-			{
-				if (po != pt)
-				{
-					if (po.distanceTo(pt) <= THRESHOLD)
-					{
-						po.node.addArc(pt.node);
-						arcsHolder.graphics.moveTo(po.x, po.y);
-						arcsHolder.graphics.lineTo(pt.x, pt.y);
-					}
-				}
-			}
-		}
-		*/
+		hero = new Hero();
+		addChild(hero);
+		hero.graphics.beginFill(0xff0000);
+		hero.graphics.drawCircle(25, 25, 7.5);
+		hero.graphics.endFill();
 		
-		astar = new AStar(graph);
+		hero.moveToTile(tiles[0]);
+		trace(hero.currentTile);
+		
+		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		
 		
 	}
+	
+	private function onKeyDown(e:KeyboardEvent):Void 
+	{
+		trace(e);
+		
+		if (!hero.isMoving)
+		{
+			hero.moveToTile(hero.currentTile.rightNeighbor);
+		}
+		/*
+		37 left
+		38 top
+		39 right
+		40 bottom
+		*/
+	}
+	
+	//function moveHeroToTile
 	
 	function select(tile:Tile)
 	{

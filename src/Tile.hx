@@ -25,6 +25,7 @@ class Tile extends Sprite
 	var bound:openfl.display.Shape;
 	public var v:Float;
 	public var u:Float;
+	public var rightNeighbor:Tile;
 	
 	public function new(u:Float,v:Float,graph:Graph<AStarWaypoint>) 
 	{
