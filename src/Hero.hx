@@ -28,6 +28,7 @@ class Hero extends Sprite
 	
 	public function moveToTile(tile:Tile)
 	{
+		trace("moveToTile", tile);
 		if (tile == null)
 		{
 			return;

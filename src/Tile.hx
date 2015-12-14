@@ -3,6 +3,8 @@ package;
 import de.polygonal.ai.pathfinding.AStarWaypoint;
 import de.polygonal.ds.Graph;
 import de.polygonal.ds.GraphNode;
+import motion.Actuate;
+import motion.easing.Linear;
 import openfl.Assets;
 import openfl.display.Shape;
 import openfl.display.Sprite;
@@ -23,14 +25,14 @@ class Tile extends Sprite
 	public var point:AStarWaypoint;
 	var openness:Int;
 	var bound:openfl.display.Shape;
-	public var v:Float;
-	public var u:Float;
+	public var v:Int;
+	public var u:Int;
 	public var rightNeighbor:Tile;
 	public var bottomNeighbor:Tile;
 	public var leftNeighbor:Tile;
 	public var topNeighbor:Tile;
 	
-	public function new(u:Float,v:Float,graph:Graph<AStarWaypoint>) 
+	public function new(u:Int,v:Int,graph:Graph<AStarWaypoint>) 
 	{
 		super();
 		this.v = v;
@@ -222,6 +224,20 @@ class Tile extends Sprite
 	{
 		var s = SIZE / 4;
 		graphics.drawRect((x-2) * s, (y-2) * s, w * s, h * s);
+	}
+	
+	public function moveU(u:Int)
+	{
+		Actuate.tween(this, 0.5, {
+			x:(u + 0.5) * SIZE
+		})
+		.ease(Linear.easeNone)
+		.onComplete(setU, [u]);
+	}
+	
+	function setU(u:Int)
+	{
+		this.u = u;
 	}
 	
 	override public function toString():String

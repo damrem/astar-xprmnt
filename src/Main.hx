@@ -33,26 +33,25 @@ class Main extends Sprite
 		super();
 		
 		var maxV = Std.int(Lib.current.stage.stageHeight / Tile.SIZE);
-		var maxU = maxV;//Std.int(Lib.current.stage.stageWidth / Tile.SIZE);
+		var maxU = maxV;
 		
 		maze = new Maze(maxU, maxV);
 		
 		addChild(maze);
 		var tiles = maze.tiles;
 		
+		/*
 		for (v in 0 ... maxV)
 		{
 			for (u in 0 ... maxU)
 			{
 				tiles[v * maxU + u].rightNeighbor = tiles[v * maxU + u + 1];
 				tiles[v * maxU + u].bottomNeighbor = tiles[v * maxU + u + maxU];
-				trace(tiles[16]);
-				trace(Type.typeof(16));
-				trace(Type.typeof(v * maxU + u + maxU));
 				tiles[v * maxU + u].leftNeighbor = tiles[v * maxU + u - 1];
 				tiles[v * maxU + u].topNeighbor = tiles[v * maxU + u - maxU];
 			}
 		}
+		*/
 		
 		for (tile0 in tiles)
 		{
@@ -61,6 +60,7 @@ class Main extends Sprite
 				if (tile0.hasConnection(tile1))
 				{
 					tile0.point.node.addArc(tile1.point.node);
+					
 				}
 			}
 		}
@@ -70,7 +70,7 @@ class Main extends Sprite
 		
 		hero = new Hero();
 		addChild(hero);
-		hero.moveToTile(tiles[0]);
+		hero.moveToTile(tiles.getAtIndex(0));
 		trace(hero.currentTile);
 		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
@@ -82,30 +82,37 @@ class Main extends Sprite
 	{
 		trace(e);
 		
+		var direction:Direction = null;
 		if (!hero.isMoving)
 		{
-			var destTile:Tile=null;
 			switch(e.keyCode)
 			{
 				case 37:
-					destTile = hero.currentTile.leftNeighbor;
+					direction = Direction.Left;
 					
 				case 38:
-					destTile = hero.currentTile.topNeighbor;
+					direction = Direction.Top;
 					
 				case 39:
-					destTile = hero.currentTile.rightNeighbor;
-					
+					direction = Direction.Right;
 					
 				case 40:
-					destTile = hero.currentTile.bottomNeighbor;
+					direction = Direction.Bottom;
 					
 			}
+
+			var destTile = maze.getNeighbor(hero.currentTile, direction);
+			trace(destTile);
 			
 			if (destTile != null && hero.currentTile.point.node.getArc(destTile.point.node)!=null)
 			{
 				hero.moveToTile(destTile);
 			}
+			else
+			{
+				maze.move(hero.currentTile.u, hero.currentTile.v, direction);
+			}
+			
 		}
 		/*
 		37 left
