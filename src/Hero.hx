@@ -1,6 +1,7 @@
 package;
 
 import motion.Actuate;
+import motion.easing.Linear;
 import openfl.display.Sprite;
 
 /**
@@ -12,10 +13,16 @@ class Hero extends Sprite
 	public var currentTile:Tile;
 
 	public var isMoving:Bool;
+	static public inline var SIZE=12;
 	
 	public function new() 
 	{
 		super();
+		graphics.beginFill(0xff0000);
+		graphics.drawCircle(0, 0, SIZE/2);
+		graphics.endFill();
+		
+		
 		
 	}
 	
@@ -26,11 +33,13 @@ class Hero extends Sprite
 			return;
 		}
 		isMoving = true;
-		Actuate.tween(this, 1, { 
-			x:tile.x-Tile.SIZE/2, 
-			y:tile.y-Tile.SIZE/2
+		Actuate.tween(this, 0.5, { 
+			x:tile.x, 
+			y:tile.y
 			
-		} ).onComplete(setTile, [tile]);
+		} )
+		.ease(Linear.easeNone)
+		.onComplete(setTile, [tile]);
 	}
 	
 	function setTile(tile:Tile)

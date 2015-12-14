@@ -13,7 +13,7 @@ import openfl.geom.ColorTransform;
  */
 class Tile extends Sprite
 {
-	public static inline var SIZE:Float = 50;
+	public static inline var SIZE:Float = 32;
 	
 	public var right:Bool;
 	public var bottom:Bool;

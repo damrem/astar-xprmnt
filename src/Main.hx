@@ -18,7 +18,6 @@ import openfl.Lib;
  */
 class Main extends Sprite 
 {
-	static public inline var THRESHOLD:Float = 50;
 	
 	var selectedTile0:Tile;
 	var selectedTile1:Tile;
@@ -46,8 +45,8 @@ class Main extends Sprite
 		var tileCanvas = new Sprite();
 		addChild(tileCanvas);
 		
-		var maxU = Std.int(Lib.current.stage.stageWidth / 50);
-		var maxV = Std.int(Lib.current.stage.stageHeight / 50);
+		var maxV = Std.int(Lib.current.stage.stageHeight / Tile.SIZE);
+		var maxU = maxV;//Std.int(Lib.current.stage.stageWidth / Tile.SIZE);
 		
 		for (v in 0 ... maxV)
 		{
@@ -96,10 +95,6 @@ class Main extends Sprite
 		
 		hero = new Hero();
 		addChild(hero);
-		hero.graphics.beginFill(0xff0000);
-		hero.graphics.drawCircle(25, 25, 7.5);
-		hero.graphics.endFill();
-		
 		hero.moveToTile(tiles[0]);
 		trace(hero.currentTile);
 		
