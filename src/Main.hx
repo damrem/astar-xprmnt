@@ -71,6 +71,12 @@ class Main extends Sprite
 			for (u in 0 ... maxU)
 			{
 				tiles[v * maxU + u].rightNeighbor = tiles[v * maxU + u + 1];
+				tiles[v * maxU + u].bottomNeighbor = tiles[v * maxU + u + maxU];
+				trace(tiles[16]);
+				trace(Type.typeof(16));
+				trace(Type.typeof(v * maxU + u + maxU));
+				tiles[v * maxU + u].leftNeighbor = tiles[v * maxU + u - 1];
+				tiles[v * maxU + u].topNeighbor = tiles[v * maxU + u - maxU];
 			}
 		}
 		
@@ -108,7 +114,28 @@ class Main extends Sprite
 		
 		if (!hero.isMoving)
 		{
-			hero.moveToTile(hero.currentTile.rightNeighbor);
+			var destTile:Tile=null;
+			switch(e.keyCode)
+			{
+				case 37:
+					destTile = hero.currentTile.leftNeighbor;
+					
+				case 38:
+					destTile = hero.currentTile.topNeighbor;
+					
+				case 39:
+					destTile = hero.currentTile.rightNeighbor;
+					
+					
+				case 40:
+					destTile = hero.currentTile.bottomNeighbor;
+					
+			}
+			
+			if (destTile != null && hero.currentTile.point.node.getArc(destTile.point.node)!=null)
+			{
+				hero.moveToTile(destTile);
+			}
 		}
 		/*
 		37 left

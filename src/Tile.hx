@@ -26,6 +26,9 @@ class Tile extends Sprite
 	public var v:Float;
 	public var u:Float;
 	public var rightNeighbor:Tile;
+	public var bottomNeighbor:Tile;
+	public var leftNeighbor:Tile;
+	public var topNeighbor:Tile;
 	
 	public function new(u:Float,v:Float,graph:Graph<AStarWaypoint>) 
 	{
