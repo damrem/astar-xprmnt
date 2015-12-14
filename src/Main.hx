@@ -22,48 +22,23 @@ class Main extends Sprite
 	var selectedTile0:Tile;
 	var selectedTile1:Tile;
 	
-	var astar:AStar;
-	var graph:Graph<AStarWaypoint>;
-	
 	var pathCanvas:Shape;
-	var tiles:Array<Tile>;
 	
 	var hero:Hero;
 	var heroIsMoving:Bool;
+	var maze:Maze;
 
 	public function new() 
 	{
 		super();
 		
-		// Assets:
-		// openfl.Assets.getBitmapData("img/assetname.jpg");
-		
-		graph = new Graph<AStarWaypoint>();
-		astar = new AStar(graph);
-		
-		tiles = [];
-		var tileCanvas = new Sprite();
-		addChild(tileCanvas);
-		
 		var maxV = Std.int(Lib.current.stage.stageHeight / Tile.SIZE);
 		var maxU = maxV;//Std.int(Lib.current.stage.stageWidth / Tile.SIZE);
 		
-		for (v in 0 ... maxV)
-		{
-			for(u in 0 ... maxU)
-			{
-				var tile = new Tile(u, v, graph);
-				tiles.push(tile);
-				tileCanvas.addChild(tile);
-				
-				tile.addEventListener(MouseEvent.CLICK, function(evt:MouseEvent)
-					{
-						select(tile);
-					}
-				);
-				
-			}
-		}
+		maze = new Maze(maxU, maxV);
+		
+		addChild(maze);
+		var tiles = maze.tiles;
 		
 		for (v in 0 ... maxV)
 		{
@@ -141,10 +116,10 @@ class Main extends Sprite
 	}
 	
 	//function moveHeroToTile
-	
+	/*
 	function select(tile:Tile)
 	{
-		for (anyTile in tiles)
+		for (anyTile in maze.tiles)
 		{
 			anyTile.select(false);
 		}
@@ -180,5 +155,6 @@ class Main extends Sprite
 			
 		}
 	}
+	*/
 
 }
