@@ -105,7 +105,8 @@ class Main extends Sprite
 			}
 
 			var destTile = maze.getNeighbor(hero.currentTile, direction);
-			trace(destTile);
+			destTile.alpha = 0.25;
+			
 			
 			if (destTile != null && hero.currentTile.point.node.getArc(destTile.point.node)!=null)
 			{
@@ -116,6 +117,7 @@ class Main extends Sprite
 				var cell = new Array2Cell();	maze.tiles.cellOf(hero.currentTile, cell);
 				maze.move(cell.x, cell.y, direction);
 			}
+			
 			
 		}
 		/*
