@@ -115,7 +115,10 @@ class Main extends Sprite
 			else
 			{
 				var cell = new Array2Cell();	maze.tiles.cellOf(hero.currentTile, cell);
-				maze.move(cell.x, cell.y, direction);
+				maze.move(cell.x, cell.y, direction)
+				.onComplete(function() {					
+					hero.moveToTile(hero.currentTile);
+				});
 			}
 			
 			

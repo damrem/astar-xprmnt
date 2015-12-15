@@ -166,7 +166,7 @@ class Maze extends Sprite
 		}
 		
 		updateArcs();
-		
+		var movement=null;
 		for (tile in group)
 		{
 			var cell:Array2Cell=new Array2Cell();	tiles.cellOf(tile, cell);
@@ -192,10 +192,11 @@ class Maze extends Sprite
 			*/
 			
 		
-			tile.moveTo(cell);
+			movement=tile.moveTo(cell);
 			//tile.u--;
 			//if (tile.u < 0) tile.u = w - 1;
 		}
+		return movement;
 	}
 	
 	function updateArcs()

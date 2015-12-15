@@ -231,7 +231,7 @@ class Tile extends Sprite
 	public function moveTo(cell:Array2Cell, isInit:Bool=false)
 	{
 		var duration = isInit?0:0.5;
-		Actuate.tween(this, duration, {
+		return Actuate.tween(this, duration, {
 			x:(cell.x + 0.5) * SIZE,
 			y:(cell.y + 0.5) * SIZE
 		})
