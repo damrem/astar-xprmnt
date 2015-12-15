@@ -29,15 +29,16 @@ class Maze extends Sprite
 			for(u in 0...w)
 			{
 				//tiles.assign(Tile, [u, v, graph]);
-				tiles.set(u, v, new Tile(u, v, graph));
+				var tile = new Tile(graph);
+				tile.moveTo(new Array2Cell(u, v), true);
+				addChild(tile);
+				tiles.set(u, v, tile);
 				/*var tile = new Tile(u, v, graph);
 				tiles.push(tile);*/
 			}
 		}
-		for (tile in tiles)
-		{
-			addChild(tile);
-		}
+		
+		
 	}
 	
 	public function getNeighbor(tile:Tile, direction:Direction)
@@ -76,43 +77,120 @@ class Maze extends Sprite
 	
 	public function move(u:Int, v:Int, direction:Direction)
 	{
-		trace("moveRowLeft", v);
+		trace("move", u, v, direction);
+		
 		var group:Array<Tile> = [];
-		var dest:Int;
+		
+		var coordPropName;
+		var sizePropName:String;
+		
+		var startIndex;
+		var endIndex;
 		
 		switch(direction)
 		{
 			case Right:
+				coordPropName = "v";
+				sizePropName = "w";
 				tiles.getRow(v, group);
+				startIndex = w - 1;
+				endIndex = -1;
+				
 			case Bottom:
+				coordPropName = "u";
+				sizePropName = "h";
 				tiles.getCol(u, group);
+				startIndex = h - 1;
+				endIndex = -1;
+				
 			case Left:
+				coordPropName = "v";
+				sizePropName = "w";
 				tiles.getRow(v, group);
+				startIndex = 0;
+				endIndex = w;
+				
 			case Top:
+				coordPropName = "u";
+				sizePropName = "h";
 				tiles.getCol(u, group);
+				startIndex = 0;
+				endIndex = h;
+		}
+		trace(startIndex, endIndex);
+		
+		var size = Reflect.field(this, sizePropName);
+		
+		for (i in 0 ... size)
+		{
+			var k = direction == Right || direction == Bottom ? w - 1 - i : i;
+			trace(i);
+			var j;
+			switch(direction)
+			{
+				case Right:
+					j = k + 1;
+					if (j >= size)
+					{
+						j = 0;
+					}
+					trace(k, v, j, v);
+					tiles.swap(k, v, j, v);
+					
+				case Bottom:
+					j = k + 1;
+					if (j >= size)
+					{
+						j = 0;
+					}
+					tiles.swap(u, k, u, j);
+					
+				case Left:
+					j = k - 1;
+					if (j <0)
+					{
+						j = size - 1;
+					}
+					tiles.swap(k, v, j, v);
+					
+				case Top:
+					j = k - 1;
+					if (j <0)
+					{
+						j = size - 1;
+					}
+					tiles.swap(u, k, u, j);
+			}
+			
+			
 		}
 		
 		for (tile in group)
 		{
-			var cell:Array2Cell;	tiles.cellOf(tile, cell);
+			var cell:Array2Cell=new Array2Cell();	tiles.cellOf(tile, cell);
+			/*
 			switch(direction)
 			{
 				case Right:
 					cell.x++;
+					if (cell.x >= w)	cell.x = 0;
 					
 				case Bottom:
 					cell.y++;
+					if (cell.y >= h)	cell.y = 0;
 					
 				case Left:
 					cell.x--;
+					if (cell.x < 0)	cell.x = w - 1;
 					
 				case Top:
-					cell.y--;		
+					cell.y--;
+					if (cell.y < 0)	cell.y = h - 1;
 			}
-			
+			*/
 			
 		
-			tile.moveU(coordDest);
+			tile.moveTo(cell);
 			//tile.u--;
 			//if (tile.u < 0) tile.u = w - 1;
 		}

@@ -1,6 +1,7 @@
 package;
 
 import de.polygonal.ai.pathfinding.AStarWaypoint;
+import de.polygonal.ds.Array2.Array2Cell;
 import de.polygonal.ds.Graph;
 import de.polygonal.ds.GraphNode;
 import motion.Actuate;
@@ -25,18 +26,18 @@ class Tile extends Sprite
 	public var point:AStarWaypoint;
 	var openness:Int;
 	var bound:openfl.display.Shape;
-	public var v:Int;
-	public var u:Int;
+	//public var v:Int;
+	//public var u:Int;
 	public var rightNeighbor:Tile;
 	public var bottomNeighbor:Tile;
 	public var leftNeighbor:Tile;
 	public var topNeighbor:Tile;
 	
-	public function new(u:Int,v:Int,graph:Graph<AStarWaypoint>) 
+	public function new(graph:Graph<AStarWaypoint>) 
 	{
 		super();
-		this.v = v;
-		this.u = u;
+		//this.v = v;
+		//this.u = u;
 		
 		
 		
@@ -44,11 +45,11 @@ class Tile extends Sprite
 		point.node = new GraphNode<AStarWaypoint>(graph, point);
 		graph.addNode(point.node);
 		
-		point.x = u;
-		point.y = v;
+		//point.x = u;
+		//point.y = v;
 		
-		x = (u+0.5) * SIZE;
-		y = (v+0.5) * SIZE;
+		//x = (u+0.5) * SIZE;
+		//y = (v+0.5) * SIZE;
 		
 		do
 		{
@@ -160,6 +161,7 @@ class Tile extends Sprite
 		bound.transform.colorTransform = new ColorTransform(1, 1, 1, yes?1:0.25, yes?255:0, yes?255:0, yes?255:0);
 	}
 	
+	/*
 	public function sameRow(otherTile:Tile)
 	{
 		return v == otherTile.v;
@@ -219,26 +221,30 @@ class Tile extends Sprite
 	{
 		return hasLeftConnection(otherTile) || hasRightConnection(otherTile) || hasTopConnection(otherTile) || hasBottomConnection(otherTile);
 	}
-	
+	*/
 	function dq(x:Float, y:Float, w:Float, h:Float)
 	{
 		var s = SIZE / 4;
 		graphics.drawRect((x-2) * s, (y-2) * s, w * s, h * s);
 	}
 	
-	public function moveU(u:Int)
+	public function moveTo(cell:Array2Cell, isInit:Bool=false)
 	{
-		Actuate.tween(this, 0.5, {
-			x:(u + 0.5) * SIZE
+		var duration = isInit?0:0.5;
+		Actuate.tween(this, duration, {
+			x:(cell.x + 0.5) * SIZE,
+			y:(cell.y + 0.5) * SIZE
 		})
 		.ease(Linear.easeNone)
-		.onComplete(setU, [u]);
+		/*.onComplete(setU, [u])*/;
 	}
 	
+	/*
 	function setU(u:Int)
 	{
 		this.u = u;
 	}
+	*/
 	
 	override public function toString():String
 	{

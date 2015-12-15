@@ -2,6 +2,7 @@ package;
 
 import de.polygonal.ai.pathfinding.AStar;
 import de.polygonal.ai.pathfinding.AStarWaypoint;
+import de.polygonal.ds.Array2.Array2Cell;
 import de.polygonal.ds.DA;
 import de.polygonal.ds.Graph;
 import de.polygonal.ds.GraphNode;
@@ -53,6 +54,7 @@ class Main extends Sprite
 		}
 		*/
 		
+		/*
 		for (tile0 in tiles)
 		{
 			for (tile1 in tiles)
@@ -64,13 +66,14 @@ class Main extends Sprite
 				}
 			}
 		}
+		*/
 				
 		pathCanvas = new Shape();
 		addChild(pathCanvas);
 		
 		hero = new Hero();
 		addChild(hero);
-		hero.moveToTile(tiles.getAtIndex(0));
+		hero.moveToTile(tiles.getAtIndex(25));
 		trace(hero.currentTile);
 		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
@@ -110,7 +113,8 @@ class Main extends Sprite
 			}
 			else
 			{
-				maze.move(hero.currentTile.u, hero.currentTile.v, direction);
+				var cell = new Array2Cell();	maze.tiles.cellOf(hero.currentTile, cell);
+				maze.move(cell.x, cell.y, direction);
 			}
 			
 		}
