@@ -41,22 +41,42 @@ class Maze extends Sprite
 		updateArcs();
 	}
 	
-	public function getNeighborCell(refCell:Array2Cell, direction:Direction):Array2Cell
+	public function getNeighborCell(refCell:Array2Cell, direction:Direction, wrapped=false):Array2Cell
 	{
 		var cell = new Array2Cell(refCell.x, refCell.y);
 		switch(direction)
 		{
 			case Right:
 				cell.x++;
+				if (cell.x >= w)
+				{
+					if (!wrapped) return null;
+					cell.x = 0;
+				}
 				
 			case Bottom:
 				cell.y++;
+				if (cell.y >= h)
+				{
+					if (!wrapped) return null;
+					cell.y = 0;
+				}
 				
 			case Left:
 				cell.x--;
+				if (cell.x < 0)
+				{
+					if (!wrapped) return null;
+					cell.x = w - 1;
+				}
 				
 			case Top:
 				cell.y--;
+				if (cell.y < 0)
+				{
+					if (!wrapped) return null;
+					cell.y = h - 1;
+				}
 				
 		}
 		return cell;
