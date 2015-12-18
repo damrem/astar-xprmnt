@@ -1,5 +1,6 @@
 package;
 
+import de.polygonal.ds.Array2.Array2Cell;
 import motion.Actuate;
 import motion.easing.Linear;
 import openfl.display.Sprite;
@@ -10,10 +11,10 @@ import openfl.display.Sprite;
  */
 class Hero extends Sprite
 {
-	public var currentTile:Tile;
-
-	public var isMoving:Bool;
 	static public inline var SIZE=12;
+
+	public var cell:Array2Cell;
+	public var isMoving:Bool;
 	
 	public function new() 
 	{
@@ -21,37 +22,40 @@ class Hero extends Sprite
 		graphics.beginFill(0xff0000);
 		graphics.drawCircle(0, 0, SIZE/2);
 		graphics.endFill();
-		
-		
-		
+		cell = new Array2Cell();
 	}
 	
-	public function moveToTile(tile:Tile)
+	
+	public function moveTo(x:Int, y:Int, instant=false)
 	{
-		trace("moveToTile", tile);
-		if (tile == null)
-		{
-			return;
-		}
-		isMoving = true;
-		Actuate.tween(this, 0.5, { 
-			x:tile.x, 
-			y:tile.y
+		var cell = new Array2Cell(x, y);
+		moveToCell(cell, instant);
+	}
+	
+	public function moveToCell(cell:Array2Cell, instant=false)
+	{
+		trace("moveTo", cell.x, cell.y, instant);
+		this.cell = cell;
+		isMoving = !instant;
+		
+		Actuate
+		.tween(this, instant?0:0.5, { 
+			x:(cell.x+0.5)*Tile.SIZE, 
+			y:(cell.y+0.5)*Tile.SIZE
 			
 		} )
 		.ease(Linear.easeNone)
-		.onComplete(setTile, [tile]);
+		.onComplete(function()
+		{
+			isMoving = false;
+		});
 	}
 	
-	function setTile(tile:Tile)
-	{
-		if (currentTile != null)
-		{			
-			currentTile.alpha = 1;
-		}
-		currentTile = tile;
-		currentTile.alpha = 0.5;
-		isMoving = false;
-	}
+	
+	
+	
+	
+	
+	
 	
 }

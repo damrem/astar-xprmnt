@@ -41,10 +41,9 @@ class Maze extends Sprite
 		updateArcs();
 	}
 	
-	public function getNeighbor(tile:Tile, direction:Direction)
+	public function getNeighborCell(refCell:Array2Cell, direction:Direction):Array2Cell
 	{
-		var cell:Array2Cell = new Array2Cell();
-		tiles.cellOf(tile, cell);
+		var cell = new Array2Cell(refCell.x, refCell.y);
 		switch(direction)
 		{
 			case Right:
@@ -60,20 +59,13 @@ class Maze extends Sprite
 				cell.y--;
 				
 		}
-		return tiles.getAt(cell);
+		return cell;
 	}
 	
-	/*
-	public function getRow(v:UInt)
+	public function getNeighbor(tile:Tile, direction:Direction):Tile
 	{
-		var row:Array<Tile> = [];
-		for (i in v * w...(v + 1) * w)
-		{
-			row.push(tiles[i]);
-		}
-		return row;
+		return tiles.getAt(getNeighborCell(getTileCell(tile), direction));
 	}
-	*/
 	
 	public function move(u:Int, v:Int, direction:Direction)
 	{

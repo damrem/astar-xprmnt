@@ -73,8 +73,7 @@ class Main extends Sprite
 		
 		hero = new Hero();
 		addChild(hero);
-		hero.moveToTile(tiles.getAtIndex(25));
-		trace(hero.currentTile);
+		hero.moveToCell(new Array2Cell(), true);
 		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		
@@ -104,31 +103,24 @@ class Main extends Sprite
 					
 			}
 
-			var destTile = maze.getNeighbor(hero.currentTile, direction);
-			destTile.alpha = 0.25;
+			var cellDest = maze.getNeighborCell(hero.cell, direction);
 			
 			
-			if (destTile != null && hero.currentTile.point.node.getArc(destTile.point.node)!=null)
+			if (cellDest != null)
 			{
-				hero.moveToTile(destTile);
+				var tileOrigin = maze.tiles.getAt(hero.cell);
+				var tileDest = maze.tiles.getAt(cellDest);
+				if (tileOrigin.point.node.getArc(tileDest.point.node) == null)
+				{
+					maze.move(hero.cell.x, hero.cell.y, direction);
+				}
+				hero.moveToCell(cellDest);
 			}
-			else
-			{
-				var cell = new Array2Cell();	maze.tiles.cellOf(hero.currentTile, cell);
-				maze.move(cell.x, cell.y, direction)
-				.onComplete(function() {					
-					hero.moveToTile(hero.currentTile);
-				});
-			}
+			
 			
 			
 		}
-		/*
-		37 left
-		38 top
-		39 right
-		40 bottom
-		*/
+		
 	}
 	
 	//function moveHeroToTile
