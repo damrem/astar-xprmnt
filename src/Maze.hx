@@ -87,94 +87,33 @@ class Maze extends Sprite
 		return tiles.getAt(getNeighborCell(getTileCell(tile), direction));
 	}
 	
-	public function move(u:Int, v:Int, direction:Direction)
+	public function move(x:Int, y:Int, direction:Direction)
 	{
-		trace("move", u, v, direction);
+		trace("move", x, y, direction);
 		
 		var group:Array<Tile> = [];
-		
-		var coordPropName;
-		var sizePropName:String;
-		
-		var startIndex;
-		var endIndex;
 		
 		switch(direction)
 		{
 			case Right:
-				coordPropName = "v";
-				sizePropName = "w";
-				tiles.getRow(v, group);
-				startIndex = w - 1;
-				endIndex = -1;
+				tiles.getRow(y, group);
+				group.unshift(group.pop());
+				tiles.setRow(y, group);
 				
 			case Bottom:
-				coordPropName = "u";
-				sizePropName = "h";
-				tiles.getCol(u, group);
-				startIndex = h - 1;
-				endIndex = -1;
+				tiles.getCol(x, group);
+				group.unshift(group.pop());
+				tiles.setCol(x, group);
 				
 			case Left:
-				coordPropName = "v";
-				sizePropName = "w";
-				tiles.getRow(v, group);
-				startIndex = 0;
-				endIndex = w;
+				tiles.getRow(y, group);
+				group.push(group.shift());
+				tiles.setRow(y, group);
 				
 			case Top:
-				coordPropName = "u";
-				sizePropName = "h";
-				tiles.getCol(u, group);
-				startIndex = 0;
-				endIndex = h;
-		}
-		trace(startIndex, endIndex);
-		
-		var size = Reflect.field(this, sizePropName);
-		
-		for (i in 0 ... size)
-		{
-			var k = direction == Right || direction == Bottom ? w - 1 - i : i;
-			//trace(i);
-			var j;
-			switch(direction)
-			{
-				case Right:
-					j = k + 1;
-					if (j >= size)
-					{
-						j = 0;
-					}
-					//trace(k, v, j, v);
-					tiles.swap(k, v, j, v);
-					
-				case Bottom:
-					j = k + 1;
-					if (j >= size)
-					{
-						j = 0;
-					}
-					tiles.swap(u, k, u, j);
-					
-				case Left:
-					j = k - 1;
-					if (j <0)
-					{
-						j = size - 1;
-					}
-					tiles.swap(k, v, j, v);
-					
-				case Top:
-					j = k - 1;
-					if (j <0)
-					{
-						j = size - 1;
-					}
-					tiles.swap(u, k, u, j);
-			}
-			
-			
+				tiles.getCol(x, group);
+				group.push(group.shift());
+				tiles.setCol(x, group);
 		}
 		
 		updateArcs();
@@ -182,31 +121,7 @@ class Maze extends Sprite
 		for (tile in group)
 		{
 			var cell:Array2Cell=new Array2Cell();	tiles.cellOf(tile, cell);
-			/*
-			switch(direction)
-			{
-				case Right:
-					cell.x++;
-					if (cell.x >= w)	cell.x = 0;
-					
-				case Bottom:
-					cell.y++;
-					if (cell.y >= h)	cell.y = 0;
-					
-				case Left:
-					cell.x--;
-					if (cell.x < 0)	cell.x = w - 1;
-					
-				case Top:
-					cell.y--;
-					if (cell.y < 0)	cell.y = h - 1;
-			}
-			*/
-			
-		
 			movement=tile.moveTo(cell);
-			//tile.u--;
-			//if (tile.u < 0) tile.u = w - 1;
 		}
 		return movement;
 	}

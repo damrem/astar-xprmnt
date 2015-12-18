@@ -248,7 +248,7 @@ class Tile extends Sprite
 	
 	override public function toString():String
 	{
-		return (right?">":"") + (bottom?"v":"") + (left?"<":"") + (top?"^":"");
+		return openness+"("+(right?">":"") + (bottom?"v":"") + (left?"<":"") + (top?"^":"")+")";
 	}
 	
 }
