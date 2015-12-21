@@ -11,6 +11,7 @@ import openfl.display.Shape;
 import openfl.display.Sprite;
 import openfl.events.KeyboardEvent;
 import openfl.events.MouseEvent;
+import openfl.geom.Point;
 import openfl.Lib;
 
 /**
@@ -32,6 +33,8 @@ class Main extends Sprite
 	public function new() 
 	{
 		super();
+		
+		
 		
 		var maxV = Std.int(Lib.current.stage.stageHeight / Tile.SIZE);
 		var maxU = maxV;
@@ -78,7 +81,22 @@ class Main extends Sprite
 		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		
-		
+		/*
+		var arc = new Arc(50, 50, 25, 0, Math.PI/2, 12);
+		var arcCanvas = new Shape();
+		arcCanvas.graphics.beginFill(0xff0000);
+		for (p in arc)
+		{
+			trace(p);
+			if (p == arc.get(0))
+			{
+				arcCanvas.graphics.moveTo(p.x, p.y);
+				continue;
+			}
+			arcCanvas.graphics.lineTo(p.x, p.y);
+		}
+		addChild(arcCanvas);
+		*/
 	}
 	
 	private function onKeyDown(e:KeyboardEvent):Void 
