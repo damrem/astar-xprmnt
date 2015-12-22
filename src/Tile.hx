@@ -73,17 +73,31 @@ class Tile extends Sprite
 		//graphics.beginFill(0xffffff);
 		graphics.beginBitmapFill(Assets.getBitmapData("img/stones.jpg"));
 		
-		dtl();
-		dtr();
-		dbl();
-		dbr();
+		dtl(top && left);
+		dtr(top && right);
+		dbl(bottom && left);
+		dbr(bottom && right);
+		
+		
 
 		if (openness == 0)	dc();
 		
-		if (!right)		dr();
-		if (!bottom)	db();
-		if (!left)		dl();
-		if (!top)		dt();
+		if (!right)
+		{
+			dr();
+		}
+		if (!bottom)
+		{
+			db();
+		}
+		if (!left)
+		{
+			dl();
+		}
+		if (!top)
+		{
+			dt();
+		}
 		
 		drawBound();
 		drawZone();
@@ -113,24 +127,24 @@ class Tile extends Sprite
 		dq(1, 3, 2, 1);
 	}
 	
-	function dtl()
+	function dtl(rounded:Bool=true)
 	{
-		dq(0, 0, 1, 1);
+		dCorner(0, 0, 1, 1, rounded);
 	}
 	
-	function dtr()
+	function dtr(rounded:Bool=true)
 	{
-		dq(3, 0, 1, 1);
+		dCorner(3, 0, 1, 1, rounded);
 	}
 	
-	function dbl()
+	function dbl(rounded:Bool=true)
 	{
-		dq(0, 3, 1, 1);
+		dCorner(0, 3, 1, 1, rounded);
 	}
 	
-	function dbr()
+	function dbr(rounded:Bool=true)
 	{
-		dq(3, 3, 1, 1);
+		dCorner(3, 3, 1, 1, rounded);
 	}
 	
 	function dc()
@@ -143,7 +157,7 @@ class Tile extends Sprite
 		bound = new Shape();
 		addChild(bound);
 		bound.graphics.lineStyle(1, 0x000000);
-		bound.graphics.drawRect( -SIZE/2, -SIZE/2, SIZE-1, SIZE-1);
+		bound.graphics.drawRect( -SIZE/2, -SIZE/2, SIZE, SIZE);
 		bound.graphics.endFill();
 	}
 	
@@ -158,74 +172,32 @@ class Tile extends Sprite
 	
 	public function select(yes:Bool=true)
 	{
-		bound.transform.colorTransform = new ColorTransform(1, 1, 1, yes?1:0.25, yes?255:0, yes?255:0, yes?255:0);
+		bound.transform.colorTransform = new ColorTransform(1, 1, 1, 1, yes?255:0, yes?255:0, yes?255:0);
 	}
 	
-	/*
-	public function sameRow(otherTile:Tile)
-	{
-		return v == otherTile.v;
-	}
 	
-	public function sameCol(otherTile:Tile)
-	{
-		return u == otherTile.u;
-	}
-	
-	public function hasLeftNeighbor(otherTile:Tile)
-	{
-		return sameRow(otherTile) && u == otherTile.u + 1;
-	}
-	
-	public function hasRightNeighbor(otherTile:Tile)
-	{
-		return sameRow(otherTile) && u == otherTile.u - 1;
-	}
-	
-	public function hasTopNeighbor(otherTile:Tile)
-	{
-		return sameCol(otherTile) && v == otherTile.v + 1;
-	}
-	
-	public function hasBottomNeighbor(otherTile:Tile)
-	{
-		return sameCol(otherTile) && v == otherTile.v - 1;
-	}
-	
-	public function hasNeighbor(otherTile:Tile)
-	{
-		return hasBottomNeighbor(otherTile) || hasTopNeighbor(otherTile) || hasRightNeighbor(otherTile) || hasLeftNeighbor(otherTile);
-	}
-	
-	public function hasLeftConnection(otherTile:Tile)
-	{
-		return hasLeftNeighbor(otherTile) && left && otherTile.right;
-	}
-	
-	public function hasRightConnection(otherTile:Tile)
-	{
-		return hasRightNeighbor(otherTile) && right && otherTile.left;
-	}
-	
-	public function hasTopConnection(otherTile:Tile)
-	{
-		return hasTopNeighbor(otherTile) && top && otherTile.bottom;
-	}
-	
-	public function hasBottomConnection(otherTile:Tile)
-	{
-		return hasBottomNeighbor(otherTile) && bottom && otherTile.top;
-	}
-	
-	public function hasConnection(otherTile:Tile)
-	{
-		return hasLeftConnection(otherTile) || hasRightConnection(otherTile) || hasTopConnection(otherTile) || hasBottomConnection(otherTile);
-	}
-	*/
 	function dq(x:Float, y:Float, w:Float, h:Float)
 	{
 		var s = SIZE / 4;
 		graphics.drawRect((x-2) * s, (y-2) * s, w * s, h * s);
+	}
+	
+	function dCorner(x:Float, y:Float, w:Float, h:Float,rounded:Bool=false)
+	{
+		var s = SIZE / 4;
+		var r = s / 2;
+		var rtl:Float = 0;
+		var rtr:Float = 0;
+		var rbr:Float = 0;
+		var rbl:Float = 0;
+		if (rounded)
+		{
+			if (x == 0 && y == 0) rbr = r;
+			else if	(x == 3 && y == 0) rbl = r;
+			else if	(x == 3 && y == 3) rtl = r;
+			else if	(x == 0 && y == 3) rtr = r;
+		}
+		graphics.drawRoundRectComplex((x - 2) * s, (y - 2) * s, w * s, h * s, rtl, rtr, rbl, rbr);
 	}
 	
 	public function moveTo(cell:Array2Cell, isInit:Bool=false)
@@ -235,16 +207,8 @@ class Tile extends Sprite
 			x:(cell.x + 0.5) * SIZE,
 			y:(cell.y + 0.5) * SIZE
 		})
-		.ease(Linear.easeNone)
-		/*.onComplete(setU, [u])*/;
+		.ease(Linear.easeNone);
 	}
-	
-	/*
-	function setU(u:Int)
-	{
-		this.u = u;
-	}
-	*/
 	
 	override public function toString():String
 	{

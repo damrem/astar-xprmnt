@@ -13,6 +13,7 @@ import openfl.events.KeyboardEvent;
 import openfl.events.MouseEvent;
 import openfl.geom.Point;
 import openfl.Lib;
+//using GraphicsPartiallyRoundedRectSF;
 
 /**
  * ...
@@ -85,6 +86,9 @@ class Main extends Sprite
 		var arc = new Arc(50, 50, 25, 0, Math.PI/2, 12);
 		var arcCanvas = new Shape();
 		arcCanvas.graphics.beginFill(0xff0000);
+		*/
+		//arcCanvas.graphics.drawRoundRectComplex(100, 100, 100, 100, 10, 0, 0, 0);
+		/*
 		for (p in arc)
 		{
 			trace(p);
@@ -95,8 +99,10 @@ class Main extends Sprite
 			}
 			arcCanvas.graphics.lineTo(p.x, p.y);
 		}
-		addChild(arcCanvas);
 		*/
+		//addChild(arcCanvas);
+		
+		
 	}
 	
 	private function onKeyDown(e:KeyboardEvent):Void 
