@@ -82,7 +82,7 @@ class Main extends Sprite
 	
 	private function onKeyDown(e:KeyboardEvent):Void 
 	{
-		trace(e);
+		//trace(e);
 		
 		var direction:Direction = null;
 		if (!hero.isMoving)
@@ -101,6 +101,8 @@ class Main extends Sprite
 				case 40:
 					direction = Direction.Bottom;
 					
+				default:
+					return;
 			}
 
 			var cellDest = maze.getNeighborCell(hero.cell, direction);

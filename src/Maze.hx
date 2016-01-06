@@ -4,16 +4,23 @@ import de.polygonal.ai.pathfinding.AStar;
 import de.polygonal.ai.pathfinding.AStarWaypoint;
 import de.polygonal.ds.Array2;
 import de.polygonal.ds.Graph;
+import openfl.display.LineScaleMode;
+import openfl.display.Shape;
 import openfl.display.Sprite;
 import openfl.events.MouseEvent;
 
 class Maze extends Sprite
 {
 	public var tiles:Array2<Tile>;
+	
 	var graph:Graph<AStarWaypoint>;
 	var astar:AStar;
+	
 	var w:Int;
 	var h:Int;
+	
+	var pathCanvas:Shape;
+	
 	public function new(w:Int, h:Int)
 	{
 		super();
@@ -32,13 +39,75 @@ class Maze extends Sprite
 				var tile = new Tile(graph);
 				tile.moveTo(new Array2Cell(u, v), true);
 				addChild(tile);
+				tile.addEventListener(MouseEvent.MOUSE_OVER, function(e)
+				{
+					//getNeighbor(tile, Right).alpha = 0.5;
+					tile.point.node.removeMutualArcs();
+					//drawArcs();
+				});
+				tile.addEventListener(MouseEvent.MOUSE_OUT, function(e)
+				{
+					//getNeighbor(tile, Right).alpha = 1;
+				});
 				tiles.set(u, v, tile);
 				/*var tile = new Tile(u, v, graph);
 				tiles.push(tile);*/
 			}
 		}
 		
-		updateArcs();
+		pathCanvas = new Shape();
+		addChild(pathCanvas);
+		updateGraph();
+		drawPath();
+		//updateArcs();
+		//drawArcs();
+		
+	}
+	
+	function updateGraph()
+	{
+		//graph.clear();
+		var cell:Array2Cell = new Array2Cell();
+		for (tile in tiles)
+		{
+			tile.point.node.removeArc();
+			tiles.cellOf(tile, cell);
+			tile.point.x = cell.x;
+			tile.point.y = cell.y;
+			
+			var right = getNeighbor(tile, Right);
+			if(
+			
+			for (connectedNeighbor in getConnectedNeighbors(tile))
+			{
+				tile.point.node.addArc(connectedNeighbor.point.node);
+				//connectedNeighbor.point.node.addArc(tile.point.node);
+				//graph.addMutualArc(tile.point.node, connectedNeighbor.point.node);
+			}
+			
+		}
+		
+	}
+	
+	function drawPath()
+	{
+		var g = pathCanvas.graphics;
+		pathCanvas.x = pathCanvas.y = Tile.SIZE / 2;
+		pathCanvas.scaleX = pathCanvas.scaleY = Tile.SIZE;
+		g.clear();
+		g.lineStyle(1, 0xffff00, 1, true, LineScaleMode.NONE);
+		for (point in graph)
+		{
+			trace(point);
+			for (connected in point.node)
+			{
+				g.moveTo(point.x, point.y);
+				g.lineTo(connected.x, connected.y);
+				trace(point, connected);
+			}
+			trace('========');
+		}
+		
 	}
 	
 	public function getNeighborCell(refCell:Array2Cell, direction:Direction, wrapped=false):Array2Cell
@@ -84,13 +153,39 @@ class Maze extends Sprite
 	
 	public function getNeighbor(tile:Tile, direction:Direction):Tile
 	{
-		return tiles.getAt(getNeighborCell(getTileCell(tile), direction));
+		var cell = getNeighborCell(getTileCell(tile), direction);
+		if (cell == null) return null;
+		return tiles.getAt(cell);
+	}
+	
+	public function getConnectedNeighbors(tile:Tile):Array<Tile>
+	{
+		var tiles = new Array<Tile>();
+		var right = getNeighbor(tile, Right);
+		if (right!=null&&areConnected(tile, right))
+		{
+			tiles.push(right);
+		}
+		var bottom = getNeighbor(tile, Bottom);
+		if (bottom!=null&&areConnected(tile, bottom))
+		{
+			tiles.push(bottom);
+		}
+		var left = getNeighbor(tile, Left);
+		if (left!=null&&areConnected(tile, left))
+		{
+			tiles.push(left);
+		}
+		var top = getNeighbor(tile, Top);
+		if (top!=null&&areConnected(tile, top))
+		{
+			tiles.push(top);
+		}
+		return tiles;
 	}
 	
 	public function move(x:Int, y:Int, direction:Direction)
 	{
-		trace("move", x, y, direction);
-		
 		var group:Array<Tile> = [];
 		
 		switch(direction)
@@ -116,23 +211,56 @@ class Maze extends Sprite
 				tiles.setCol(x, group);
 		}
 		
-		updateArcs();
+		//updateArcs();
+		updateGraph();
+		drawPath();
+		
 		var movement=null;
 		for (tile in group)
 		{
-			var cell:Array2Cell=new Array2Cell();	tiles.cellOf(tile, cell);
-			movement=tile.moveTo(cell);
+			var cellDest:Array2Cell = new Array2Cell(); tiles.cellOf(tile, cellDest);
+			movement = tile.moveTo(cellDest);
 		}
 		return movement;
+	}
+	
+	function drawArcs()
+	{
+		var g = pathCanvas.graphics;
+		g.clear();
+		g.lineStyle(1, 0xffff00, 1, true, LineScaleMode.NONE);
+		
+		for (point in graph)
+		{
+			trace(point);
+			var arc = point.node.arcList;
+			trace(arc);
+			while (arc != null)
+			{
+				g.moveTo(point.x, point.y);
+				g.lineTo(arc.node.val.x, arc.node.val.y);
+				arc = arc.next;
+			}
+		}
 	}
 	
 	function updateArcs()
 	{
 		for (tile in tiles)
-		{
-			tile.point.node.removeSingleArcs();
+		{	
+			tile.point.node.removeMutualArcs();
+			
+			var tileRight = getNeighbor(tile, Right);
+			
+			if (tileRight != null && tileRight.left && tile.right)
+			{
+				graph.addMutualArc(tile.point.node, tileRight.point.node);
+			}
+
+			
 		}
 		
+		/*
 		for (tile0 in tiles)
 		{
 			for (tile1 in tiles)
@@ -144,17 +272,28 @@ class Maze extends Sprite
 						if (tile0.point.node.getArc(tile1.point.node) == null)
 						{
 							tile0.point.node.addArc(tile1.point.node);
+							if (draw)
+							{
+								g.moveTo(tile0.x, tile0.y);
+								g.lineTo(tile1.x, tile1.y);
+							}
 						}
 						
 						if (tile1.point.node.getArc(tile0.point.node) == null)
 						{
 							tile1.point.node.addArc(tile0.point.node);
+							if (draw)
+							{
+								g.moveTo(tile0.x, tile0.y);
+								g.lineTo(tile1.x, tile1.y);
+							}
 						}
 						
 					}
 				}
 			}
 		}
+		*/
 	}
 	
 	function getTileCell(tile:Tile)
@@ -207,7 +346,9 @@ class Maze extends Sprite
 		{
 			return false;
 		}
-		return (tile0.x < tile1.x && tile0.right && tile1.left) || (tile1.x < tile0.x && tile1.right && tile0.left);
+		var oneWay = tile0.x < tile1.x && tile0.right && tile1.left;
+		var another = tile1.x < tile0.x && tile1.right && tile0.left;
+		return oneWay || another;
 	}
 	
 	public function areConnected(tile0:Tile, tile1:Tile)
