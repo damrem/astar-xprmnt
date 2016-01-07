@@ -25,31 +25,16 @@ class Tile extends Sprite
 	
 	public var point:AStarWaypoint;
 	var openness:Int;
-	var bound:openfl.display.Shape;
-	//public var v:Int;
-	//public var u:Int;
-	public var rightNeighbor:Tile;
-	public var bottomNeighbor:Tile;
-	public var leftNeighbor:Tile;
-	public var topNeighbor:Tile;
+	var bound:Shape;
+	
 	
 	public function new(graph:Graph<AStarWaypoint>) 
 	{
 		super();
-		//this.v = v;
-		//this.u = u;
-		
-		
 		
 		point = new AStarWaypoint();
 		point.node = new GraphNode<AStarWaypoint>(graph, point);
 		graph.addNode(point.node);
-		
-		//point.x = u;
-		//point.y = v;
-		
-		//x = (u+0.5) * SIZE;
-		//y = (v+0.5) * SIZE;
 		
 		do
 		{

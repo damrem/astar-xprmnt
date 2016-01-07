@@ -20,6 +20,10 @@ class Maze extends Sprite
 	var h:Int;
 	
 	var pathCanvas:Shape;
+	var countright:Int;
+	var countbottom:Int;
+	var countleft:Int;
+	var counttop:Int;
 	
 	public function new(w:Int, h:Int)
 	{
@@ -35,23 +39,11 @@ class Maze extends Sprite
 		{
 			for(u in 0...w)
 			{
-				//tiles.assign(Tile, [u, v, graph]);
 				var tile = new Tile(graph);
 				tile.moveTo(new Array2Cell(u, v), true);
 				addChild(tile);
-				tile.addEventListener(MouseEvent.MOUSE_OVER, function(e)
-				{
-					//getNeighbor(tile, Right).alpha = 0.5;
-					tile.point.node.removeMutualArcs();
-					//drawArcs();
-				});
-				tile.addEventListener(MouseEvent.MOUSE_OUT, function(e)
-				{
-					//getNeighbor(tile, Right).alpha = 1;
-				});
 				tiles.set(u, v, tile);
-				/*var tile = new Tile(u, v, graph);
-				tiles.push(tile);*/
+				
 			}
 		}
 		
@@ -66,27 +58,40 @@ class Maze extends Sprite
 	
 	function updateGraph()
 	{
-		//graph.clear();
+		for (node in graph)
+		{
+			
+		}
+		
+		countright = 0;
+		countbottom = 0;
+		countleft = 0;
+		counttop = 0;
+		
 		var cell:Array2Cell = new Array2Cell();
+		
 		for (tile in tiles)
 		{
-			tile.point.node.removeArc();
 			tiles.cellOf(tile, cell);
 			tile.point.x = cell.x;
 			tile.point.y = cell.y;
 			
-			var right = getNeighbor(tile, Right);
-			if(
-			
+			//for (connectedNeighbor in getConnectedNeighbors(tile))
+			{
+				tile.point.node.removeMutualArcs();
+				//connectedNeighbor.point.node.removeMutualArcs();
+			}
+		}
+		
+		for (tile in tiles)
+		{
 			for (connectedNeighbor in getConnectedNeighbors(tile))
 			{
 				tile.point.node.addArc(connectedNeighbor.point.node);
 				//connectedNeighbor.point.node.addArc(tile.point.node);
-				//graph.addMutualArc(tile.point.node, connectedNeighbor.point.node);
-			}
-			
+			}	
 		}
-		
+		trace(countright, countbottom, countleft, counttop);
 	}
 	
 	function drawPath()
@@ -98,14 +103,14 @@ class Maze extends Sprite
 		g.lineStyle(1, 0xffff00, 1, true, LineScaleMode.NONE);
 		for (point in graph)
 		{
-			trace(point);
+			//trace(point);
 			for (connected in point.node)
 			{
 				g.moveTo(point.x, point.y);
 				g.lineTo(connected.x, connected.y);
-				trace(point, connected);
+				//trace(point, connected);
 			}
-			trace('========');
+			//trace('========');
 		}
 		
 	}
@@ -161,25 +166,45 @@ class Maze extends Sprite
 	public function getConnectedNeighbors(tile:Tile):Array<Tile>
 	{
 		var tiles = new Array<Tile>();
+		
 		var right = getNeighbor(tile, Right);
-		if (right!=null&&areConnected(tile, right))
+		if (right != null)
 		{
-			tiles.push(right);
+			if(areConnected(tile, right))
+			{
+				countright++;
+				tiles.push(right);
+			}
 		}
+		
 		var bottom = getNeighbor(tile, Bottom);
-		if (bottom!=null&&areConnected(tile, bottom))
+		if (bottom != null)
 		{
-			tiles.push(bottom);
+			if(areConnected(tile, bottom))
+			{
+				countbottom++;
+				tiles.push(bottom);
+			}
 		}
+		
 		var left = getNeighbor(tile, Left);
-		if (left!=null&&areConnected(tile, left))
+		if (left != null)
 		{
-			tiles.push(left);
+			if(areConnected(tile, left))
+			{
+				countleft++;
+				tiles.push(left);
+			}
 		}
+		
 		var top = getNeighbor(tile, Top);
-		if (top!=null&&areConnected(tile, top))
+		if (top != null)
 		{
-			tiles.push(top);
+			if(areConnected(tile, top))
+			{
+				counttop++;
+				tiles.push(top);
+			}
 		}
 		return tiles;
 	}
@@ -244,57 +269,7 @@ class Maze extends Sprite
 		}
 	}
 	
-	function updateArcs()
-	{
-		for (tile in tiles)
-		{	
-			tile.point.node.removeMutualArcs();
-			
-			var tileRight = getNeighbor(tile, Right);
-			
-			if (tileRight != null && tileRight.left && tile.right)
-			{
-				graph.addMutualArc(tile.point.node, tileRight.point.node);
-			}
-
-			
-		}
-		
-		/*
-		for (tile0 in tiles)
-		{
-			for (tile1 in tiles)
-			{
-				if (tile0 != tile1)
-				{
-					if (areConnected(tile0, tile1))
-					{
-						if (tile0.point.node.getArc(tile1.point.node) == null)
-						{
-							tile0.point.node.addArc(tile1.point.node);
-							if (draw)
-							{
-								g.moveTo(tile0.x, tile0.y);
-								g.lineTo(tile1.x, tile1.y);
-							}
-						}
-						
-						if (tile1.point.node.getArc(tile0.point.node) == null)
-						{
-							tile1.point.node.addArc(tile0.point.node);
-							if (draw)
-							{
-								g.moveTo(tile0.x, tile0.y);
-								g.lineTo(tile1.x, tile1.y);
-							}
-						}
-						
-					}
-				}
-			}
-		}
-		*/
-	}
+	
 	
 	function getTileCell(tile:Tile)
 	{
@@ -342,12 +317,13 @@ class Maze extends Sprite
 	
 	public function areHConnected(tile0:Tile, tile1:Tile)
 	{
+		
 		if (!areNeighbors(tile0, tile1))
 		{
 			return false;
 		}
-		var oneWay = tile0.x < tile1.x && tile0.right && tile1.left;
-		var another = tile1.x < tile0.x && tile1.right && tile0.left;
+		var oneWay = (tile0.x < tile1.x) && tile0.right && tile1.left;
+		var another = (tile1.x < tile0.x) && tile1.right && tile0.left;
 		return oneWay || another;
 	}
 	
