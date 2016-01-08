@@ -61,6 +61,12 @@ class Tile extends Sprite
 		bottom = openness & 2 > 0;
 		left = openness & 4 > 0;
 		top = openness & 8 > 0;
+		
+		right = false;
+		bottom = false;
+		left = true;
+		top = true;
+		
 		draw();
 	}
 	
@@ -182,6 +188,8 @@ class Tile extends Sprite
 		graphics.drawRect((x-2) * s, (y-2) * s, w * s, h * s);
 	}
 	
+	
+	
 	function dCorner(x:Float, y:Float, w:Float, h:Float,rounded:Bool=false)
 	{
 		var s = SIZE / 4;
@@ -196,6 +204,67 @@ class Tile extends Sprite
 			else if	(x == 3 && y == 0) rbl = r;
 			else if	(x == 3 && y == 3) rtl = r;
 			else if	(x == 0 && y == 3) rtr = r;
+		}
+		else
+		{
+			var xOrigin:Float = 0;
+			var yOrigin:Float = 0;
+			var xCenter:Float = 0;
+			var yCenter:Float = 0;
+			var angleStart:Float = 0;
+			
+			if (x == 0 && y == 0) 
+			{
+				xOrigin = -s;
+				yOrigin = -s;
+				angleStart = -Math.PI / 2;
+
+				graphics.moveTo(xOrigin, yOrigin);
+				var arc = new Arc(xCenter, yCenter, s, angleStart, Math.PI / 2, Std.int(s));
+				for (p in arc)
+				{
+					graphics.lineTo(p.x, p.y);
+				}
+				graphics.lineTo(xOrigin, yOrigin);
+			}
+			else if	(x == 3 && y == 0) 
+			{
+				xOrigin = s;
+				yOrigin = -s;
+				angleStart = 0*Math.PI / 2;
+				
+				graphics.moveTo(xOrigin, yOrigin);
+				var arc = new Arc(xCenter, yCenter, s, angleStart, Math.PI / 2, Std.int(s));
+				for (p in arc)
+				{
+					graphics.lineTo(p.x, p.y);
+				}
+				graphics.lineTo(xOrigin, yOrigin);
+			}
+			else if	(x == 3 && y == 3) 
+			{
+				xOrigin = s;
+				yOrigin = s;
+				angleStart = 1*Math.PI / 2;
+				
+				graphics.moveTo(xOrigin, yOrigin);
+				var arc = new Arc(xCenter, yCenter, s, angleStart, Math.PI / 2, Std.int(s));
+				for (p in arc)
+				{
+					graphics.lineTo(p.x, p.y);
+				}
+				graphics.lineTo(xOrigin, yOrigin);
+			}
+			else if	(x == 0 && y == 3) 
+			{
+				xOrigin = s;
+				yOrigin = s;
+				xCenter = 3 * s;
+				yCenter = 3 * s;
+				angleStart = Math.PI / 2;
+			}
+			
+			
 		}
 		graphics.drawRoundRectComplex((x - 2) * s, (y - 2) * s, w * s, h * s, rtl, rtr, rbl, rbr);
 	}
