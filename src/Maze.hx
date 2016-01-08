@@ -58,11 +58,6 @@ class Maze extends Sprite
 	
 	function updateGraph()
 	{
-		for (node in graph)
-		{
-			
-		}
-		
 		countright = 0;
 		countbottom = 0;
 		countleft = 0;
@@ -70,28 +65,33 @@ class Maze extends Sprite
 		
 		var cell:Array2Cell = new Array2Cell();
 		
+		//	remove all arcs
 		for (tile in tiles)
 		{
 			tiles.cellOf(tile, cell);
 			tile.point.x = cell.x;
 			tile.point.y = cell.y;
 			
-			//for (connectedNeighbor in getConnectedNeighbors(tile))
+			for (anyNode in graph.nodeIterator())
 			{
-				tile.point.node.removeMutualArcs();
-				//connectedNeighbor.point.node.removeMutualArcs();
+				if (tile.point.node != anyNode && tile.point.node.isConnected(anyNode))
+				{
+					tile.point.node.removeArc(anyNode);
+				}
 			}
 		}
 		
+		//	add arcs between tiles
 		for (tile in tiles)
 		{
 			for (connectedNeighbor in getConnectedNeighbors(tile))
 			{
-				tile.point.node.addArc(connectedNeighbor.point.node);
-				//connectedNeighbor.point.node.addArc(tile.point.node);
+				if (!tile.point.node.isConnected(connectedNeighbor.point.node))
+				{
+					graph.addSingleArc(tile.point.node, connectedNeighbor.point.node);
+				}
 			}	
 		}
-		trace(countright, countbottom, countleft, counttop);
 	}
 	
 	function drawPath()
