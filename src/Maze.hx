@@ -61,20 +61,31 @@ class Maze extends Sprite
 		trace("updateGraph");
 		var cell:Array2Cell = new Array2Cell();
 		
+		//	remove all arcs
 		for (tile in tiles)
 		{
 			tiles.cellOf(tile, cell);
 			tile.point.x = cell.x;
 			tile.point.y = cell.y;
 			
-			tile.point.node.removeMutualArcs();
+			for (anyNode in graph.nodeIterator())
+			{
+				if (tile.point.node != anyNode && tile.point.node.isConnected(anyNode))
+				{
+					tile.point.node.removeArc(anyNode);
+				}
+			}
 		}
 		
+		//	add arcs between tiles
 		for (tile in tiles)
 		{
 			for (connectedNeighbor in getConnectedNeighbors(tile))
 			{
-				tile.point.node.addArc(connectedNeighbor.point.node);
+				if (!tile.point.node.isConnected(connectedNeighbor.point.node))
+				{
+					graph.addSingleArc(tile.point.node, connectedNeighbor.point.node);
+				}
 			}	
 		}
 	}
