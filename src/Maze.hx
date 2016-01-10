@@ -58,16 +58,7 @@ class Maze extends Sprite
 	
 	function updateGraph()
 	{
-		for (node in graph)
-		{
-			
-		}
-		
-		countright = 0;
-		countbottom = 0;
-		countleft = 0;
-		counttop = 0;
-		
+		trace("updateGraph");
 		var cell:Array2Cell = new Array2Cell();
 		
 		for (tile in tiles)
@@ -76,11 +67,7 @@ class Maze extends Sprite
 			tile.point.x = cell.x;
 			tile.point.y = cell.y;
 			
-			//for (connectedNeighbor in getConnectedNeighbors(tile))
-			{
-				tile.point.node.removeMutualArcs();
-				//connectedNeighbor.point.node.removeMutualArcs();
-			}
+			tile.point.node.removeMutualArcs();
 		}
 		
 		for (tile in tiles)
@@ -88,19 +75,18 @@ class Maze extends Sprite
 			for (connectedNeighbor in getConnectedNeighbors(tile))
 			{
 				tile.point.node.addArc(connectedNeighbor.point.node);
-				//connectedNeighbor.point.node.addArc(tile.point.node);
 			}	
 		}
-		trace(countright, countbottom, countleft, counttop);
 	}
 	
 	function drawPath()
 	{
+		trace('drawPath');
 		var g = pathCanvas.graphics;
 		pathCanvas.x = pathCanvas.y = Tile.SIZE / 2;
 		pathCanvas.scaleX = pathCanvas.scaleY = Tile.SIZE;
 		g.clear();
-		g.lineStyle(1, 0xffff00, 1, true, LineScaleMode.NONE);
+		g.lineStyle(1, Std.random(0xffffff), 1, true, LineScaleMode.NONE);
 		for (point in graph)
 		{
 			//trace(point);
@@ -236,11 +222,10 @@ class Maze extends Sprite
 				tiles.setCol(x, group);
 		}
 		
-		//updateArcs();
 		updateGraph();
 		drawPath();
 		
-		var movement=null;
+		var movement = null;
 		for (tile in group)
 		{
 			var cellDest:Array2Cell = new Array2Cell(); tiles.cellOf(tile, cellDest);
@@ -248,28 +233,6 @@ class Maze extends Sprite
 		}
 		return movement;
 	}
-	
-	function drawArcs()
-	{
-		var g = pathCanvas.graphics;
-		g.clear();
-		g.lineStyle(1, 0xffff00, 1, true, LineScaleMode.NONE);
-		
-		for (point in graph)
-		{
-			trace(point);
-			var arc = point.node.arcList;
-			trace(arc);
-			while (arc != null)
-			{
-				g.moveTo(point.x, point.y);
-				g.lineTo(arc.node.val.x, arc.node.val.y);
-				arc = arc.next;
-			}
-		}
-	}
-	
-	
 	
 	function getTileCell(tile:Tile)
 	{

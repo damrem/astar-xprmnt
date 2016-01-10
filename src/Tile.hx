@@ -40,7 +40,9 @@ class Tile extends Sprite
 		{
 			openness = Std.random(16);
 		}
-		while (openness==0||openness == 1 || openness == 2 || openness == 4 || openness == 8);
+		while (openness == 0 || openness == 1 || openness == 2 || openness == 4 || openness == 8);
+		
+		//openness = 15;
 		
 		right = openness & 1 > 0;
 		bottom = openness & 2 > 0;
