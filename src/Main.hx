@@ -33,8 +33,12 @@ class Main extends Sprite
 	{
 		super();
 		
+		#if debug
+		new MazeTestCase();
+		#end
+		
 		var maxV = Std.int(Lib.current.stage.stageHeight / Tile.SIZE);
-		var maxU = maxV;
+		var maxU = maxV = 4;
 		
 		maze = new Maze(maxU, maxV);
 		

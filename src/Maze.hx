@@ -27,6 +27,7 @@ class Maze extends Sprite
 	
 	public function new(w:Int, h:Int)
 	{
+		trace("new");
 		super();
 		this.h = h;
 		this.w = w;
@@ -43,6 +44,19 @@ class Maze extends Sprite
 				tile.moveTo(new Array2Cell(u, v), true);
 				addChild(tile);
 				tiles.set(u, v, tile);
+				
+				addEventListener(MouseEvent.CLICK, function(e:MouseEvent)
+				{
+					for (otherTile in tiles)
+					{
+						otherTile.alpha = 1;
+					}
+					for (clikedTileNeighbor in getConnectedNeighbors(cast(e.target)))
+					{
+						clikedTileNeighbor.alpha = 0.5;
+					}
+					
+				});
 				
 			}
 		}
@@ -61,32 +75,49 @@ class Maze extends Sprite
 		trace("updateGraph");
 		var cell:Array2Cell = new Array2Cell();
 		
+		//graph.clear();
+		
 		//	remove all arcs
-		for (tile in tiles)
+		for (cleaningTile in tiles)
 		{
-			tiles.cellOf(tile, cell);
-			tile.point.x = cell.x;
-			tile.point.y = cell.y;
-			
+			tiles.cellOf(cleaningTile, cell);
+			cleaningTile.point.x = cell.x;
+			cleaningTile.point.y = cell.y;
+			cleaningTile.alpha = 1;
 			for (anyNode in graph.nodeIterator())
 			{
-				if (tile.point.node != anyNode && tile.point.node.isConnected(anyNode))
+				if (cleaningTile.point.node != anyNode && cleaningTile.point.node.isConnected(anyNode))
 				{
-					tile.point.node.removeArc(anyNode);
+					cleaningTile.point.node.removeArc(anyNode);
 				}
 			}
 		}
 		
 		//	add arcs between tiles
-		for (tile in tiles)
+		for (connectingTile in tiles)
 		{
-			for (connectedNeighbor in getConnectedNeighbors(tile))
+			
+			for (connectedNeighbor in getConnectedNeighbors(connectingTile))
 			{
-				if (!tile.point.node.isConnected(connectedNeighbor.point.node))
+				if (connectingTile == tiles.get(1, 1))
 				{
-					graph.addSingleArc(tile.point.node, connectedNeighbor.point.node);
+					trace(connectingTile+", "+tiles.cellOf(connectingTile, new Array2Cell())+"; "+connectedNeighbor+", "+tiles.cellOf(connectedNeighbor, new Array2Cell()));
+					connectedNeighbor.alpha = 0.5;
+				}
+				/*else
+				{
+					connectedNeighbor.alpha = 1;
+				}*/
+				if (!connectingTile.point.node.isConnected(connectedNeighbor.point.node))
+				{
+					graph.addSingleArc(connectingTile.point.node, connectedNeighbor.point.node);
 				}
 			}	
+		}
+		
+		for (debugTile in tiles)
+		{
+			//trace(debugTile.point.node);
 		}
 	}
 	
@@ -95,7 +126,7 @@ class Maze extends Sprite
 		trace('drawPath');
 		var g = pathCanvas.graphics;
 		pathCanvas.x = pathCanvas.y = Tile.SIZE / 2;
-		pathCanvas.scaleX = pathCanvas.scaleY = Tile.SIZE;
+		//pathCanvas.scaleX = pathCanvas.scaleY = Tile.SIZE;
 		g.clear();
 		g.lineStyle(1, Std.random(0xffffff), 1, true, LineScaleMode.NONE);
 		for (point in graph)
@@ -103,8 +134,8 @@ class Maze extends Sprite
 			//trace(point);
 			for (connected in point.node)
 			{
-				g.moveTo(point.x, point.y);
-				g.lineTo(connected.x, connected.y);
+				g.moveTo(point.x*Tile.SIZE+Math.random()*4, point.y*Tile.SIZE+Math.random()*4);
+				g.lineTo(connected.x*Tile.SIZE+Math.random()*4, connected.y*Tile.SIZE+Math.random()*4);
 				//trace(point, connected);
 			}
 			//trace('========');
@@ -208,6 +239,7 @@ class Maze extends Sprite
 	
 	public function move(x:Int, y:Int, direction:Direction)
 	{
+		trace("move");
 		var group:Array<Tile> = [];
 		
 		switch(direction)
@@ -286,7 +318,10 @@ class Maze extends Sprite
 		{
 			return false;
 		}
-		return (tile0.y < tile1.y && tile0.bottom && tile1.top) || (tile1.y < tile0.y && tile1.bottom && tile0.top);
+		var cell0 = getTileCell(tile0);
+		var cell1 = getTileCell(tile1);
+		
+		return (cell0.y < cell1.y && tile0.bottom && tile1.top) || (cell1.y < cell0.y && tile1.bottom && tile0.top);
 	}
 	
 	public function areHConnected(tile0:Tile, tile1:Tile)
@@ -296,8 +331,10 @@ class Maze extends Sprite
 		{
 			return false;
 		}
-		var oneWay = (tile0.x < tile1.x) && tile0.right && tile1.left;
-		var another = (tile1.x < tile0.x) && tile1.right && tile0.left;
+		var cell0 = getTileCell(tile0);
+		var cell1 = getTileCell(tile1);
+		var oneWay = (cell0.x < cell1.x) && tile0.right && tile1.left;
+		var another = (cell1.x < cell0.x) && tile1.right && tile0.left;
 		return oneWay || another;
 	}
 	

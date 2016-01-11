@@ -9,22 +9,26 @@ import motion.easing.Linear;
 import openfl.Assets;
 import openfl.display.Shape;
 import openfl.display.Sprite;
+import openfl.events.MouseEvent;
 import openfl.geom.ColorTransform;
+import openfl.text.TextField;
+import openfl.text.TextFormat;
 /**
  * ...
  * @author damrem
  */
 class Tile extends Sprite
 {
-	public static inline var SIZE:Float = 32;
+	public static inline var SIZE:Float = 64;
 	
+	/*
 	public var right:Bool;
 	public var bottom:Bool;
 	public var left:Bool;
 	public var top:Bool;
-	
+	*/
 	public var point:AStarWaypoint;
-	var openness:Int;
+	public var openness:Int;
 	var bound:Shape;
 	
 	
@@ -44,11 +48,47 @@ class Tile extends Sprite
 		
 		//openness = 15;
 		
-		right = openness & 1 > 0;
-		bottom = openness & 2 > 0;
-		left = openness & 4 > 0;
-		top = openness & 8 > 0;
+		//right = openness & 1 > 0;
+		//bottom = openness & 2 > 0;
+		//left = openness & 4 > 0;
+		//top = openness & 8 > 0;
 		draw();
+		#if debug
+		debug();
+		#end
+		
+	}
+	
+	public var right(get, null):Bool;
+	function get_right()
+	{
+		return openness & 1 > 0;
+	}
+	
+	public var bottom(get, null):Bool;
+	function get_bottom()
+	{
+		return openness & 2 > 0;
+	}
+	
+	public var left(get, null):Bool;
+	function get_left()
+	{
+		return openness & 4 > 0;
+	}
+	
+	public var top(get, null):Bool;
+	function get_top()
+	{
+		return openness & 8 > 0;
+	}
+	
+	function debug() 
+	{
+		var tf = new TextField();
+		tf.defaultTextFormat = new TextFormat(null, 12, 0xffffff);
+		tf.text = openness+"";
+		addChild(tf);
 	}
 	
 	function draw() 
