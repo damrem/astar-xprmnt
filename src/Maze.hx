@@ -134,53 +134,46 @@ class Maze extends Sprite
 	
 	
 	
-	public function getNeighbor(tile:Tile, direction:Direction):Tile
-	{
-		var cell = tiles.getNeighborCell(tiles.getCellOf(tile), direction);
-		if (cell == null) return null;
-		return tiles.getAt(cell);
-	}
-	
 	public function getConnectedNeighbors(tile:Tile):Array<Tile>
 	{
-		var tiles = new Array<Tile>();
+		var connectedNeighbors = new Array<Tile>();
 		
-		var right = getNeighbor(tile, Right);
+		var right = tiles.getNeighbor(tile, Direction.Right);
 		if (right != null)
 		{
 			if(areConnected(tile, right))
 			{
-				tiles.push(right);
+				connectedNeighbors.push(right);
 			}
 		}
 		
-		var bottom = getNeighbor(tile, Bottom);
+		var bottom = tiles.getNeighbor(tile, Direction.Bottom);
 		if (bottom != null)
 		{
 			if(areConnected(tile, bottom))
 			{
-				tiles.push(bottom);
+				connectedNeighbors.push(bottom);
 			}
 		}
 		
-		var left = getNeighbor(tile, Left);
+		var left = tiles.getNeighbor(tile, Direction.Left);
 		if (left != null)
 		{
 			if(areConnected(tile, left))
 			{
-				tiles.push(left);
+				connectedNeighbors.push(left);
 			}
 		}
 		
-		var top = getNeighbor(tile, Top);
+		var top = tiles.getNeighbor(tile, Direction.Top);
 		if (top != null)
 		{
 			if(areConnected(tile, top))
 			{
-				tiles.push(top);
+				connectedNeighbors.push(top);
 			}
 		}
-		return tiles;
+		return connectedNeighbors;
 	}
 	
 	public function move(x:Int, y:Int, direction:Direction)
@@ -223,27 +216,9 @@ class Maze extends Sprite
 		return movement;
 	}
 	
-	public function areVNeighbors(tile0:Tile, tile1:Tile):Bool
-	{
-		var dy = tiles.getCellOf(tile0).y - tiles.getCellOf(tile1).y;
-		return tiles.sameCol(tile0, tile1) && dy * dy == 1;
-	}
-	
-	public function areHNeighbors(tile0:Tile, tile1:Tile):Bool
-	{
-		var dx = tiles.getCellOf(tile0).x - tiles.getCellOf(tile1).x;
-		return tiles.sameRow(tile0, tile1) && dx * dx == 1;
-	}
-	
-	public function areNeighbors(tile0:Tile, tile1:Tile):Bool
-	{
-		return areHNeighbors(tile0, tile1) || areVNeighbors(tile0, tile1);
-	}
-	
-	
 	public function areVConnected(tile0:Tile, tile1:Tile):Bool
 	{
-		if (!areNeighbors(tile0, tile1))
+		if (!tiles.areNeighbors(tile0, tile1))
 		{
 			return false;
 		}
@@ -256,7 +231,7 @@ class Maze extends Sprite
 	public function areHConnected(tile0:Tile, tile1:Tile):Bool
 	{
 		
-		if (!areNeighbors(tile0, tile1))
+		if (!tiles.areNeighbors(tile0, tile1))
 		{
 			return false;
 		}

@@ -1,9 +1,12 @@
 package;
-
+using A2;
 #if debug
 import de.polygonal.ds.error.Assert;
 typedef D = Assert;
 #end
+
+
+
 
 /**
  * ...
@@ -36,29 +39,29 @@ class MazeTestCase
 		
 		center = maze.tiles.get(1, 1);
 
-		neighbor = maze.getNeighbor(center, Direction.Right);
+		neighbor = maze.tiles.getNeighbor(center, Direction.Right);
 		expected = maze.tiles.get(2, 1);
 		D.assert(neighbor == expected, "right neighbor");
 		
-		neighbor = maze.getNeighbor(center, Direction.Bottom);
+		neighbor = maze.tiles.getNeighbor(center, Direction.Bottom);
 		expected = maze.tiles.get(1, 2);
 		D.assert(neighbor == expected, "bottom neighbor");
 		
-		neighbor = maze.getNeighbor(center, Direction.Left);
+		neighbor = maze.tiles.getNeighbor(center, Direction.Left);
 		expected = maze.tiles.get(0, 1);
 		D.assert(neighbor == expected, "left neighbor");
 		
-		neighbor = maze.getNeighbor(center, Direction.Top);
+		neighbor = maze.tiles.getNeighbor(center, Direction.Top);
 		expected = maze.tiles.get(1, 0);
 		D.assert(neighbor == expected, "top neighbor");
 		
 		center = maze.tiles.get(0, 0);
 
-		neighbor = maze.getNeighbor(center, Direction.Left);
+		neighbor = maze.tiles.getNeighbor(center, Direction.Left);
 		expected = null;
 		D.assert(neighbor == expected, "no left neighbor");
 		
-		neighbor = maze.getNeighbor(center, Direction.Top);
+		neighbor = maze.tiles.getNeighbor(center, Direction.Top);
 		expected = null;
 		D.assert(neighbor == expected, "no top neighbor");	
 	}
@@ -155,7 +158,7 @@ class MazeTestCase
 		D.assert(maze.tiles.get(2, 1).openness == 7);
 		D.assert(maze.tiles.get(3, 1).openness == 6);
 		
-		D.assert(maze.areNeighbors(maze.tiles.get(0, 0), maze.tiles.get(1, 0)));
+		D.assert(maze.tiles.areNeighbors(maze.tiles.get(0, 0), maze.tiles.get(1, 0)));
 		D.assert(maze.tiles.get(0, 0).right);
 		D.assert(maze.tiles.get(1, 0).left);
 		D.assert(maze.areHConnected(maze.tiles.get(0, 0), maze.tiles.get(1, 0)));

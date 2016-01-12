@@ -68,6 +68,31 @@ class A2
 		return cell;
 	}
 	
+	static public function getNeighbor<T>(user:Array2<T>, x:T, direction:Direction):T
+	{
+		var cell = user.getNeighborCell(user.getCellOf(x), direction);
+		if (cell == null) return null;
+		return user.getAt(cell);
+	}
+	
+	static public function areVNeighbors<T>(user:Array2<T>, x:T, y:T):Bool
+	{
+		var dy = user.getCellOf(x).y - user.getCellOf(y).y;
+		return user.sameCol(x, y) && dy * dy == 1;
+	}
+	
+	static public function areHNeighbors<T>(user:Array2<T>, x:T, y:T):Bool
+	{
+		var dx = user.getCellOf(x).x - user.getCellOf(y).x;
+		return user.sameRow(x, y) && dx * dx == 1;
+	}
+	
+	static public function areNeighbors<T>(user:Array2<T>, x:T, y:T):Bool
+	{
+		return user.areHNeighbors(x, y) || user.areVNeighbors(x, y);
+	}
+	
+	
 	
 	
 }
