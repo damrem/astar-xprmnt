@@ -97,17 +97,18 @@ class Maze extends Sprite
 	function drawPath()
 	{
 		var g = pathCanvas.graphics;
+		pathCanvas.scaleX = pathCanvas.scaleY = 1;
 		pathCanvas.x = pathCanvas.y = Tile.SIZE / 2;
-		pathCanvas.scaleX = pathCanvas.scaleY = Tile.SIZE;
+		//pathCanvas.scaleX = pathCanvas.scaleY = Tile.SIZE;
 		g.clear();
-		g.lineStyle(1, 0xffff00, 1, true, LineScaleMode.NONE);
+		g.lineStyle(1, Std.random(0xffffff)/*, 1, false, LineScaleMode.NONE*/);
 		for (point in graph)
 		{
 			//trace(point);
 			for (connected in point.node)
 			{
-				g.moveTo(point.x, point.y);
-				g.lineTo(connected.x, connected.y);
+				g.moveTo(Tile.SIZE * point.x, Tile.SIZE * point.y);
+				g.lineTo(Tile.SIZE * connected.x, Tile.SIZE * connected.y);
 				//trace(point, connected);
 			}
 			//trace('========');
@@ -248,7 +249,7 @@ class Maze extends Sprite
 		}
 		return movement;
 	}
-	
+	/*
 	function drawArcs()
 	{
 		var g = pathCanvas.graphics;
@@ -268,7 +269,7 @@ class Maze extends Sprite
 			}
 		}
 	}
-	
+	*/
 	
 	
 	function getTileCell(tile:Tile)
