@@ -13,6 +13,8 @@ import openfl.events.KeyboardEvent;
 import openfl.events.MouseEvent;
 import openfl.Lib;
 
+using A2;
+
 /**
  * ...
  * @author damrem
@@ -85,7 +87,7 @@ class Main extends Sprite
 					return;
 			}
 
-			var cellDest = maze.getNeighborCell(hero.cell, direction);
+			var cellDest = maze.tiles.getNeighborCell(hero.cell, direction);
 			
 			
 			if (cellDest != null)

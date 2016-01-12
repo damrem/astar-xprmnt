@@ -27,7 +27,46 @@ class A2
 		return user.getCellOf(x).x == user.getCellOf(y).x;
 	}
 	
-	
+	static public function getNeighborCell<T>(user:Array2<T>, refCell:Array2Cell, direction:Direction, wrapped=false):Array2Cell
+	{
+		var cell = new Array2Cell(refCell.x, refCell.y);
+		switch(direction)
+		{
+			case Right:
+				cell.x++;
+				if (cell.x >= user.getW())
+				{
+					if (!wrapped) return null;
+					cell.x = 0;
+				}
+				
+			case Bottom:
+				cell.y++;
+				if (cell.y >= user.getH())
+				{
+					if (!wrapped) return null;
+					cell.y = 0;
+				}
+				
+			case Left:
+				cell.x--;
+				if (cell.x < 0)
+				{
+					if (!wrapped) return null;
+					cell.x = user.getW() - 1;
+				}
+				
+			case Top:
+				cell.y--;
+				if (cell.y < 0)
+				{
+					if (!wrapped) return null;
+					cell.y = user.getH() - 1;
+				}
+				
+		}
+		return cell;
+	}
 	
 	
 	

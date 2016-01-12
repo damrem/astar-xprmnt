@@ -74,8 +74,6 @@ class Maze extends Sprite
 		trace("updateGraph");
 		var cell:Array2Cell = new Array2Cell();
 		
-		//graph.clear();
-		
 		//	remove all arcs
 		for (cleaningTile in tiles)
 		{
@@ -110,83 +108,35 @@ class Maze extends Sprite
 				if (!connectingTile.point.node.isConnected(connectedNeighbor.point.node))
 				{
 					graph.addSingleArc(connectingTile.point.node, connectedNeighbor.point.node);
-			}	
-		}
-	}
-	
-		for (debugTile in tiles)
-		{
-			//trace(debugTile.point.node);
+				}	
+			}
 		}
 	}
 	
 	function drawPath()
 	{
-		trace('drawPath');
 		var g = pathCanvas.graphics;
 		pathCanvas.scaleX = pathCanvas.scaleY = 1;
 		pathCanvas.x = pathCanvas.y = Tile.SIZE / 2;
-		//pathCanvas.scaleX = pathCanvas.scaleY = Tile.SIZE;
 		g.clear();
 		g.lineStyle(1, Std.random(0xffffff)/*, 1, false, LineScaleMode.NONE*/);
 		for (point in graph)
 		{
-			//trace(point);
 			for (connected in point.node)
 			{
 				g.moveTo(point.x*Tile.SIZE+Math.random()*4, point.y*Tile.SIZE+Math.random()*4);
 				g.lineTo(connected.x*Tile.SIZE+Math.random()*4, connected.y*Tile.SIZE+Math.random()*4);
-				//trace(point, connected);
 			}
-			//trace('========');
+			
 		}
 		
 	}
 	
-	public function getNeighborCell(refCell:Array2Cell, direction:Direction, wrapped=false):Array2Cell
-	{
-		var cell = new Array2Cell(refCell.x, refCell.y);
-		switch(direction)
-		{
-			case Right:
-				cell.x++;
-				if (cell.x >= w)
-				{
-					if (!wrapped) return null;
-					cell.x = 0;
-				}
-				
-			case Bottom:
-				cell.y++;
-				if (cell.y >= h)
-				{
-					if (!wrapped) return null;
-					cell.y = 0;
-				}
-				
-			case Left:
-				cell.x--;
-				if (cell.x < 0)
-				{
-					if (!wrapped) return null;
-					cell.x = w - 1;
-				}
-				
-			case Top:
-				cell.y--;
-				if (cell.y < 0)
-				{
-					if (!wrapped) return null;
-					cell.y = h - 1;
-				}
-				
-		}
-		return cell;
-	}
+	
 	
 	public function getNeighbor(tile:Tile, direction:Direction):Tile
 	{
-		var cell = getNeighborCell(tiles.getCellOf(tile), direction);
+		var cell = tiles.getNeighborCell(tiles.getCellOf(tile), direction);
 		if (cell == null) return null;
 		return tiles.getAt(cell);
 	}
