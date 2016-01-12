@@ -273,26 +273,16 @@ class Maze extends Sprite
 		return movement;
 	}
 	
-	public function sameRow(tile0:Tile, tile1:Tile):Bool
-	{
-		return tiles.getCellOf(tile0).y == tiles.getCellOf(tile1).y;
-	}
-	
-	public function sameCol(tile0:Tile, tile1:Tile):Bool
-	{
-		return tiles.getCellOf(tile0).x == tiles.getCellOf(tile1).x;
-	}
-	
 	public function areVNeighbors(tile0:Tile, tile1:Tile):Bool
 	{
 		var dy = tiles.getCellOf(tile0).y - tiles.getCellOf(tile1).y;
-		return sameCol(tile0, tile1) && dy * dy == 1;
+		return tiles.sameCol(tile0, tile1) && dy * dy == 1;
 	}
 	
 	public function areHNeighbors(tile0:Tile, tile1:Tile):Bool
 	{
 		var dx = tiles.getCellOf(tile0).x - tiles.getCellOf(tile1).x;
-		return sameRow(tile0, tile1) && dx * dx == 1;
+		return tiles.sameRow(tile0, tile1) && dx * dx == 1;
 	}
 	
 	public function areNeighbors(tile0:Tile, tile1:Tile):Bool
@@ -335,23 +325,23 @@ class Maze extends Sprite
 	/*
 	public function hasLeftNeighbor(tile0:Tile, tile1:Tile)
 	{
-		return sameRow(otherTile) && u == otherTile.u + 1;
+		return tiles.sameRow(otherTile) && u == otherTile.u + 1;
 	}
 	
 	public function hasRightNeighbor(tile0:Tile, tile1:Tile)
 	{
-		return sameRow(otherTile) && u == otherTile.u - 1;
+		return tiles.sameRow(otherTile) && u == otherTile.u - 1;
 	}
 	*/
 	/*
 	public function hasTopNeighbor(tile0:Tile, tile1:Tile)
 	{
-		return sameCol(otherTile) && v == otherTile.v + 1;
+		return tiles.sameCol(otherTile) && v == otherTile.v + 1;
 	}
 	
 	public function hasBottomNeighbor(tile0:Tile, tile1:Tile)
 	{
-		return sameCol(otherTile) && v == otherTile.v - 1;
+		return tiles.sameCol(otherTile) && v == otherTile.v - 1;
 	}
 	*/
 	/*
