@@ -247,59 +247,6 @@ class Maze extends Sprite
 		return areHConnected(tile0, tile1) || areVConnected(tile0, tile1);
 	}
 	
-	/*
-	public function hasLeftNeighbor(tile0:Tile, tile1:Tile)
-	{
-		return tiles.sameRow(otherTile) && u == otherTile.u + 1;
-	}
 	
-	public function hasRightNeighbor(tile0:Tile, tile1:Tile)
-	{
-		return tiles.sameRow(otherTile) && u == otherTile.u - 1;
-	}
-	*/
-	/*
-	public function hasTopNeighbor(tile0:Tile, tile1:Tile)
-	{
-		return tiles.sameCol(otherTile) && v == otherTile.v + 1;
-	}
-	
-	public function hasBottomNeighbor(tile0:Tile, tile1:Tile)
-	{
-		return tiles.sameCol(otherTile) && v == otherTile.v - 1;
-	}
-	*/
-	/*
-	public function hasNeighbor(tile0:Tile, tile1:Tile)
-	{
-		return hasBottomNeighbor(otherTile) || hasTopNeighbor(otherTile) || hasRightNeighbor(otherTile) || hasLeftNeighbor(otherTile);
-	}
-	*/
-	/*
-	public function hasLeftConnection(tile0:Tile, tile1:Tile)
-	{
-		return hasLeftNeighbor(otherTile) && left && otherTile.right;
-	}
-	
-	public function hasRightConnection(tile0:Tile, tile1:Tile)
-	{
-		return hasRightNeighbor(otherTile) && right && otherTile.left;
-	}
-	
-	public function hasTopConnection(tile0:Tile, tile1:Tile)
-	{
-		return hasTopNeighbor(otherTile) && top && otherTile.bottom;
-	}
-	
-	public function hasBottomConnection(tile0:Tile, tile1:Tile)
-	{
-		return hasBottomNeighbor(otherTile) && bottom && otherTile.top;
-	}
-	
-	public function hasConnection(tile0:Tile, tile1:Tile)
-	{
-		return hasLeftConnection(otherTile) || hasRightConnection(otherTile) || hasTopConnection(otherTile) || hasBottomConnection(otherTile);
-	}
-	*/
 	
 }
