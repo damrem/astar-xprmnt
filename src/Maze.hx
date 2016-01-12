@@ -9,6 +9,8 @@ import openfl.display.Shape;
 import openfl.display.Sprite;
 import openfl.events.MouseEvent;
 
+using A2;
+
 class Maze extends Sprite
 {
 	public var tiles:Array2<Tile>;
@@ -20,10 +22,7 @@ class Maze extends Sprite
 	var h:Int;
 	
 	var pathCanvas:Shape;
-	var countright:Int;
-	var countbottom:Int;
-	var countleft:Int;
-	var counttop:Int;
+	
 	
 	public function new(w:Int, h:Int)
 	{
@@ -32,7 +31,7 @@ class Maze extends Sprite
 		this.h = h;
 		this.w = w;
 		
-		tiles = new Array2(w,h);
+		tiles = new Array2(w, h);
 		graph = new Graph<AStarWaypoint>();
 		astar = new AStar(graph);
 		
@@ -187,7 +186,7 @@ class Maze extends Sprite
 	
 	public function getNeighbor(tile:Tile, direction:Direction):Tile
 	{
-		var cell = getNeighborCell(getTileCell(tile), direction);
+		var cell = getNeighborCell(tiles.getCellOf(tile), direction);
 		if (cell == null) return null;
 		return tiles.getAt(cell);
 	}
@@ -201,7 +200,6 @@ class Maze extends Sprite
 		{
 			if(areConnected(tile, right))
 			{
-				countright++;
 				tiles.push(right);
 			}
 		}
@@ -211,7 +209,6 @@ class Maze extends Sprite
 		{
 			if(areConnected(tile, bottom))
 			{
-				countbottom++;
 				tiles.push(bottom);
 			}
 		}
@@ -221,7 +218,6 @@ class Maze extends Sprite
 		{
 			if(areConnected(tile, left))
 			{
-				countleft++;
 				tiles.push(left);
 			}
 		}
@@ -231,7 +227,6 @@ class Maze extends Sprite
 		{
 			if(areConnected(tile, top))
 			{
-				counttop++;
 				tiles.push(top);
 			}
 		}
@@ -278,68 +273,61 @@ class Maze extends Sprite
 		return movement;
 	}
 	
-	function getTileCell(tile:Tile)
+	public function sameRow(tile0:Tile, tile1:Tile):Bool
 	{
-		var cell = new Array2Cell();
-		tiles.cellOf(tile, cell);
-		return cell;
-	};
-	
-	public function sameRow(tile0:Tile, tile1:Tile)
-	{
-		return getTileCell(tile0).y == getTileCell(tile1).y;
+		return tiles.getCellOf(tile0).y == tiles.getCellOf(tile1).y;
 	}
 	
-	public function sameCol(tile0:Tile, tile1:Tile)
+	public function sameCol(tile0:Tile, tile1:Tile):Bool
 	{
-		return getTileCell(tile0).x == getTileCell(tile1).x;
+		return tiles.getCellOf(tile0).x == tiles.getCellOf(tile1).x;
 	}
 	
-	public function areVNeighbors(tile0:Tile, tile1:Tile)
+	public function areVNeighbors(tile0:Tile, tile1:Tile):Bool
 	{
-		var dy = getTileCell(tile0).y - getTileCell(tile1).y;
+		var dy = tiles.getCellOf(tile0).y - tiles.getCellOf(tile1).y;
 		return sameCol(tile0, tile1) && dy * dy == 1;
 	}
 	
-	public function areHNeighbors(tile0:Tile, tile1:Tile)
+	public function areHNeighbors(tile0:Tile, tile1:Tile):Bool
 	{
-		var dx = getTileCell(tile0).x - getTileCell(tile1).x;
+		var dx = tiles.getCellOf(tile0).x - tiles.getCellOf(tile1).x;
 		return sameRow(tile0, tile1) && dx * dx == 1;
 	}
 	
-	public function areNeighbors(tile0:Tile, tile1:Tile)
+	public function areNeighbors(tile0:Tile, tile1:Tile):Bool
 	{
 		return areHNeighbors(tile0, tile1) || areVNeighbors(tile0, tile1);
 	}
 	
 	
-	public function areVConnected(tile0:Tile, tile1:Tile)
+	public function areVConnected(tile0:Tile, tile1:Tile):Bool
 	{
 		if (!areNeighbors(tile0, tile1))
 		{
 			return false;
 		}
-		var cell0 = getTileCell(tile0);
-		var cell1 = getTileCell(tile1);
+		var cell0 = tiles.getCellOf(tile0);
+		var cell1 = tiles.getCellOf(tile1);
 		
 		return (cell0.y < cell1.y && tile0.bottom && tile1.top) || (cell1.y < cell0.y && tile1.bottom && tile0.top);
 	}
 	
-	public function areHConnected(tile0:Tile, tile1:Tile)
+	public function areHConnected(tile0:Tile, tile1:Tile):Bool
 	{
 		
 		if (!areNeighbors(tile0, tile1))
 		{
 			return false;
 		}
-		var cell0 = getTileCell(tile0);
-		var cell1 = getTileCell(tile1);
+		var cell0 = tiles.getCellOf(tile0);
+		var cell1 = tiles.getCellOf(tile1);
 		var oneWay = (cell0.x < cell1.x) && tile0.right && tile1.left;
 		var another = (cell1.x < cell0.x) && tile1.right && tile0.left;
 		return oneWay || another;
 	}
 	
-	public function areConnected(tile0:Tile, tile1:Tile)
+	public function areConnected(tile0:Tile, tile1:Tile):Bool
 	{
 		return areHConnected(tile0, tile1) || areVConnected(tile0, tile1);
 	}
