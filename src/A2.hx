@@ -93,6 +93,34 @@ class A2
 	}
 	
 	
-	
+	static public function move<T>(user:Array2<T>, colIndex:Int, rowIndex:Int, direction:Direction):Array<T>
+	{
+		var colOrRow:Array<T> = [];
+		
+		switch(direction)
+		{
+			case Right:
+				user.getRow(rowIndex, colOrRow);
+				colOrRow.unshift(colOrRow.pop());
+				user.setRow(rowIndex, colOrRow);
+				
+			case Bottom:
+				user.getCol(colIndex, colOrRow);
+				colOrRow.unshift(colOrRow.pop());
+				user.setCol(colIndex, colOrRow);
+				
+			case Left:
+				user.getRow(rowIndex, colOrRow);
+				colOrRow.push(colOrRow.shift());
+				user.setRow(rowIndex, colOrRow);
+				
+			case Top:
+				user.getCol(colIndex, colOrRow);
+				colOrRow.push(colOrRow.shift());
+				user.setCol(colIndex, colOrRow);
+		}
+		
+		return colOrRow;
+	}
 	
 }

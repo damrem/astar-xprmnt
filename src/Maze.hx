@@ -64,8 +64,6 @@ class Maze extends Sprite
 		addChild(pathCanvas);
 		updateGraph();
 		drawPath();
-		//updateArcs();
-		//drawArcs();
 		
 	}
 	
@@ -96,15 +94,6 @@ class Maze extends Sprite
 			
 			for (connectedNeighbor in getConnectedNeighbors(connectingTile))
 			{
-				if (connectingTile == tiles.get(1, 1))
-				{
-					trace(connectingTile+", "+tiles.cellOf(connectingTile, new Array2Cell())+"; "+connectedNeighbor+", "+tiles.cellOf(connectedNeighbor, new Array2Cell()));
-					connectedNeighbor.alpha = 0.5;
-				}
-				/*else
-				{
-					connectedNeighbor.alpha = 1;
-				}*/
 				if (!connectingTile.point.node.isConnected(connectedNeighbor.point.node))
 				{
 					graph.addSingleArc(connectingTile.point.node, connectedNeighbor.point.node);
@@ -176,33 +165,10 @@ class Maze extends Sprite
 		return connectedNeighbors;
 	}
 	
-	public function move(x:Int, y:Int, direction:Direction)
+	public function move(colIndex:Int, rowIndex:Int, direction:Direction)
 	{
 		trace("move");
-		var group:Array<Tile> = [];
-		
-		switch(direction)
-		{
-			case Right:
-				tiles.getRow(y, group);
-				group.unshift(group.pop());
-				tiles.setRow(y, group);
-				
-			case Bottom:
-				tiles.getCol(x, group);
-				group.unshift(group.pop());
-				tiles.setCol(x, group);
-				
-			case Left:
-				tiles.getRow(y, group);
-				group.push(group.shift());
-				tiles.setRow(y, group);
-				
-			case Top:
-				tiles.getCol(x, group);
-				group.push(group.shift());
-				tiles.setCol(x, group);
-		}
+		var group:Array<Tile> = tiles.move(colIndex, rowIndex, direction);
 		
 		updateGraph();
 		drawPath();
