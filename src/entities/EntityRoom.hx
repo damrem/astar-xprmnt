@@ -44,9 +44,9 @@ class EntityRoom extends Room
 		
 		engine = new Engine();
 		engine.addSystem(new PhySystem(world), 1);
-		engine.addSystem(new RandomMoveSystem(), 5);
+		//engine.addSystem(new RandomMoveSystem(), 5);
 		engine.addSystem(new PhyToGfxSyncSystem(), 8);
-		engine.addSystem(new SelectionSystem(), 10);
+		//engine.addSystem(new SelectionSystem(), 10);
 		engine.addSystem(new RenderSystem(this), 15);
 		
 		addEntities();
@@ -113,7 +113,7 @@ class EntityRoom extends Room
 			engine.addEntity(entity);
 		}
 		
-		
+		/*
 		var westWall = creator.createWallEntity( -h, 0, h, Colors.WHITE);
 		engine.addEntity(westWall);
 
@@ -127,7 +127,7 @@ class EntityRoom extends Room
 		
 		var southWall = creator.createWallEntity( 0, h+w, w, Colors.WHITE);
 		engine.addEntity(southWall);
-		
+		*/
 		//return maskedLayer;
 	}
 	

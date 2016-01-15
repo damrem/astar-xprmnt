@@ -28,7 +28,7 @@ class Tile extends Sprite
 	public var top:Bool;
 	*/
 	public var point:AStarWaypoint;
-	public var openness:Int;
+	public var aperture:Int;
 	var bound:Shape;
 	
 	
@@ -42,16 +42,12 @@ class Tile extends Sprite
 		
 		do
 		{
-			openness = Std.random(16);
+			aperture = Std.random(16);
 		}
-		while (openness == 0 || openness == 1 || openness == 2 || openness == 4 || openness == 8);
+		while (aperture == 0 || aperture == 1 || aperture == 2 || aperture == 4 || aperture == 8);
 		
 		//openness = 15;
 		
-		//right = openness & 1 > 0;
-		//bottom = openness & 2 > 0;
-		//left = openness & 4 > 0;
-		//top = openness & 8 > 0;
 		draw();
 		#if debug
 		debug();
@@ -62,32 +58,32 @@ class Tile extends Sprite
 	public var right(get, null):Bool;
 	function get_right()
 	{
-		return openness & 1 > 0;
+		return aperture & 1 > 0;
 	}
 	
 	public var bottom(get, null):Bool;
 	function get_bottom()
 	{
-		return openness & 2 > 0;
+		return aperture & 2 > 0;
 	}
 	
 	public var left(get, null):Bool;
 	function get_left()
 	{
-		return openness & 4 > 0;
+		return aperture & 4 > 0;
 	}
 	
 	public var top(get, null):Bool;
 	function get_top()
 	{
-		return openness & 8 > 0;
+		return aperture & 8 > 0;
 	}
 	
 	function debug() 
 	{
 		var tf = new TextField();
 		tf.defaultTextFormat = new TextFormat(null, 12, 0xffffff);
-		tf.text = openness+"";
+		tf.text = aperture+"";
 		addChild(tf);
 	}
 	
@@ -105,7 +101,7 @@ class Tile extends Sprite
 		dbl();
 		dbr();
 
-		if (openness == 0)	dc();
+		if (aperture == 0)	dc();
 		
 		if (!right)		dr();
 		if (!bottom)	db();
@@ -275,7 +271,7 @@ class Tile extends Sprite
 	
 	override public function toString():String
 	{
-		return openness+"("+(right?">":"") + (bottom?"v":"") + (left?"<":"") + (top?"^":"")+")";
+		return aperture+"("+(right?">":"") + (bottom?"v":"") + (left?"<":"") + (top?"^":"")+")";
 	}
 	
 }
