@@ -1,13 +1,14 @@
-package;
+package hxlpers.ds;
 import de.polygonal.ds.Array2;
+import hxlpers.Direction;
 
-using A2;
+using hxlpers.ds.Array2SF;
 
 /**
  * ...
  * @author damrem
  */
-class A2
+class Array2SF
 {
 
 	static public function getCellOf<T>(user:Array2<T>, x:T):Array2Cell
@@ -27,7 +28,7 @@ class A2
 		return user.getCellOf(x).x == user.getCellOf(y).x;
 	}
 	
-	static public function getNeighborCell<T>(user:Array2<T>, refCell:Array2Cell, direction:Direction, wrapped=false):Array2Cell
+	static public function getNeighborCell<T>(user:Array2<T>, refCell:Array2Cell, direction:hxlpers.Direction, wrapped=false):Array2Cell
 	{
 		var cell = new Array2Cell(refCell.x, refCell.y);
 		switch(direction)
@@ -68,7 +69,7 @@ class A2
 		return cell;
 	}
 	
-	static public function getNeighbor<T>(user:Array2<T>, x:T, direction:Direction):T
+	static public function getNeighbor<T>(user:Array2<T>, x:T, direction:hxlpers.Direction):T
 	{
 		var cell = user.getNeighborCell(user.getCellOf(x), direction);
 		if (cell == null) return null;
@@ -93,7 +94,7 @@ class A2
 	}
 	
 	
-	static public function move<T>(user:Array2<T>, colIndex:Int, rowIndex:Int, direction:Direction):Array<T>
+	static public function move<T>(user:Array2<T>, colIndex:Int, rowIndex:Int, direction:hxlpers.Direction):Array<T>
 	{
 		var colOrRow:Array<T> = [];
 		

@@ -7,7 +7,7 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.Lib;
 
-using A2;
+using hxlpers.ds.Array2SF;
 
 /**
  * ...

@@ -6,6 +6,9 @@ import de.polygonal.ds.Array2.Array2Cell;
 import de.polygonal.ds.DA;
 import de.polygonal.ds.Graph;
 import de.polygonal.ds.GraphNode;
+import entities.labyrinth.Maze;
+import entities.labyrinth.Tile;
+import hxlpers.Direction;
 import motion.Actuate;
 import openfl.display.Shape;
 import openfl.display.Sprite;
@@ -20,27 +23,27 @@ import openfl.Lib;
 class NoAshGame extends Sprite 
 {
 	
-	var selectedTile0:Tile;
-	var selectedTile1:Tile;
+	var selectedTile0:entities.labyrinth.Tile;
+	var selectedTile1:entities.labyrinth.Tile;
 	
 	var pathCanvas:Shape;
 	
 	var hero:Hero;
 	var heroIsMoving:Bool;
-	var maze:Maze;
+	var maze:entities.labyrinth.Maze;
 
 	public function new() 
 	{
 		super();
 		
 		#if debug
-		new MazeTestCase();
+		new entities.labyrinth.MazeTestCase();
 		#end
 		
-		var maxV = Std.int(Lib.current.stage.stageHeight / Tile.SIZE);
+		var maxV = Std.int(Lib.current.stage.stageHeight / entities.labyrinth.Tile.SIZE);
 		var maxU = maxV = 4;
 		
-		maze = new Maze(maxU, maxV);
+		maze = new entities.labyrinth.Maze(maxU, maxV);
 		
 		addChild(maze);
 		var tiles = maze.tiles;
@@ -88,22 +91,22 @@ class NoAshGame extends Sprite
 	{
 		//trace(e);
 		
-		var direction:Direction = null;
+		var direction:hxlpers.Direction = null;
 		if (!hero.isMoving)
 		{
 			switch(e.keyCode)
 			{
 				case 37:
-					direction = Direction.Left;
+					direction = hxlpers.Direction.Left;
 					
 				case 38:
-					direction = Direction.Top;
+					direction = hxlpers.Direction.Top;
 					
 				case 39:
-					direction = Direction.Right;
+					direction = hxlpers.Direction.Right;
 					
 				case 40:
-					direction = Direction.Bottom;
+					direction = hxlpers.Direction.Bottom;
 					
 				default:
 					return;

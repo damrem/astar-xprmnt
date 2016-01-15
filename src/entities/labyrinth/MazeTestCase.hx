@@ -1,5 +1,7 @@
-package;
-using A2;
+package entities.labyrinth;
+import entities.labyrinth.Maze;
+import hxlpers.Direction;
+using hxlpers.ds.Array2SF;
 #if debug
 import de.polygonal.ds.error.Assert;
 typedef D = Assert;
@@ -14,7 +16,7 @@ typedef D = Assert;
  */
 class MazeTestCase
 {
-	var maze:Maze;
+	var maze:entities.labyrinth.Maze;
 	
 	public function new()
 	{
@@ -26,7 +28,7 @@ class MazeTestCase
 
 	public function setup()
 	{
-		maze = new Maze(4, 4);
+		maze = new entities.labyrinth.Maze(4, 4);
 	}
 	
 	function testGetNeighbor()
@@ -39,29 +41,29 @@ class MazeTestCase
 		
 		center = maze.tiles.get(1, 1);
 
-		neighbor = maze.tiles.getNeighbor(center, Direction.Right);
+		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Right);
 		expected = maze.tiles.get(2, 1);
 		D.assert(neighbor == expected, "right neighbor");
 		
-		neighbor = maze.tiles.getNeighbor(center, Direction.Bottom);
+		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Bottom);
 		expected = maze.tiles.get(1, 2);
 		D.assert(neighbor == expected, "bottom neighbor");
 		
-		neighbor = maze.tiles.getNeighbor(center, Direction.Left);
+		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Left);
 		expected = maze.tiles.get(0, 1);
 		D.assert(neighbor == expected, "left neighbor");
 		
-		neighbor = maze.tiles.getNeighbor(center, Direction.Top);
+		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Top);
 		expected = maze.tiles.get(1, 0);
 		D.assert(neighbor == expected, "top neighbor");
 		
 		center = maze.tiles.get(0, 0);
 
-		neighbor = maze.tiles.getNeighbor(center, Direction.Left);
+		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Left);
 		expected = null;
 		D.assert(neighbor == expected, "no left neighbor");
 		
-		neighbor = maze.tiles.getNeighbor(center, Direction.Top);
+		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Top);
 		expected = null;
 		D.assert(neighbor == expected, "no top neighbor");	
 	}
@@ -146,7 +148,7 @@ class MazeTestCase
 		maze.tiles.get(2, 3).openness = 6;
 		maze.tiles.get(3, 3).openness = 11;
 		
-		maze.move(0, 0, Direction.Right);
+		maze.move(0, 0, hxlpers.Direction.Right);
 		
 		D.assert(maze.tiles.get(0, 0).openness == 3);
 		D.assert(maze.tiles.get(1, 0).openness == 15);

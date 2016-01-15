@@ -1,4 +1,4 @@
-package;
+package entities.labyrinth;
 
 import de.polygonal.ai.pathfinding.AStarWaypoint;
 import de.polygonal.ds.Array2.Array2Cell;

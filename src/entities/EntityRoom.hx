@@ -27,7 +27,7 @@ class EntityRoom extends Room
 {
 	var tickProvider:FrameTickProvider;
 	var engine:Engine;
-	var world:box2D.dynamics.B2World;
+	var world:B2World;
 	
 	public var phyDebugSprite:Sprite;
 	
@@ -98,11 +98,11 @@ class EntityRoom extends Room
 			
 			var entity;
 			
-			/*if (Rnd.chance())
+			if (Rnd.chance())
 			{
 				entity = creator.createBallEntity(_x, _y, size, angle, color);
 			}
-			else*/
+			else
 			{
 				entity = creator.createBoxEntity(_x, _y, size, angle, color);
 			}

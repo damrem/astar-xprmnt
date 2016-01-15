@@ -1,6 +1,7 @@
 package;
 
 import de.polygonal.ds.Array2.Array2Cell;
+import entities.labyrinth.Tile;
 import motion.Actuate;
 import motion.easing.Linear;
 import openfl.display.Sprite;
@@ -40,8 +41,8 @@ class Hero extends Sprite
 		
 		Actuate
 		.tween(this, instant?0:0.5, { 
-			x:(cell.x+0.5)*Tile.SIZE, 
-			y:(cell.y+0.5)*Tile.SIZE
+			x:(cell.x+0.5)*entities.labyrinth.Tile.SIZE, 
+			y:(cell.y+0.5)*entities.labyrinth.Tile.SIZE
 			
 		} )
 		.ease(Linear.easeNone)

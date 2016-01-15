@@ -1,15 +1,16 @@
-package;
+package entities.labyrinth;
 
 import de.polygonal.ai.pathfinding.AStar;
 import de.polygonal.ai.pathfinding.AStarWaypoint;
 import de.polygonal.ds.Array2;
 import de.polygonal.ds.Graph;
+import hxlpers.Direction;
 import openfl.display.LineScaleMode;
 import openfl.display.Shape;
 import openfl.display.Sprite;
 import openfl.events.MouseEvent;
 
-using A2;
+using hxlpers.ds.Array2SF;
 
 class Maze extends Sprite
 {
@@ -127,7 +128,7 @@ class Maze extends Sprite
 	{
 		var connectedNeighbors = new Array<Tile>();
 		
-		var right = tiles.getNeighbor(tile, Direction.Right);
+		var right = tiles.getNeighbor(tile, hxlpers.Direction.Right);
 		if (right != null)
 		{
 			if(areConnected(tile, right))
@@ -136,7 +137,7 @@ class Maze extends Sprite
 			}
 		}
 		
-		var bottom = tiles.getNeighbor(tile, Direction.Bottom);
+		var bottom = tiles.getNeighbor(tile, hxlpers.Direction.Bottom);
 		if (bottom != null)
 		{
 			if(areConnected(tile, bottom))
@@ -145,7 +146,7 @@ class Maze extends Sprite
 			}
 		}
 		
-		var left = tiles.getNeighbor(tile, Direction.Left);
+		var left = tiles.getNeighbor(tile, hxlpers.Direction.Left);
 		if (left != null)
 		{
 			if(areConnected(tile, left))
@@ -154,7 +155,7 @@ class Maze extends Sprite
 			}
 		}
 		
-		var top = tiles.getNeighbor(tile, Direction.Top);
+		var top = tiles.getNeighbor(tile, hxlpers.Direction.Top);
 		if (top != null)
 		{
 			if(areConnected(tile, top))
@@ -165,7 +166,7 @@ class Maze extends Sprite
 		return connectedNeighbors;
 	}
 	
-	public function move(colIndex:Int, rowIndex:Int, direction:Direction)
+	public function move(colIndex:Int, rowIndex:Int, direction:hxlpers.Direction)
 	{
 		trace("move");
 		var group:Array<Tile> = tiles.move(colIndex, rowIndex, direction);
