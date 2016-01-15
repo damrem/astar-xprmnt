@@ -17,6 +17,7 @@
 	<haxelib name="openfl" />
 	<haxelib name="actuate"/>
 	<haxelib name="polygonal-ds" />
+	<haxelib name="edge" />
 	
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />

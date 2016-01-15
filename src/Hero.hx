@@ -11,7 +11,7 @@ import openfl.display.Sprite;
  */
 class Hero extends Sprite
 {
-	static public inline var SIZE=12;
+	static public inline var SIZE=24;
 
 	public var cell:Array2Cell;
 	public var isMoving:Bool;
