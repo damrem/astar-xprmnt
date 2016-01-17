@@ -1,9 +1,9 @@
 package entities.randommove;
 
 import ash.core.Node;
-import entities.physics.Phy;
+import physics.Phy;
 import entities.randommove.RandomMove;
-import entities.rendering.Gfx;
+import rendering.Gfx;
 import openfl.display.Sprite;
 
 /**

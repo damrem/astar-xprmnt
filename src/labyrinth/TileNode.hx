@@ -1,6 +1,6 @@
-package entities.labyrinth;
+package labyrinth;
 import ash.core.Node;
-import entities.rendering.Gfx;
+import rendering.Gfx;
 
 /**
  * ...
@@ -8,5 +8,5 @@ import entities.rendering.Gfx;
  */
 class TileNode extends Node<TileNode>
 {
-	public var aperture:Aperture;
+	public var aperture:ApertureComponent;
 }

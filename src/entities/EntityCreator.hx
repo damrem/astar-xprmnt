@@ -6,9 +6,9 @@ import box2D.dynamics.B2BodyDef;
 import box2D.dynamics.B2BodyType;
 import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2World;
-import entities.physics.Phy;
-import entities.rendering.EntitySprite;
-import entities.rendering.Gfx;
+import physics.Phy;
+import rendering.EntitySprite;
+import rendering.Gfx;
 import hxlpers.shapes.BoxShape;
 import hxlpers.shapes.DiskShape;
 

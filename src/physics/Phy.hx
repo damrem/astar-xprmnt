@@ -1,4 +1,4 @@
-package entities.physics;
+package physics;
 
 import box2D.dynamics.B2Body;
 import box2D.dynamics.B2BodyDef;

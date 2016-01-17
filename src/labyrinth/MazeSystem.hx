@@ -1,4 +1,4 @@
-package entities.labyrinth;
+package labyrinth;
 import ash.core.Entity;
 import ash.core.System;
 import ash.tools.ListIteratingSystem;
@@ -10,19 +10,21 @@ import de.polygonal.ds.Array2;
  */
 class MazeSystem extends System
 {
-	var tiles:Array2<Tile>;
+	var tiles:Array2<Entity>;
 	
 	public function new(width:Int, height:Int) 
 	{
-		tiles = new Array2(width, height);
+		super();
 		
-		for (v in 0...h)
+		tiles = new Array2<Entity>(width, height);
+		
+		for (y in 0...height)
 		{
-			for(u in 0...w)
+			for(x in 0...width)
 			{
 				var tile = new Entity();
-				tile.add(new Aperture());
-				tiles.set(u, v, tile);
+				tile.add(new ApertureComponent());
+				tiles.set(x, y, tile);
 			}
 		}
 	}

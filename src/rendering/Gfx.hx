@@ -1,4 +1,4 @@
-package entities.rendering;
+package rendering;
 import openfl.display.DisplayObject;
 import openfl.display.Sprite;
 

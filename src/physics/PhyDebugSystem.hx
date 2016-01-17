@@ -1,4 +1,4 @@
-package entities.physics;
+package physics;
 
 import ash.core.System;
 import ash.tools.ListIteratingSystem;

@@ -1,4 +1,4 @@
-package entities.labyrinth;
+package labyrinth;
 
 import ash.tools.ListIteratingSystem;
 

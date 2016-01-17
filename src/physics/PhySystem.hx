@@ -1,4 +1,4 @@
-package entities.physics;
+package physics;
 
 import ash.tools.ListIteratingSystem;
 import box2D.common.math.B2Vec2;

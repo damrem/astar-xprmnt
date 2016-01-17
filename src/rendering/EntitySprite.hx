@@ -1,4 +1,4 @@
-package entities.rendering;
+package rendering;
 import ash.core.Entity;
 import openfl.display.Sprite;
 

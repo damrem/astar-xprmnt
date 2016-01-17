@@ -1,4 +1,4 @@
-package entities.sync;
+package sync;
 
 import ash.tools.ListIteratingSystem;
 

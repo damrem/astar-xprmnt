@@ -5,7 +5,7 @@ import ash.core.NodeList;
 import ash.core.System;
 import ash.tools.ListIteratingSystem;
 import entities.randommove.RandomMove;
-import entities.rendering.EntitySprite;
+import rendering.EntitySprite;
 import entities.selection.SelectableNode;
 import openfl.display.Sprite;
 import openfl.events.MouseEvent;

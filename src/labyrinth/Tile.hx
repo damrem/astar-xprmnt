@@ -1,4 +1,4 @@
-package entities.labyrinth;
+package labyrinth;
 
 import de.polygonal.ai.pathfinding.AStarWaypoint;
 import de.polygonal.ds.Array2.Array2Cell;
@@ -21,12 +21,6 @@ class Tile extends Sprite
 {
 	public static inline var SIZE:Float = 64;
 	
-	/*
-	public var right:Bool;
-	public var bottom:Bool;
-	public var left:Bool;
-	public var top:Bool;
-	*/
 	public var point:AStarWaypoint;
 	public var aperture:Int;
 	var bound:Shape;

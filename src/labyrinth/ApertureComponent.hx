@@ -1,12 +1,12 @@
-package entities.labyrinth;
+package labyrinth;
 
 /**
  * ...
  * @author damrem
  */
-class Aperture
+class ApertureComponent
 {
-	var bits;
+	var bits:Int;
 	
 	public function new()
 	{

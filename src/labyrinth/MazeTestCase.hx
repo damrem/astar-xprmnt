@@ -1,5 +1,5 @@
-package entities.labyrinth;
-import entities.labyrinth.Maze;
+package labyrinth;
+import labyrinth.Maze;
 import hxlpers.Direction;
 using hxlpers.ds.Array2SF;
 #if debug
@@ -16,7 +16,7 @@ typedef D = Assert;
  */
 class MazeTestCase
 {
-	var maze:entities.labyrinth.Maze;
+	var maze:labyrinth.Maze;
 	
 	public function new()
 	{
@@ -28,7 +28,7 @@ class MazeTestCase
 
 	public function setup()
 	{
-		maze = new entities.labyrinth.Maze(4, 4);
+		maze = new labyrinth.Maze(4, 4);
 	}
 	
 	function testGetNeighbor()

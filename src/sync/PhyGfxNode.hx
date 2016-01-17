@@ -1,8 +1,8 @@
-package entities.sync;
+package sync;
 
 import ash.core.Node;
-import entities.physics.Phy;
-import entities.rendering.Gfx;
+import physics.Phy;
+import rendering.Gfx;
 
 /**
  * ...

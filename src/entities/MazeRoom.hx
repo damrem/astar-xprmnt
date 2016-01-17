@@ -3,12 +3,13 @@ package entities;
 import ash.core.Engine;
 import ash.tick.FrameTickProvider;
 import box2D.dynamics.B2World;
-import entities.physics.PhyDebugSystem;
-import entities.physics.PhySystem;
+import labyrinth.MazeSystem;
+import physics.PhyDebugSystem;
+import physics.PhySystem;
 import entities.randommove.RandomMove;
 import entities.randommove.RandomMoveSystem;
 import entities.selection.Selectable;
-import entities.sync.PhyToGfxSyncSystem;
+import sync.PhyToGfxSyncSystem;
 import hxlpers.colors.Colors;
 import hxlpers.colors.RndColor;
 import hxlpers.game.Room;
@@ -42,6 +43,7 @@ class MazeRoom extends Room
 		
 		engine = new Engine();
 		engine.addSystem(new PhySystem(world), 1);
+		engine.addSystem(new MazeSystem(5, 5), 2);
 		addEntities();
 		engine.addSystem(new RandomMoveSystem(), 5);
 		engine.addSystem(new PhyToGfxSyncSystem(), 8);

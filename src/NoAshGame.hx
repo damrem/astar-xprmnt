@@ -6,9 +6,10 @@ import de.polygonal.ds.Array2.Array2Cell;
 import de.polygonal.ds.DA;
 import de.polygonal.ds.Graph;
 import de.polygonal.ds.GraphNode;
-import entities.labyrinth.Maze;
-import entities.labyrinth.Tile;
+import labyrinth.Maze;
+import labyrinth.Tile;
 import hxlpers.Direction;
+import labyrinth.MazeTestCase;
 import motion.Actuate;
 import openfl.display.Shape;
 import openfl.display.Sprite;
@@ -23,27 +24,27 @@ import openfl.Lib;
 class NoAshGame extends Sprite 
 {
 	
-	var selectedTile0:entities.labyrinth.Tile;
-	var selectedTile1:entities.labyrinth.Tile;
+	var selectedTile0:labyrinth.Tile;
+	var selectedTile1:labyrinth.Tile;
 	
 	var pathCanvas:Shape;
 	
 	var hero:Hero;
 	var heroIsMoving:Bool;
-	var maze:entities.labyrinth.Maze;
+	var maze:labyrinth.Maze;
 
 	public function new() 
 	{
 		super();
 		
 		#if debug
-		new entities.labyrinth.MazeTestCase();
+		new labyrinth.MazeTestCase();
 		#end
 		
-		var maxV = Std.int(Lib.current.stage.stageHeight / entities.labyrinth.Tile.SIZE);
+		var maxV = Std.int(Lib.current.stage.stageHeight / labyrinth.Tile.SIZE);
 		var maxU = maxV = 4;
 		
-		maze = new entities.labyrinth.Maze(maxU, maxV);
+		maze = new labyrinth.Maze(maxU, maxV);
 		
 		addChild(maze);
 		var tiles = maze.tiles;
