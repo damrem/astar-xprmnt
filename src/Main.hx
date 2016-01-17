@@ -1,6 +1,6 @@
 package;
 
-import entities.EntityRoom;
+import entities.MazeRoom;
 import hxlpers.game.Game;
 import openfl.display.FPS;
 import openfl.display.Sprite;
@@ -29,7 +29,11 @@ class Main extends Sprite
 		
 		var game = new Game(stage.stageWidth, stage.stageHeight, 1);
 		addChild(game);
-		game.addRoom("maze", new EntityRoom(stage.stageWidth, stage.stageHeight, 1));
+		
+		var mazeRoom = new MazeRoom(stage.stageWidth, stage.stageHeight, 1);
+		game.addRoom("maze", mazeRoom);
+		
+		addChild(mazeRoom.phyDebugSprite);
 		
 		addChild(new FPS(10, 10, 0xffffff));
 	}

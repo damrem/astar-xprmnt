@@ -19,8 +19,8 @@ class Phy
 	{
 		this.bodyDef = bodyDef;
 		this.fixtureDef = fixtureDef;
-		body = world.createBody(bodyDef);
-		body.createFixture(fixtureDef);
+		//body = world.createBody(bodyDef);
+		//body.createFixture(fixtureDef);
 	}
 	
 }

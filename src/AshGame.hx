@@ -1,6 +1,6 @@
 package;
 
-import entities.EntityRoom;
+import entities.MazeRoom;
 import openfl.display.Sprite;
 import openfl.Lib;
 
@@ -15,7 +15,7 @@ class AshGame extends Sprite
 	{
 		super();
 		
-		addChild(new EntityRoom(Lib.current.stage.stageWidth, Lib.current.stage.stageHeight, 4));
+		addChild(new MazeRoom(Lib.current.stage.stageWidth, Lib.current.stage.stageHeight, 4));
 		
 	}
 	

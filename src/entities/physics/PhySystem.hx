@@ -20,10 +20,7 @@ class PhySystem extends ListIteratingSystem<PhyNode>
 	public function new(world) 
 	{
 		super(PhyNode, updateNode, nodeAdded, nodeRemoved);
-		
-		this.world = world;
-		
-		
+		this.world = world;	
 	}
 	
 	override public function update(time:Float)
@@ -32,7 +29,6 @@ class PhySystem extends ListIteratingSystem<PhyNode>
 		super.update(time);
 		world.step(PERIOD, 8, 3);
 		world.drawDebugData();
-		
 	}
 	
 	
@@ -45,15 +41,12 @@ class PhySystem extends ListIteratingSystem<PhyNode>
 	
 	function nodeAdded(node:PhyNode)
 	{
-		trace("nodeAdded");
 		node.phy.body = world.createBody(node.phy.bodyDef);
-		trace(node.phy.body);
 		node.phy.body.createFixture(node.phy.fixtureDef);
 	}
 	
 	function nodeRemoved(node:PhyNode)
 	{
-		trace("nodeRemoved");
 		node.phy.body.DestroyFixture(node.phy.body.getFixtureList());
 		world.destroyBody(node.phy.body);
 	}

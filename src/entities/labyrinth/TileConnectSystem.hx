@@ -3,7 +3,7 @@ package entities.labyrinth;
 import ash.tools.ListIteratingSystem;
 
 /**
- * ...
+ * Add and remove graph arcs according to connection between tiles.
  * @author damrem
  */
 class TileConnectSystem extends ListIteratingSystem<TileNode>
