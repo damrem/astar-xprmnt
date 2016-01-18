@@ -1,4 +1,4 @@
-package entities;
+package;
 import ash.core.Entity;
 import box2D.collision.shapes.B2CircleShape;
 import box2D.collision.shapes.B2PolygonShape;

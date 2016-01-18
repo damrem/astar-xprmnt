@@ -1,8 +1,8 @@
-package entities.randommove;
+package randommove;
 
 import ash.core.Node;
 import physics.Phy;
-import entities.randommove.RandomMove;
+import randommove.RandomMove;
 import rendering.Gfx;
 import openfl.display.Sprite;
 

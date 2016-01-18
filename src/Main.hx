@@ -1,6 +1,6 @@
 package;
 
-import entities.MazeRoom;
+import MazeRoom;
 import hxlpers.game.Game;
 import openfl.display.FPS;
 import openfl.display.Sprite;

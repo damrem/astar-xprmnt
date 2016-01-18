@@ -1,14 +1,16 @@
-package entities;
+package;
 
 import ash.core.Engine;
+import ash.core.Entity;
 import ash.tick.FrameTickProvider;
 import box2D.dynamics.B2World;
+import factories.HeroFactory;
 import labyrinth.MazeSystem;
 import physics.PhyDebugSystem;
 import physics.PhySystem;
-import entities.randommove.RandomMove;
-import entities.randommove.RandomMoveSystem;
-import entities.selection.Selectable;
+import randommove.RandomMove;
+import randommove.RandomMoveSystem;
+import selection.Selectable;
 import sync.PhyToGfxSyncSystem;
 import hxlpers.colors.Colors;
 import hxlpers.colors.RndColor;
@@ -27,6 +29,7 @@ class MazeRoom extends Room
 	var tickProvider:FrameTickProvider;
 	var engine:Engine;
 	var world:B2World;
+	var creator:EntityCreator;
 	
 	public var phyDebugSprite:Sprite;
 	
@@ -40,11 +43,23 @@ class MazeRoom extends Room
 		phyDebugSprite = new Sprite();
 		
 		world = new B2World(PhySystem.GRAVITY, true);
+		creator = new EntityCreator(world);
 		
 		engine = new Engine();
+		
+		var hero = creator.createBallEntity(50, 50, 50, 0, 0xff0000);
+		
+		engine.addEntity(hero);
+		
+		for (entity in createEntities())
+		{
+			engine.addEntity(entity);
+		};
+		
+		
 		engine.addSystem(new PhySystem(world), 1);
 		engine.addSystem(new MazeSystem(5, 5), 2);
-		addEntities();
+		
 		engine.addSystem(new RandomMoveSystem(), 5);
 		engine.addSystem(new PhyToGfxSyncSystem(), 8);
 		//engine.addSystem(new SelectionSystem(), 10);
@@ -60,11 +75,12 @@ class MazeRoom extends Room
 		tickProvider.start();	
 	}
 	
-	function addEntities(nbEntities:UInt=50)
+	function createEntities(nbEntities:UInt=50):Array<Entity>
 	{
+		var entities = new Array<Entity>();
 		trace("addEntities");
 		
-		var creator = new EntityCreator(world);
+		
 		
 		for (i in 0...nbEntities)
 		{
@@ -88,23 +104,29 @@ class MazeRoom extends Room
 			entity.add(new RandomMove(1));
 			entity.add(new Selectable());
 			
-			engine.addEntity(entity);
+			entities.push(entity);
+			
+			//engine.addEntity(entity);
 		}
 		
 		
 		var westWall = creator.createWallEntity( -h, 0, h, Colors.WHITE);
-		engine.addEntity(westWall);
-
-
-		var eastWall = creator.createWallEntity( w+h, 0, h, Colors.WHITE);
-		engine.addEntity(eastWall);
+		entities.push(westWall);
+		
+		var eastWall = creator.createWallEntity( w + h, 0, h, Colors.WHITE);
+		entities.push(eastWall);
+		//engine.addEntity(eastWall);
 
 		
 		var northWall = creator.createWallEntity( 0, -w, w, Colors.WHITE);
-		engine.addEntity(northWall);
+		entities.push(northWall);
+		//engine.addEntity(northWall);
 		
-		var southWall = creator.createWallEntity( 0, h+w, w, Colors.WHITE);
-		engine.addEntity(southWall);
+		var southWall = creator.createWallEntity( 0, h + w, w, Colors.WHITE);
+		entities.push(southWall);
+		//engine.addEntity(southWall);
+		
+		return entities;
 		
 		//return maskedLayer;
 	}

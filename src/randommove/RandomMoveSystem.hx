@@ -1,10 +1,10 @@
-package entities.randommove;
+package randommove;
 
 import ash.core.System;
 import ash.tools.ListIteratingSystem;
 import box2D.common.math.B2Vec2;
 import box2D.dynamics.B2BodyType;
-import entities.randommove.RandomMoveNode;
+import randommove.RandomMoveNode;
 import hxlpers.Rnd;
 
 /**

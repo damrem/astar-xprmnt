@@ -1,12 +1,12 @@
-package entities.selection;
+package selection;
 
 import ash.core.Engine;
 import ash.core.NodeList;
 import ash.core.System;
 import ash.tools.ListIteratingSystem;
-import entities.randommove.RandomMove;
+import randommove.RandomMove;
 import rendering.EntitySprite;
-import entities.selection.SelectableNode;
+import selection.SelectableNode;
 import openfl.display.Sprite;
 import openfl.events.MouseEvent;
 import openfl.filters.GlowFilter;

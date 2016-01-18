@@ -41,8 +41,8 @@ class Hero extends Sprite
 		
 		Actuate
 		.tween(this, instant?0:0.5, { 
-			x:(cell.x+0.5)*labyrinth.Tile.SIZE, 
-			y:(cell.y+0.5)*labyrinth.Tile.SIZE
+			x:(cell.x + 0.5) * labyrinth.Tile.SIZE,
+			y:(cell.y + 0.5) * labyrinth.Tile.SIZE
 			
 		} )
 		.ease(Linear.easeNone)

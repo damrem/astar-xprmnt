@@ -1,8 +1,8 @@
-package entities.selection;
+package selection;
 
 import ash.core.Node;
 import rendering.Gfx;
-import entities.selection.Selectable;
+import selection.Selectable;
 
 /**
  * ...

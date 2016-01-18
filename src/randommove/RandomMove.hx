@@ -1,4 +1,4 @@
-package entities.randommove;
+package randommove;
 
 /**
  * ...

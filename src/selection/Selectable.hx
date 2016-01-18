@@ -1,4 +1,4 @@
-package entities.selection;
+package selection;
 
 /**
  * ...

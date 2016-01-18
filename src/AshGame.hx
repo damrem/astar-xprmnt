@@ -1,6 +1,6 @@
 package;
 
-import entities.MazeRoom;
+import MazeRoom;
 import openfl.display.Sprite;
 import openfl.Lib;
 
