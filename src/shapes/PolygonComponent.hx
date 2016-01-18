@@ -6,7 +6,7 @@ import openfl.geom.Point;
  * ...
  * @author damrem
  */
-class PolygonComp
+class PolygonComponent
 {
 
 	public var vertices:Array<Point>;

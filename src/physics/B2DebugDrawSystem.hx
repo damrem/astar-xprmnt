@@ -11,7 +11,7 @@ import openfl.display.Sprite;
  * ...
  * @author damrem
  */
-class PhyDebugSystem extends System
+class B2DebugDrawSystem extends System
 {
 	var world:B2World;
 

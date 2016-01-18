@@ -6,7 +6,7 @@ import box2D.dynamics.B2BodyDef;
 import box2D.dynamics.B2BodyType;
 import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2World;
-import physics.Phy;
+import physics.BodyComponent;
 import rendering.EntitySprite;
 import rendering.Gfx;
 import hxlpers.shapes.BoxShape;
@@ -28,7 +28,6 @@ class EntityCreator
 	
 	public function createBallEntity(_x:Float, _y:Float, size:Float, angle:Float, color:UInt):Entity
 	{
-		trace("ball");
 		var radius = size / 2;
 		
 		var entity = new Entity();
@@ -41,14 +40,13 @@ class EntityCreator
 		var bodyDef = createBodyDef(_x, _y);
 		var fixtureDef = createFixtureDef();
 		fixtureDef.shape = new B2CircleShape(radius);
-		entity.add(new Phy(bodyDef, fixtureDef, world));
+		entity.add(new BodyComponent(bodyDef, fixtureDef, world));
 		
 		return entity;
 	}
 	
 	public function createBoxEntity(_x:Float, _y:Float, size:Float, angle:Float, color:UInt):Entity
 	{
-		trace("box");
 		var entity = new Entity();
 		
 		var shape = new BoxShape(size, size, color, 0, 0, true);
@@ -59,14 +57,20 @@ class EntityCreator
 		var bodyDef = createBodyDef(_x, _y);
 		var fixtureDef = createFixtureDef();
 		fixtureDef.shape = createBoxShape(size/2, angle);
-		entity.add(new Phy(bodyDef, fixtureDef, world));
+		entity.add(new BodyComponent(bodyDef, fixtureDef, world));
 		
 		return entity;
 	}
-	
+	/*
+	public function createMultiboxEntity(x:Float, y:Float):Entity
+	{
+		var bodyDef = createBodyDef(x, y);
+		var fixtureDef = createFixtureDef();
+		
+	}
+	*/
 	public function createWallEntity(_x:Float, _y:Float, size:Float, color:UInt):Entity
 	{
-		trace("wall");
 		var entity = new Entity();
 		
 		var shape = new BoxShape(size, size, color);
@@ -77,7 +81,7 @@ class EntityCreator
 		var bodyDef = createBodyDef(_x, _y, B2BodyType.STATIC_BODY);
 		var fixtureDef = createFixtureDef();
 		fixtureDef.shape = createBoxShape(size);
-		entity.add(new Phy(bodyDef, fixtureDef, world));
+		entity.add(new BodyComponent(bodyDef, fixtureDef, world));
 		
 		return entity;
 	}

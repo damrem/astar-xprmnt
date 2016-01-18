@@ -19,10 +19,10 @@ class PhyToGfxSyncSystem extends ListIteratingSystem<PhyGfxNode>
 	
 	function updateNode(node:PhyGfxNode, time:Float) 
 	{
-		var pos = node.phy.body.getPosition();
+		var pos = node.phy.b2body.getPosition();
 		node.gfx.entitySprite.x = pos.x;
 		node.gfx.entitySprite.y = pos.y;
-		node.gfx.entitySprite.rotation = node.phy.body.getAngle().toDegrees(); 
+		node.gfx.entitySprite.rotation = node.phy.b2body.getAngle().toDegrees(); 
 	}
 	
 	

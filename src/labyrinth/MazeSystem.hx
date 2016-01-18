@@ -23,7 +23,7 @@ class MazeSystem extends System
 			for(x in 0...width)
 			{
 				var tile = new Entity();
-				tile.add(new ApertureComponent());
+				tile.add(new TileApertureComponent());
 				tiles.set(x, y, tile);
 			}
 		}

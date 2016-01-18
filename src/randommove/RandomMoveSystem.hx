@@ -21,17 +21,17 @@ class RandomMoveSystem extends ListIteratingSystem<RandomMoveNode>
 	
 	function nodeAdded(node:RandomMoveNode) 
 	{
-		node.phy.body.setType(B2BodyType.DYNAMIC_BODY);
+		node.phy.b2body.setType(B2BodyType.DYNAMIC_BODY);
 	}
 	
 	function nodeRemoved(node:RandomMoveNode) 
 	{
-		node.phy.body.setType(B2BodyType.STATIC_BODY);
+		node.phy.b2body.setType(B2BodyType.STATIC_BODY);
 	}
 	
 	function updateNode(node:RandomMoveNode, time:Float)
 	{
-		var body = node.phy.body;
+		var body = node.phy.b2body;
 		var mass = body.getMass();
 		var xImpulse = mass * Rnd.float( -node.randomMove.range, node.randomMove.range);
 		var yImpulse = mass * Rnd.float( -node.randomMove.range, node.randomMove.range);

@@ -8,6 +8,6 @@ import ash.core.Node;
 class PolygonNode extends Node<PolygonNode>
 {
 
-	public var polygon:PolygonComp;
+	public var polygon:PolygonComponent;
 	
 }

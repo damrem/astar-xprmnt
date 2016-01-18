@@ -6,7 +6,7 @@ import ash.tools.ListIteratingSystem;
  * ...
  * @author damrem
  */
-class PolygonToPhySystem extends ListIteratingSystem<PolygonalPhyNode>
+class PolygonToBodySystem extends ListIteratingSystem<PolygonalPhyNode>
 {
 
 	public function new() 

@@ -10,7 +10,7 @@ import openfl.display.Sprite;
  * ...
  * @author damrem
  */
-class PhySystem extends ListIteratingSystem<PhyNode>
+class SimpleBodyCreateDestroySystem extends ListIteratingSystem<SimpleBodyNode>
 {
 	static public var GRAVITY:B2Vec2 = new B2Vec2();
 	static public inline var PERIOD:Float = 1 / 60;
@@ -19,7 +19,7 @@ class PhySystem extends ListIteratingSystem<PhyNode>
 	
 	public function new(world) 
 	{
-		super(PhyNode, updateNode, nodeAdded, nodeRemoved);
+		super(SimpleBodyNode, updateNode, nodeAdded, nodeRemoved);
 		this.world = world;	
 	}
 	
@@ -32,23 +32,23 @@ class PhySystem extends ListIteratingSystem<PhyNode>
 	}
 	
 	
-	function updateNode(node:PhyNode, time:Float)
+	function updateNode(node:SimpleBodyNode, time:Float)
 	{
 		//node.phy.body.advance(PERIOD);
 		//world.step(PERIOD, 8, 3);
 	}
 	
 	
-	function nodeAdded(node:PhyNode)
+	function nodeAdded(node:SimpleBodyNode)
 	{
-		node.phy.body = world.createBody(node.phy.bodyDef);
-		node.phy.body.createFixture(node.phy.fixtureDef);
+		node.phy.b2body = world.createBody(node.phy.bodyDef);
+		node.phy.b2body.createFixture(node.phy.fixtureDef);
 	}
 	
-	function nodeRemoved(node:PhyNode)
+	function nodeRemoved(node:SimpleBodyNode)
 	{
-		node.phy.body.DestroyFixture(node.phy.body.getFixtureList());
-		world.destroyBody(node.phy.body);
+		node.phy.b2body.DestroyFixture(node.phy.b2body.getFixtureList());
+		world.destroyBody(node.phy.b2body);
 	}
 	
 }

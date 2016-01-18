@@ -1,7 +1,7 @@
 package physics;
 
 import ash.core.Node;
-import shapes.PolygonComp;
+import shapes.PolygonComponent;
 
 /**
  * ...
@@ -10,7 +10,7 @@ import shapes.PolygonComp;
 class PolygonalPhyNode extends Node<PolygonalPhyNode>
 {
 
-	public var polygon:PolygonComp;
-	public phy:Phy;
+	public var polygon:PolygonComponent;
+	public phy:BodyComponent;
 	
 }

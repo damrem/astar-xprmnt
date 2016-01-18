@@ -1,7 +1,7 @@
 package factories;
 import ash.core.Entity;
 import box2D.dynamics.B2World;
-import physics.Phy;
+import physics.BodyComponent;
 
 /**
  * ...

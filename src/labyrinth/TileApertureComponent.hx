@@ -4,7 +4,7 @@ package labyrinth;
  * ...
  * @author damrem
  */
-class ApertureComponent
+class TileApertureComponent
 {
 	var bits:Int;
 	

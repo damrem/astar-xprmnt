@@ -1,7 +1,7 @@
 package sync;
 
 import ash.core.Node;
-import physics.Phy;
+import physics.BodyComponent;
 import rendering.Gfx;
 
 /**
@@ -10,6 +10,6 @@ import rendering.Gfx;
  */
 class PhyGfxNode extends Node<PhyGfxNode>
 {
-	public var phy:Phy;
+	public var phy:BodyComponent;
 	public var gfx:Gfx;
 }
