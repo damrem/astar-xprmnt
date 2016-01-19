@@ -24,8 +24,8 @@ class SimpleBodyCreateDestroySystem extends ListIteratingSystem<SimpleBodyNode>
 	{
 		//trace("update");
 		super.update(time);
-		G.world.step(PERIOD, 8, 3);
-		G.world.drawDebugData();
+		B2.world.step(PERIOD, 8, 3);
+		B2.world.drawDebugData();
 	}
 	
 	
@@ -38,14 +38,14 @@ class SimpleBodyCreateDestroySystem extends ListIteratingSystem<SimpleBodyNode>
 	
 	function nodeAdded(node:SimpleBodyNode)
 	{
-		node.phy.b2body = G.world.createBody(node.phy.bodyDef);
+		node.phy.b2body = B2.world.createBody(node.phy.bodyDef);
 		node.phy.b2body.createFixture(node.phy.fixtureDef);
 	}
 	
 	function nodeRemoved(node:SimpleBodyNode)
 	{
 		node.phy.b2body.DestroyFixture(node.phy.b2body.getFixtureList());
-		G.world.destroyBody(node.phy.b2body);
+		B2.world.destroyBody(node.phy.b2body);
 	}
 	
 }

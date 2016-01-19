@@ -4,6 +4,7 @@ import ash.tools.ListIteratingSystem;
 import box2D.collision.shapes.B2PolygonShape;
 import box2D.common.math.B2Vec2;
 import box2D.dynamics.B2FixtureDef;
+import physics.B2;
 
 /**
  * ...
@@ -25,7 +26,7 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 	{
 		trace("nodeAdded" + node);
 		
-		node.body.b2body = G.world.createBody(node.body.bodyDef);
+		node.body.b2body = B2.world.createBody(node.body.bodyDef);
 		
 		var shape = new B2PolygonShape();
 		var fixtureDef = new B2FixtureDef();

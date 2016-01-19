@@ -3,28 +3,23 @@ package;
 import ash.core.Engine;
 import ash.core.Entity;
 import ash.tick.FrameTickProvider;
-import box2D.dynamics.B2BodyDef;
-import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2World;
 import factories.EntityCreator;
-import factories.HeroFactory;
 import factories.TileFactory;
 import factories.WallFactory;
-import labyrinth.TileApertureComponent;
-import labyrinth.TileToPhysicsConvertSystem;
+import hxlpers.colors.Colors;
+import hxlpers.colors.RndColor;
+import hxlpers.game.Room;
+import hxlpers.Rnd;
 import labyrinth.MazeSystem;
-import physics.BodyComponent;
+import labyrinth.TileToPhysicsConvertSystem;
+import openfl.display.Sprite;
+import physics.B2;
 import physics.B2DebugDrawSystem;
 import physics.SimpleBodyCreateDestroySystem;
 import randommove.RandomMove;
 import randommove.RandomMoveSystem;
 import selection.Selectable;
-import sync.PhyToGfxSyncSystem;
-import hxlpers.colors.Colors;
-import hxlpers.colors.RndColor;
-import hxlpers.game.Room;
-import hxlpers.Rnd;
-import openfl.display.Sprite;
 
 using hxlpers.display.SpriteSF;
 
@@ -49,7 +44,7 @@ class MazeRoom extends Room
 		
 		phyDebugSprite = new Sprite();
 		
-		G.world = new B2World(SimpleBodyCreateDestroySystem.GRAVITY, true);
+		B2.world = new B2World(SimpleBodyCreateDestroySystem.GRAVITY, true);
 		creator = new factories.EntityCreator();
 		
 		engine = new Engine();

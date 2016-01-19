@@ -30,12 +30,12 @@ class B2DebugDrawSystem extends System
 			//B2DebugDraw.e_pairBit | 
 			B2DebugDraw.e_shapeBit
 		);
-		G.world.setDebugDraw(debugDraw);
+		B2.world.setDebugDraw(debugDraw);
 	}
 	
 	override public function update(time:Float)
 	{
-		G.world.drawDebugData();
+		B2.world.drawDebugData();
 	}
 	
 }

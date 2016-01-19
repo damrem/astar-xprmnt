@@ -2,6 +2,7 @@ package factories;
 import ash.core.Entity;
 import box2D.dynamics.B2BodyType;
 import hxlpers.shapes.BoxShape;
+import physics.B2;
 import physics.BodyComponent;
 import rendering.EntitySprite;
 import rendering.Gfx;
@@ -22,9 +23,9 @@ class WallFactory
 		sprite.addChild(shape);
 		entity.add(new Gfx(sprite));
 		
-		var bodyDef = EntityCreator.createBodyDef(_x, _y, B2BodyType.STATIC_BODY);
-		var fixtureDef = EntityCreator.createFixtureDef();
-		fixtureDef.shape = EntityCreator.createBoxShape(size);
+		var bodyDef = B2.createBodyDef(_x, _y, B2BodyType.STATIC_BODY);
+		var fixtureDef = B2.createFixtureDef();
+		fixtureDef.shape = B2.createBoxShape(size);
 		entity.add(new BodyComponent(bodyDef, fixtureDef));
 		
 		return entity;
