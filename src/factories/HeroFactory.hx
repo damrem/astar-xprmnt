@@ -14,7 +14,7 @@ class HeroFactory
 	public static function createHero(x:Float, y:Float, entityCreator:EntityCreator):Entity
 	{
 		var entity = new Entity("hero");
-		return entityCreator.createBallEntity(x, y, SIZE, 0, 0xff0000);
+		return EntityCreator.createBallEntity(x, y, SIZE, 0, 0xff0000);
 		//entity.add(new Phy(
 	}
 	

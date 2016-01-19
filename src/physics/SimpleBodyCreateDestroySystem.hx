@@ -15,20 +15,17 @@ class SimpleBodyCreateDestroySystem extends ListIteratingSystem<SimpleBodyNode>
 	static public var GRAVITY:B2Vec2 = new B2Vec2();
 	static public inline var PERIOD:Float = 1 / 60;
 
-	var world:B2World;
-	
-	public function new(world) 
+	public function new() 
 	{
 		super(SimpleBodyNode, updateNode, nodeAdded, nodeRemoved);
-		this.world = world;	
 	}
 	
 	override public function update(time:Float)
 	{
 		//trace("update");
 		super.update(time);
-		world.step(PERIOD, 8, 3);
-		world.drawDebugData();
+		G.world.step(PERIOD, 8, 3);
+		G.world.drawDebugData();
 	}
 	
 	
@@ -41,14 +38,14 @@ class SimpleBodyCreateDestroySystem extends ListIteratingSystem<SimpleBodyNode>
 	
 	function nodeAdded(node:SimpleBodyNode)
 	{
-		node.phy.b2body = world.createBody(node.phy.bodyDef);
+		node.phy.b2body = G.world.createBody(node.phy.bodyDef);
 		node.phy.b2body.createFixture(node.phy.fixtureDef);
 	}
 	
 	function nodeRemoved(node:SimpleBodyNode)
 	{
 		node.phy.b2body.DestroyFixture(node.phy.b2body.getFixtureList());
-		world.destroyBody(node.phy.b2body);
+		G.world.destroyBody(node.phy.b2body);
 	}
 	
 }

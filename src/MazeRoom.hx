@@ -6,7 +6,10 @@ import ash.tick.FrameTickProvider;
 import box2D.dynamics.B2BodyDef;
 import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2World;
+import factories.EntityCreator;
 import factories.HeroFactory;
+import factories.TileFactory;
+import factories.WallFactory;
 import labyrinth.TileApertureComponent;
 import labyrinth.TileToPhysicsConvertSystem;
 import labyrinth.MazeSystem;
@@ -33,8 +36,7 @@ class MazeRoom extends Room
 {
 	var tickProvider:FrameTickProvider;
 	var engine:Engine;
-	var world:B2World;
-	var creator:EntityCreator;
+	var creator:factories.EntityCreator;
 	
 	public var phyDebugSprite:Sprite;
 	
@@ -47,12 +49,12 @@ class MazeRoom extends Room
 		
 		phyDebugSprite = new Sprite();
 		
-		world = new B2World(SimpleBodyCreateDestroySystem.GRAVITY, true);
-		creator = new EntityCreator(world);
+		G.world = new B2World(SimpleBodyCreateDestroySystem.GRAVITY, true);
+		creator = new factories.EntityCreator();
 		
 		engine = new Engine();
 		
-		var hero = creator.createBallEntity(50, 50, 50, 0, 0xff0000);
+		var hero = factories.EntityCreator.createBallEntity(50, 50, 50, 0, 0xff0000);
 		hero.add(new SimpleComponent());
 		engine.addEntity(hero);
 		
@@ -62,18 +64,16 @@ class MazeRoom extends Room
 		};
 		
 		var tile = new Entity("tile");
-		tile.add(new TileApertureComponent());
-		tile.add(new BodyComponent(new B2BodyDef(), new B2FixtureDef(), world));
-		engine.addEntity(tile);
+		engine.addEntity(TileFactory.create());
 		
-		engine.addSystem(new SimpleBodyCreateDestroySystem(world), 1);
+		engine.addSystem(new SimpleBodyCreateDestroySystem(), 1);
 		engine.addSystem(new MazeSystem(5, 5), 2);
-		engine.addSystem(new TileToPhysicsConvertSystem(world), 3);
+		engine.addSystem(new TileToPhysicsConvertSystem(), 3);
 		engine.addSystem(new RandomMoveSystem(), 5);
 		//engine.addSystem(new PhyToGfxSyncSystem(), 8);
 		//engine.addSystem(new SelectionSystem(), 10);
 		//engine.addSystem(new RenderSystem(this), 15);
-		engine.addSystem(new B2DebugDrawSystem(world, this), 20);
+		engine.addSystem(new B2DebugDrawSystem(this), 20);
 		
 		start();
 	}
@@ -103,11 +103,11 @@ class MazeRoom extends Room
 			
 			if (Rnd.chance())
 			{
-				entity = creator.createBallEntity(_x, _y, size, angle, color);
+				entity = factories.EntityCreator.createBallEntity(_x, _y, size, angle, color);
 			}
 			else
 			{
-				entity = creator.createBoxEntity(_x, _y, size, angle, color);
+				entity = factories.EntityCreator.createBoxEntity(_x, _y, size, angle, color);
 			}
 			
 			entity.add(new SimpleComponent());
@@ -120,22 +120,22 @@ class MazeRoom extends Room
 		}
 		
 		
-		var westWall = creator.createWallEntity( -h, 0, h, Colors.WHITE);
+		var westWall = WallFactory.createWallEntity( -h, 0, h, Colors.WHITE);
 		westWall.add(new SimpleComponent());
 		entities.push(westWall);
 		
-		var eastWall = creator.createWallEntity( w + h, 0, h, Colors.WHITE);
+		var eastWall = WallFactory.createWallEntity( w + h, 0, h, Colors.WHITE);
 		eastWall.add(new SimpleComponent());
 		entities.push(eastWall);
 		//engine.addEntity(eastWall);
 
 		
-		var northWall = creator.createWallEntity( 0, -w, w, Colors.WHITE);
+		var northWall = WallFactory.createWallEntity( 0, -w, w, Colors.WHITE);
 		northWall.add(new SimpleComponent());
 		entities.push(northWall);
 		//engine.addEntity(northWall);
 		
-		var southWall = creator.createWallEntity( 0, h + w, w, Colors.WHITE);
+		var southWall = WallFactory.createWallEntity( 0, h + w, w, Colors.WHITE);
 		southWall.add(new SimpleComponent());
 		entities.push(southWall);
 		//engine.addEntity(southWall);

@@ -1,9 +1,7 @@
 package physics;
 
 import ash.core.System;
-import ash.tools.ListIteratingSystem;
 import box2D.dynamics.B2DebugDraw;
-import box2D.dynamics.B2World;
 import openfl.display.DisplayObjectContainer;
 import openfl.display.Sprite;
 
@@ -13,13 +11,9 @@ import openfl.display.Sprite;
  */
 class B2DebugDrawSystem extends System
 {
-	var world:B2World;
-
-	public function new(world:B2World, host:DisplayObjectContainer) 
+	public function new(host:DisplayObjectContainer) 
 	{
 		super();
-		
-		this.world = world;
 		
 		var sprite = new Sprite();
 		sprite.mouseEnabled = false;
@@ -36,12 +30,12 @@ class B2DebugDrawSystem extends System
 			//B2DebugDraw.e_pairBit | 
 			B2DebugDraw.e_shapeBit
 		);
-		world.setDebugDraw(debugDraw);
+		G.world.setDebugDraw(debugDraw);
 	}
 	
 	override public function update(time:Float)
 	{
-		world.drawDebugData();
+		G.world.drawDebugData();
 	}
 	
 }
