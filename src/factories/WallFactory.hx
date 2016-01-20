@@ -25,7 +25,7 @@ class WallFactory
 		
 		var bodyDef = B2.createBodyDef(_x, _y, B2BodyType.STATIC_BODY);
 		var fixtureDef = B2.createFixtureDef();
-		fixtureDef.shape = B2.createBoxShape(size);
+		fixtureDef.shape = B2.createSquareShape(size);
 		entity.add(new BodyComponent(bodyDef, fixtureDef));
 		
 		return entity;

@@ -11,10 +11,10 @@ class HeroFactory
 {
 	public static var SIZE:Float = 25;
 	
-	public static function createHero(x:Float, y:Float, entityCreator:EntityCreator):Entity
+	public static function createHero(x:Float, y:Float, entityCreator:SimpleEntityCreator):Entity
 	{
 		var entity = new Entity("hero");
-		return EntityCreator.createBallEntity(x, y, SIZE, 0, 0xff0000);
+		return SimpleEntityCreator.createBallEntity(x, y, SIZE, 0, 0xff0000);
 		//entity.add(new Phy(
 	}
 	

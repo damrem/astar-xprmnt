@@ -4,7 +4,7 @@ import ash.core.Engine;
 import ash.core.Entity;
 import ash.tick.FrameTickProvider;
 import box2D.dynamics.B2World;
-import factories.EntityCreator;
+import factories.SimpleEntityCreator;
 import factories.TileFactory;
 import factories.WallFactory;
 import hxlpers.colors.Colors;
@@ -31,7 +31,7 @@ class MazeRoom extends Room
 {
 	var tickProvider:FrameTickProvider;
 	var engine:Engine;
-	var creator:factories.EntityCreator;
+	var creator:factories.SimpleEntityCreator;
 	
 	public var phyDebugSprite:Sprite;
 	
@@ -45,11 +45,10 @@ class MazeRoom extends Room
 		phyDebugSprite = new Sprite();
 		
 		B2.world = new B2World(SimpleBodyCreateDestroySystem.GRAVITY, true);
-		creator = new factories.EntityCreator();
 		
 		engine = new Engine();
 		
-		var hero = factories.EntityCreator.createBallEntity(50, 50, 50, 0, 0xff0000);
+		var hero = factories.SimpleEntityCreator.createBallEntity(50, 50, 50, 0, 0xff0000);
 		hero.add(new SimpleComponent());
 		engine.addEntity(hero);
 		
@@ -98,11 +97,11 @@ class MazeRoom extends Room
 			
 			if (Rnd.chance())
 			{
-				entity = factories.EntityCreator.createBallEntity(_x, _y, size, angle, color);
+				entity = factories.SimpleEntityCreator.createBallEntity(_x, _y, size, angle, color);
 			}
 			else
 			{
-				entity = factories.EntityCreator.createBoxEntity(_x, _y, size, angle, color);
+				entity = factories.SimpleEntityCreator.createBoxEntity(_x, _y, size, angle, color);
 			}
 			
 			entity.add(new SimpleComponent());

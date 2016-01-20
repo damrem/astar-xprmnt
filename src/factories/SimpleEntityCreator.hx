@@ -12,12 +12,8 @@ import rendering.Gfx;
  * ...
  * @author damrem
  */
-class EntityCreator
+class SimpleEntityCreator
 {
-	public function new() 
-	{
-	}
-	
 	public static function createBallEntity(_x:Float, _y:Float, size:Float, angle:Float, color:UInt):Entity
 	{
 		var radius = size / 2;
@@ -48,7 +44,7 @@ class EntityCreator
 		
 		var bodyDef = B2.createBodyDef(_x, _y);
 		var fixtureDef = B2.createFixtureDef();
-		fixtureDef.shape = B2.createBoxShape(size/2, angle);
+		fixtureDef.shape = B2.createSquareShape(size/2, angle);
 		entity.add(new BodyComponent(bodyDef, fixtureDef));
 		
 		return entity;
