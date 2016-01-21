@@ -63,7 +63,7 @@ class MazeRoom extends Room
 		
 		//engine.addEntity(TileFactory.create());
 		
-		for (tile in MazeGenerator.create(5, 5))
+		for (tile in MazeGenerator.create(2, 2))
 		{
 			engine.addEntity(tile);
 		}

@@ -23,6 +23,7 @@ class B2DebugDrawSystem extends System
 		debugDraw.setSprite(sprite);
 		debugDraw.setDrawScale(1);
 		debugDraw.setFlags(
+		
 			//B2DebugDraw.e_aabbBit | 
 			//B2DebugDraw.e_centerOfMassBit | 
 			//B2DebugDraw.e_controllerBit | 

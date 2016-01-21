@@ -14,7 +14,7 @@ import physics.BodyComponent;
 class TileFactory
 {
 	public static var SIZE:Float = 64;
-	public static var TUNNEL_SIZE:Float = 32;
+	public static var TUNNEL_SIZE:Float = 56;
 	
 
 	public static function createEntity(u:Int, v:Int):Entity

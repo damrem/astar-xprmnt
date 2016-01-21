@@ -17,6 +17,7 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 	var cornerBlockCoords:Array<Float>;
 	var fixtureDef:B2FixtureDef;
 	var cornerBlockAbsCoord:Float;
+	var wallLength:Float;
 	
 	public function new() 
 	{
@@ -27,7 +28,7 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 		cornerBlockSize = (TileFactory.SIZE - TileFactory.TUNNEL_SIZE) / 4;
 		cornerBlockAbsCoord = (TileFactory.TUNNEL_SIZE + cornerBlockSize) / 2;
 		cornerBlockCoords = [ -cornerBlockAbsCoord, cornerBlockAbsCoord];
-		
+		wallLength = TileFactory.TUNNEL_SIZE / 2;
 		
 	}
 	
@@ -44,30 +45,31 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 		{
 			for (y in cornerBlockCoords)
 			{
-				
 				fixtureDef.shape = B2.createSquareShape(cornerBlockSize, x, y);
 				node.body.b2body.createFixture(fixtureDef);
 			}
 		}
 		
+		
+		
 		if (!node.aperture.bottom)
 		{
-			fixtureDef.shape = B2.createRectShape(TileFactory.TUNNEL_SIZE, cornerBlockSize, 0, cornerBlockAbsCoord);
+			fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, cornerBlockAbsCoord);
 			node.body.b2body.createFixture(fixtureDef);
 		}
 		if (!node.aperture.top)
 		{
-			fixtureDef.shape = B2.createRectShape(TileFactory.TUNNEL_SIZE, cornerBlockSize, 0, -cornerBlockAbsCoord);
+			fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, -cornerBlockAbsCoord);
 			node.body.b2body.createFixture(fixtureDef);
 		}
 		if (!node.aperture.right)
 		{
-			fixtureDef.shape = B2.createRectShape(cornerBlockSize, TileFactory.TUNNEL_SIZE, cornerBlockAbsCoord, 0);
+			fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
 			node.body.b2body.createFixture(fixtureDef);
 		}
 		if (!node.aperture.left)
 		{
-			fixtureDef.shape = B2.createRectShape(cornerBlockSize, TileFactory.TUNNEL_SIZE, cornerBlockAbsCoord, 0);
+			fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
 			node.body.b2body.createFixture(fixtureDef);
 		}
 		
