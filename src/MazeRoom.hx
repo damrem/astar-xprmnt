@@ -11,7 +11,7 @@ import hxlpers.colors.Colors;
 import hxlpers.colors.RndColor;
 import hxlpers.game.Room;
 import hxlpers.Rnd;
-import labyrinth.MazeSystem;
+import labyrinth.MazeGenerator;
 import labyrinth.TileToPhysicsConvertSystem;
 import openfl.display.Sprite;
 import physics.B2;
@@ -50,18 +50,27 @@ class MazeRoom extends Room
 		
 		var hero = factories.SimpleEntityCreator.createBallEntity(50, 50, 50, 0, 0xff0000);
 		hero.add(new SimpleComponent());
-		engine.addEntity(hero);
+		//engine.addEntity(hero);
 		
 		for (entity in createSimpleEntities())
 		{
-			engine.addEntity(entity);
+			//engine.addEntity(entity);
 		};
 		
 		var tile = new Entity("tile");
-		engine.addEntity(TileFactory.create());
+		
+		
+		
+		//engine.addEntity(TileFactory.create());
+		
+		for (tile in MazeGenerator.create(5, 5))
+		{
+			engine.addEntity(tile);
+		}
+		
 		
 		engine.addSystem(new SimpleBodyCreateDestroySystem(), 1);
-		engine.addSystem(new MazeSystem(5, 5), 2);
+		
 		engine.addSystem(new TileToPhysicsConvertSystem(), 3);
 		engine.addSystem(new RandomMoveSystem(), 5);
 		//engine.addSystem(new PhyToGfxSyncSystem(), 8);

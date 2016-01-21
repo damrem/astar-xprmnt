@@ -17,14 +17,17 @@ class TileFactory
 	public static var TUNNEL_SIZE:Float = 32;
 	
 
-	public static function create():Entity
+	public static function createEntity(u:Int, v:Int):Entity
 	{
-		var entity = new Entity();
-		entity.add(new TileApertureComponent());
-		var bd = B2.createBodyDef(100, 100, B2BodyType.KINEMATIC_BODY);
+		var tileEntity = new Entity();
+		
+		tileEntity.add(new TileApertureComponent());
+		
+		var bd = B2.createBodyDef(u*SIZE, v*SIZE, B2BodyType.KINEMATIC_BODY);
 		var fd = B2.createFixtureDef();
-		entity.add(new BodyComponent(bd, fd));
-		return entity;
+		tileEntity.add(new BodyComponent(bd, fd));
+		
+		return tileEntity;
 	}
 	
 }
