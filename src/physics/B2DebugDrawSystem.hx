@@ -24,11 +24,11 @@ class B2DebugDrawSystem extends System
 		debugDraw.setDrawScale(1);
 		debugDraw.setFlags(
 		
-			//B2DebugDraw.e_aabbBit | 
-			//B2DebugDraw.e_centerOfMassBit | 
-			//B2DebugDraw.e_controllerBit | 
-			//B2DebugDraw.e_jointBit | 
-			//B2DebugDraw.e_pairBit | 
+			B2DebugDraw.e_aabbBit | 
+			B2DebugDraw.e_centerOfMassBit | 
+			B2DebugDraw.e_controllerBit | 
+			B2DebugDraw.e_jointBit | 
+			B2DebugDraw.e_pairBit | 
 			B2DebugDraw.e_shapeBit
 		);
 		B2.world.setDebugDraw(debugDraw);

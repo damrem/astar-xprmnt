@@ -26,7 +26,8 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 		fixtureDef = B2.createFixtureDef();
 		
 		cornerBlockSize = (TileFactory.SIZE - TileFactory.TUNNEL_SIZE) / 4;
-		cornerBlockAbsCoord = (TileFactory.TUNNEL_SIZE + cornerBlockSize) / 2;
+		cornerBlockAbsCoord = (TileFactory.TUNNEL_SIZE) / 2 + cornerBlockSize;
+		trace(cornerBlockAbsCoord);
 		cornerBlockCoords = [ -cornerBlockAbsCoord, cornerBlockAbsCoord];
 		wallLength = TileFactory.TUNNEL_SIZE / 2;
 		
@@ -49,8 +50,6 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 				node.body.b2body.createFixture(fixtureDef);
 			}
 		}
-		
-		
 		
 		if (!node.aperture.bottom)
 		{
