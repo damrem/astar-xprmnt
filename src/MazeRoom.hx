@@ -35,6 +35,9 @@ class MazeRoom extends Room
 	
 	public var phyDebugSprite:Sprite;
 	
+	public static inline var MAZE_WIDTH:Int = 2;
+	public static inline var MAZE_HEIGHT:Int = 2;
+	
 
 	public function new(fullWidth:Float, fullHeight:Float, ratio:UInt) 
 	{
@@ -44,7 +47,7 @@ class MazeRoom extends Room
 		
 		phyDebugSprite = new Sprite();
 		
-		B2.world = new B2World(SimpleBodyCreateDestroySystem.GRAVITY, true);
+		B2.world = new B2World(B2.GRAVITY, true);
 		
 		engine = new Engine();
 		
@@ -52,9 +55,9 @@ class MazeRoom extends Room
 		hero.add(new SimpleComponent());
 		//engine.addEntity(hero);
 		
-		for (entity in createSimpleEntities())
+		for (entity in createWallEntities())
 		{
-			//engine.addEntity(entity);
+			engine.addEntity(entity);
 		};
 		
 		var tile = new Entity("tile");
@@ -63,7 +66,7 @@ class MazeRoom extends Room
 		
 		//engine.addEntity(TileFactory.create());
 		
-		for (tile in MazeGenerator.create(2, 2))
+		for (tile in MazeGenerator.create(MAZE_WIDTH, MAZE_HEIGHT))
 		{
 			engine.addEntity(tile);
 		}
@@ -121,7 +124,16 @@ class MazeRoom extends Room
 			
 			//engine.addEntity(entity);
 		}
+		return entities;
+	}
+	
+	function createWallEntities():Array<Entity>
+	{
 		
+		var entities = [];
+		
+		var w = MAZE_WIDTH * TileFactory.TILE_SIZE;
+		var h = MAZE_HEIGHT * TileFactory.TILE_SIZE;
 		
 		var westWall = WallFactory.createWallEntity( -h, 0, h, Colors.WHITE);
 		westWall.add(new SimpleComponent());

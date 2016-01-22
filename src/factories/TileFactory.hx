@@ -13,7 +13,7 @@ import physics.BodyComponent;
  */
 class TileFactory
 {
-	public static var SIZE:Float = 64;
+	public static var TILE_SIZE:Float = 64;
 	public static var TUNNEL_SIZE:Float = 32;
 	
 
@@ -23,7 +23,7 @@ class TileFactory
 		
 		tileEntity.add(new TileApertureComponent());
 		
-		var bd = B2.createBodyDef(u*SIZE, v*SIZE, B2BodyType.KINEMATIC_BODY);
+		var bd = B2.createBodyDef(u*TILE_SIZE, v*TILE_SIZE, B2BodyType.KINEMATIC_BODY);
 		var fd = B2.createFixtureDef();
 		tileEntity.add(new BodyComponent(bd, fd));
 		

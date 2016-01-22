@@ -25,7 +25,7 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 		
 		fixtureDef = B2.createFixtureDef();
 		
-		cornerBlockSize = (TileFactory.SIZE - TileFactory.TUNNEL_SIZE) / 4;
+		cornerBlockSize = (TileFactory.TILE_SIZE - TileFactory.TUNNEL_SIZE) / 4;
 		cornerBlockAbsCoord = (TileFactory.TUNNEL_SIZE) / 2 + cornerBlockSize;
 		trace(cornerBlockAbsCoord);
 		cornerBlockCoords = [ -cornerBlockAbsCoord, cornerBlockAbsCoord];

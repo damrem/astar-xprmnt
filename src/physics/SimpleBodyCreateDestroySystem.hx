@@ -12,9 +12,7 @@ import openfl.display.Sprite;
  */
 class SimpleBodyCreateDestroySystem extends ListIteratingSystem<SimpleBodyNode>
 {
-	static public var GRAVITY:B2Vec2 = new B2Vec2();
-	static public inline var PERIOD:Float = 1 / 60;
-
+	
 	public function new() 
 	{
 		super(SimpleBodyNode, updateNode, nodeAdded, nodeRemoved);
@@ -24,7 +22,7 @@ class SimpleBodyCreateDestroySystem extends ListIteratingSystem<SimpleBodyNode>
 	{
 		//trace("update");
 		super.update(time);
-		B2.world.step(PERIOD, 8, 3);
+		B2.world.step(B2.PERIOD, 8, 3);
 		B2.world.drawDebugData();
 	}
 	
