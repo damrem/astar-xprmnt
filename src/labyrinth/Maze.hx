@@ -5,7 +5,6 @@ import de.polygonal.ai.pathfinding.AStarWaypoint;
 import de.polygonal.ds.Array2;
 import de.polygonal.ds.Graph;
 import hxlpers.Direction;
-import openfl.display.LineScaleMode;
 import openfl.display.Shape;
 import openfl.display.Sprite;
 import openfl.events.MouseEvent;

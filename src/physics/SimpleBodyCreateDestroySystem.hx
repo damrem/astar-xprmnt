@@ -1,10 +1,6 @@
 package physics;
 
 import ash.tools.ListIteratingSystem;
-import box2D.common.math.B2Vec2;
-import box2D.dynamics.B2DebugDraw;
-import box2D.dynamics.B2World;
-import openfl.display.Sprite;
 
 /**
  * ...

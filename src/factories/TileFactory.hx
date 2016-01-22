@@ -1,8 +1,6 @@
 package factories;
 import ash.core.Entity;
-import box2D.dynamics.B2BodyDef;
 import box2D.dynamics.B2BodyType;
-import box2D.dynamics.B2FixtureDef;
 import labyrinth.TileApertureComponent;
 import physics.B2;
 import physics.BodyComponent;

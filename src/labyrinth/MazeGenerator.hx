@@ -1,8 +1,5 @@
 package labyrinth;
-import ash.core.Engine;
 import ash.core.Entity;
-import ash.core.System;
-import ash.tools.ListIteratingSystem;
 import de.polygonal.ds.Array2;
 import factories.TileFactory;
 
