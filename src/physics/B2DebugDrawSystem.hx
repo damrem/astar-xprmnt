@@ -16,6 +16,7 @@ class B2DebugDrawSystem extends System
 		super();
 		
 		var sprite = new Sprite();
+		sprite.x = sprite.y = 50;
 		sprite.mouseEnabled = false;
 		host.addChild(sprite);
 		

@@ -23,7 +23,7 @@ class TileFactory
 		
 		tileEntity.add(new TileApertureComponent());
 		
-		var bd = B2.createBodyDef(u*TILE_SIZE, v*TILE_SIZE, B2BodyType.KINEMATIC_BODY);
+		var bd = B2.createBodyDef((u+0.5)*TILE_SIZE, (v+0.5)*TILE_SIZE, B2BodyType.KINEMATIC_BODY);
 		var fd = B2.createFixtureDef();
 		tileEntity.add(new BodyComponent(bd, fd));
 		

@@ -35,8 +35,8 @@ class MazeRoom extends Room
 	
 	public var phyDebugSprite:Sprite;
 	
-	public static inline var MAZE_WIDTH:Int = 2;
-	public static inline var MAZE_HEIGHT:Int = 2;
+	public static inline var MAZE_WIDTH:Int = 5;
+	public static inline var MAZE_HEIGHT:Int = 5;
 	
 
 	public function new(fullWidth:Float, fullHeight:Float, ratio:UInt) 

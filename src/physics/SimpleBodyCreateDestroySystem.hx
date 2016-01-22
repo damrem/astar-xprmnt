@@ -20,10 +20,8 @@ class SimpleBodyCreateDestroySystem extends ListIteratingSystem<SimpleBodyNode>
 	
 	override public function update(time:Float)
 	{
-		//trace("update");
 		super.update(time);
 		B2.world.step(B2.PERIOD, 8, 3);
-		B2.world.drawDebugData();
 	}
 	
 	
