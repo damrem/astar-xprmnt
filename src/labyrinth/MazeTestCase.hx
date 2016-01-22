@@ -45,7 +45,7 @@ class MazeTestCase
 		expected = maze.tiles.get(2, 1);
 		D.assert(neighbor == expected, "right neighbor");
 		
-		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Bottom);
+		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Down);
 		expected = maze.tiles.get(1, 2);
 		D.assert(neighbor == expected, "bottom neighbor");
 		
@@ -53,7 +53,7 @@ class MazeTestCase
 		expected = maze.tiles.get(0, 1);
 		D.assert(neighbor == expected, "left neighbor");
 		
-		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Top);
+		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Up);
 		expected = maze.tiles.get(1, 0);
 		D.assert(neighbor == expected, "top neighbor");
 		
@@ -63,7 +63,7 @@ class MazeTestCase
 		expected = null;
 		D.assert(neighbor == expected, "no left neighbor");
 		
-		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Top);
+		neighbor = maze.tiles.getNeighbor(center, hxlpers.Direction.Up);
 		expected = null;
 		D.assert(neighbor == expected, "no top neighbor");	
 	}

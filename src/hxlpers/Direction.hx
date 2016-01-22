@@ -7,7 +7,8 @@ package hxlpers;
 enum Direction 
 {
 	Right;
-	Bottom;
+	Down;
 	Left;
-	Top;
+	Up;
+	None;
 }

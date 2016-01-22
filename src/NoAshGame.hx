@@ -101,13 +101,13 @@ class NoAshGame extends Sprite
 					direction = hxlpers.Direction.Left;
 					
 				case 38:
-					direction = hxlpers.Direction.Top;
+					direction = hxlpers.Direction.Up;
 					
 				case 39:
 					direction = hxlpers.Direction.Right;
 					
 				case 40:
-					direction = hxlpers.Direction.Bottom;
+					direction = hxlpers.Direction.Down;
 					
 				default:
 					return;

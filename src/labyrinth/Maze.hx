@@ -136,7 +136,7 @@ class Maze extends Sprite
 			}
 		}
 		
-		var bottom = tiles.getNeighbor(tile, hxlpers.Direction.Bottom);
+		var bottom = tiles.getNeighbor(tile, hxlpers.Direction.Down);
 		if (bottom != null)
 		{
 			if(areConnected(tile, bottom))
@@ -154,7 +154,7 @@ class Maze extends Sprite
 			}
 		}
 		
-		var top = tiles.getNeighbor(tile, hxlpers.Direction.Top);
+		var top = tiles.getNeighbor(tile, hxlpers.Direction.Up);
 		if (top != null)
 		{
 			if(areConnected(tile, top))

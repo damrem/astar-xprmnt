@@ -4,6 +4,7 @@ import ash.core.Engine;
 import ash.core.Entity;
 import ash.tick.FrameTickProvider;
 import box2D.dynamics.B2World;
+import controls.KeyboardControlledComponent;
 import controls.KeyboardControlSystem;
 import factories.SimpleEntityCreator;
 import factories.TileFactory;
@@ -16,6 +17,7 @@ import labyrinth.MazeGenerator;
 import labyrinth.TileToPhysicsConvertSystem;
 import openfl.display.Sprite;
 import openfl.Lib;
+import openfl.ui.Keyboard;
 import physics.B2;
 import physics.B2DebugDrawSystem;
 import physics.SimpleBodyCreateDestroySystem;
@@ -54,7 +56,12 @@ class MazeRoom extends Room
 		engine = new Engine();
 		
 		var hero = SimpleEntityCreator.createBallEntity(32, 32, 24, 0, 0xff0000);
-		hero.add(new RandomMove());
+		hero.add(new KeyboardControlledComponent( {
+			left:Keyboard.LEFT, 
+			up:Keyboard.UP, 
+			right:Keyboard.RIGHT, 
+			down:Keyboard.DOWN 
+		}));
 		hero.add(new SimpleComponent());
 		engine.addEntity(hero);
 		
@@ -62,12 +69,6 @@ class MazeRoom extends Room
 		{
 			engine.addEntity(entity);
 		};
-		
-		var tile = new Entity("tile");
-		
-		
-		
-		//engine.addEntity(TileFactory.create());
 		
 		for (tile in MazeGenerator.create(MAZE_WIDTH, MAZE_HEIGHT))
 		{
@@ -82,7 +83,7 @@ class MazeRoom extends Room
 		//engine.addSystem(new PhyToGfxSyncSystem(), 8);
 		//engine.addSystem(new SelectionSystem(), 10);
 		//engine.addSystem(new RenderSystem(this), 15);
-		engine.addSystem(new KeyboardControlSystem(Lib.current.stage), 18);
+		engine.addSystem(new KeyboardControlSystem(), 18);
 		engine.addSystem(new B2DebugDrawSystem(this), 20);
 		
 		start();

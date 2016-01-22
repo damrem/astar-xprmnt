@@ -28,11 +28,12 @@ class Array2SF
 		return user.getCellOf(x).x == user.getCellOf(y).x;
 	}
 	
-	static public function getNeighborCell<T>(user:Array2<T>, refCell:Array2Cell, direction:hxlpers.Direction, wrapped=false):Array2Cell
+	static public function getNeighborCell<T>(user:Array2<T>, refCell:Array2Cell, direction:Direction, wrapped=false):Array2Cell
 	{
 		var cell = new Array2Cell(refCell.x, refCell.y);
 		switch(direction)
 		{
+			default:
 			case Right:
 				cell.x++;
 				if (cell.x >= user.getW())
@@ -41,7 +42,7 @@ class Array2SF
 					cell.x = 0;
 				}
 				
-			case Bottom:
+			case Down:
 				cell.y++;
 				if (cell.y >= user.getH())
 				{
@@ -57,7 +58,7 @@ class Array2SF
 					cell.x = user.getW() - 1;
 				}
 				
-			case Top:
+			case Up:
 				cell.y--;
 				if (cell.y < 0)
 				{
@@ -100,22 +101,23 @@ class Array2SF
 		
 		switch(direction)
 		{
-			case Right:
+			default:
+			case Direction.Right:
 				user.getRow(rowIndex, colOrRow);
 				colOrRow.unshift(colOrRow.pop());
 				user.setRow(rowIndex, colOrRow);
 				
-			case Bottom:
+			case Direction.Down:
 				user.getCol(colIndex, colOrRow);
 				colOrRow.unshift(colOrRow.pop());
 				user.setCol(colIndex, colOrRow);
 				
-			case Left:
+			case Direction.Left:
 				user.getRow(rowIndex, colOrRow);
 				colOrRow.push(colOrRow.shift());
 				user.setRow(rowIndex, colOrRow);
 				
-			case Top:
+			case Direction.Up:
 				user.getCol(colIndex, colOrRow);
 				colOrRow.push(colOrRow.shift());
 				user.setCol(colIndex, colOrRow);

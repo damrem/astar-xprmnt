@@ -26,6 +26,7 @@ class SimpleEntityCreator
 		entity.add(new Gfx(sprite));
 		
 		var bodyDef = B2.createBodyDef(_x, _y);
+		bodyDef.linearDamping = 25;
 		var fixtureDef = B2.createFixtureDef();
 		fixtureDef.shape = new B2CircleShape(radius);
 		entity.add(new BodyComponent(bodyDef, fixtureDef));
