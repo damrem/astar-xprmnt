@@ -4,6 +4,7 @@ import ash.core.Engine;
 import ash.core.Entity;
 import ash.tick.FrameTickProvider;
 import box2D.dynamics.B2World;
+import controls.KeyboardControlSystem;
 import factories.SimpleEntityCreator;
 import factories.TileFactory;
 import factories.WallFactory;
@@ -14,6 +15,7 @@ import hxlpers.Rnd;
 import labyrinth.MazeGenerator;
 import labyrinth.TileToPhysicsConvertSystem;
 import openfl.display.Sprite;
+import openfl.Lib;
 import physics.B2;
 import physics.B2DebugDrawSystem;
 import physics.SimpleBodyCreateDestroySystem;
@@ -31,7 +33,7 @@ class MazeRoom extends Room
 {
 	var tickProvider:FrameTickProvider;
 	var engine:Engine;
-	var creator:factories.SimpleEntityCreator;
+	var creator:SimpleEntityCreator;
 	
 	public var phyDebugSprite:Sprite;
 	
@@ -51,9 +53,10 @@ class MazeRoom extends Room
 		
 		engine = new Engine();
 		
-		var hero = factories.SimpleEntityCreator.createBallEntity(50, 50, 50, 0, 0xff0000);
+		var hero = SimpleEntityCreator.createBallEntity(32, 32, 24, 0, 0xff0000);
+		hero.add(new RandomMove());
 		hero.add(new SimpleComponent());
-		//engine.addEntity(hero);
+		engine.addEntity(hero);
 		
 		for (entity in createWallEntities())
 		{
@@ -79,6 +82,7 @@ class MazeRoom extends Room
 		//engine.addSystem(new PhyToGfxSyncSystem(), 8);
 		//engine.addSystem(new SelectionSystem(), 10);
 		//engine.addSystem(new RenderSystem(this), 15);
+		engine.addSystem(new KeyboardControlSystem(Lib.current.stage), 18);
 		engine.addSystem(new B2DebugDrawSystem(this), 20);
 		
 		start();
