@@ -3,6 +3,7 @@ package;
 import ash.core.Engine;
 import ash.core.Entity;
 import ash.tick.FrameTickProvider;
+import ash.tick.ITickProvider;
 import box2D.dynamics.B2World;
 import controls.KeyboardControlledComponent;
 import controls.KeyboardControlSystem;
@@ -16,11 +17,11 @@ import hxlpers.Rnd;
 import labyrinth.MazeGenerator;
 import labyrinth.TileToPhysicsConvertSystem;
 import openfl.display.Sprite;
-import openfl.Lib;
 import openfl.ui.Keyboard;
+import openfl.utils.Timer;
 import physics.B2;
 import physics.B2DebugDrawSystem;
-import physics.SimpleBodyCreateDestroySystem;
+import physics.B2System;
 import randommove.RandomMove;
 import randommove.RandomMoveSystem;
 import selection.Selectable;
@@ -33,9 +34,10 @@ using hxlpers.display.SpriteSF;
  */
 class MazeRoom extends Room
 {
-	var tickProvider:FrameTickProvider;
+	var tickProvider:ITickProvider;
 	var engine:Engine;
 	var creator:SimpleEntityCreator;
+	var timer:Timer;
 	
 	public var phyDebugSprite:Sprite;
 	
@@ -48,6 +50,8 @@ class MazeRoom extends Room
 		super(fullWidth, fullHeight, ratio);
 		
 		tickProvider = new FrameTickProvider(this);
+		//cast(tickProvider, HaxeTimerTickProvider).timeAdjustment = 2;
+		//timer = new Timer(1 / 60);
 		
 		phyDebugSprite = new Sprite();
 		
@@ -76,7 +80,7 @@ class MazeRoom extends Room
 		}
 		
 		
-		engine.addSystem(new SimpleBodyCreateDestroySystem(), 1);
+		engine.addSystem(new B2System(), 1);
 		
 		engine.addSystem(new TileToPhysicsConvertSystem(), 3);
 		engine.addSystem(new RandomMoveSystem(), 5);

@@ -6,7 +6,7 @@ import ash.tools.ListIteratingSystem;
  * ...
  * @author damrem
  */
-class SimpleBodyCreateDestroySystem extends ListIteratingSystem<SimpleBodyNode>
+class B2System extends ListIteratingSystem<SimpleBodyNode>
 {
 	
 	public function new() 
@@ -16,8 +16,15 @@ class SimpleBodyCreateDestroySystem extends ListIteratingSystem<SimpleBodyNode>
 	
 	override public function update(time:Float)
 	{
+		//var adaptedTime = time * Main.THEORICAL_FPS / Main.fps.currentFPS;
+		//trace(time, adaptedTime);
+		//var period:Float = 1 / Main.fps.currentFPS;
 		super.update(time);
-		B2.world.step(B2.PERIOD, 8, 3);
+		//if (Math.isFinite(adaptedTime))
+		{
+			//trace(B2.PERIOD, 1 / Main.fps.currentFPS);
+			B2.world.step(time, 8, 3);
+		}
 	}
 	
 	

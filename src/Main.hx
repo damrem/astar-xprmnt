@@ -15,6 +15,8 @@ using hxlpers.ds.Array2SF;
  */
 class Main extends Sprite
 {
+	static public var fps:FPS;
+	static public var THEORICAL_FPS:Int = 60;
 
 	public function new() 
 	{
@@ -35,7 +37,8 @@ class Main extends Sprite
 		
 		addChild(mazeRoom.phyDebugSprite);
 		
-		addChild(new FPS(10, 10, 0xffffff));
+		fps = new FPS(10, 10, 0xffffff);
+		addChild(fps);
 	}
 	
 }
