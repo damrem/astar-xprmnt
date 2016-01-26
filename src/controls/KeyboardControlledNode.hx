@@ -14,9 +14,3 @@ class KeyboardControlledNode extends Node<KeyboardControlledNode>
 	
 }
 
-typedef KeySet = {
-	var left:Int;
-	var up:Int;
-	var right:Int;
-	var down:Int;
-};

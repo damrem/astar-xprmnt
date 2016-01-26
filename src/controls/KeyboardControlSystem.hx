@@ -15,13 +15,13 @@ import openfl.ui.Keyboard;
 class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 {
 	
-	var pressedKeys:Array<Bool>;
+	var keyStates:Array<KeyState>;
 	
 	public function new() 
 	{
 		super(KeyboardControlledNode, updateNode, nodeAdded, nodeRemoved);
 		
-		pressedKeys = [];
+		keyStates = [];
 		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
@@ -29,26 +29,47 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 	
 	function onKeyDown(e:KeyboardEvent):Void 
 	{
-		pressedKeys[e.keyCode] = true;
+		var keyState = keyStates[e.keyCode];
+		if (keyState == null || keyState == KeyState.Released || keyState == KeyState.JustReleased)
+		{
+			keyStates[e.keyCode] = KeyState.JustPressed;
+		}
+		else 
+		{
+			keyStates[e.keyCode] = KeyState.Pressed;
+		}
 	}
 	
 	function onKeyUp(e:KeyboardEvent):Void 
 	{
-		pressedKeys[e.keyCode] = false;
+		var keyState = keyStates[e.keyCode];
+		if (keyState == null || keyState == KeyState.Pressed || keyState == KeyState.JustPressed)
+		{
+			keyStates[e.keyCode] = KeyState.JustReleased;
+		}
+		else 
+		{
+			keyStates[e.keyCode] = KeyState.Released;
+		}
 	}
 	
 	
 	
 	function updateNode(node:KeyboardControlledNode, time:Float) 
 	{
-		var isLeftPressed = pressedKeys[node.controlled.keySet.left];
-		var isUpPressed = pressedKeys[node.controlled.keySet.up];
-		var isRightPressed = pressedKeys[node.controlled.keySet.right];
-		var isDownPressed = pressedKeys[node.controlled.keySet.down];
+		var leftState = keyStates[node.controlled.keySet.left];
+		var upState = keyStates[node.controlled.keySet.up];
+		var rightState = keyStates[node.controlled.keySet.right];
+		var downState = keyStates[node.controlled.keySet.down];
+		
+		var isLeftPressed = leftState == KeyState.JustPressed || leftState == KeyState.Pressed;
+		var isUpPressed = upState == KeyState.JustPressed || upState == KeyState.Pressed;
+		var isRightPressed = rightState == KeyState.JustPressed || rightState == KeyState.Pressed;
+		var isDownPressed = downState == KeyState.JustPressed || downState == KeyState.Pressed;
 		
 
 		if (isLeftPressed)
-		{
+		{	
 			node.controlled.hDirection = Left;
 		}
 		
@@ -123,10 +144,3 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 	
 }
 
-enum Direction {
-	Up;
-	Down;
-	Left;
-	Right;
-	None;
-}

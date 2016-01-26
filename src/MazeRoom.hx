@@ -64,7 +64,8 @@ class MazeRoom extends Room
 			left:Keyboard.LEFT, 
 			up:Keyboard.UP, 
 			right:Keyboard.RIGHT, 
-			down:Keyboard.DOWN 
+			down:Keyboard.DOWN,
+			shoot:Keyboard.SPACE
 		}));
 		hero.add(new SimpleComponent());
 		engine.addEntity(hero);

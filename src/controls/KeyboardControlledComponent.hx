@@ -1,6 +1,6 @@
 package controls;
 import box2D.common.math.B2Vec2;
-import controls.KeyboardControlledNode.KeySet;
+
 import hxlpers.Direction;
 
 /**
@@ -23,3 +23,11 @@ class KeyboardControlledComponent
 	}
 	
 }
+
+typedef KeySet = {
+	var left:Int;
+	var up:Int;
+	var right:Int;
+	var down:Int;
+	var shoot:Int;
+};
