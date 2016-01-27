@@ -9,15 +9,16 @@ import hxlpers.Direction;
  */
 class KeyboardControlledComponent
 {
-	public var keySet:KeySet;
+	public var keyMap:Map<Int, Dynamic>;
 	public var vDirection:Direction;
 	public var hDirection:Direction;
 	public var impulse:B2Vec2;
 	public var reactivity:Float = 5000;
 
-	public function new(keyCodeSet:KeySet)
+	public function new(keyMap:Map<Int, Dynamic>)
 	{
-		this.keySet = keyCodeSet;
+		this.keyMap = keyMap;
+		//this.keySet = keyCodeSet;
 		impulse = new B2Vec2();
 		hDirection = vDirection = Direction.None;
 	}

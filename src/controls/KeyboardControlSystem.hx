@@ -19,7 +19,7 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 	
 	public function new() 
 	{
-		super(KeyboardControlledNode, updateNode, nodeAdded, nodeRemoved);
+		super(KeyboardControlledNode, updateNode);
 		
 		keyStates = [];
 		
@@ -132,15 +132,7 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 		}
 	}
 	
-	function nodeAdded(node:KeyboardControlledNode) 
-	{
-		
-	}
 	
-	function nodeRemoved(node:KeyboardControlledNode) 
-	{
-		
-	}
 	
 }
 

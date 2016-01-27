@@ -7,6 +7,7 @@ import ash.tick.ITickProvider;
 import box2D.dynamics.B2World;
 import controls.KeyboardControlledComponent;
 import controls.KeyboardControlSystem;
+import factories.HeroFactory;
 import factories.SimpleEntityCreator;
 import factories.TileFactory;
 import factories.WallFactory;
@@ -59,16 +60,8 @@ class MazeRoom extends Room
 		
 		engine = new Engine();
 		
-		var hero = SimpleEntityCreator.createBallEntity(32, 32, 24, 0, 0xff0000);
-		hero.add(new KeyboardControlledComponent( {
-			left:Keyboard.LEFT, 
-			up:Keyboard.UP, 
-			right:Keyboard.RIGHT, 
-			down:Keyboard.DOWN,
-			shoot:Keyboard.SPACE
-		}));
-		hero.add(new SimpleComponent());
-		engine.addEntity(hero);
+		
+		engine.addEntity(HeroFactory.createHero(32, 32));
 		
 		for (entity in createWallEntities())
 		{
