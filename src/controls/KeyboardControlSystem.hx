@@ -14,15 +14,15 @@ import openfl.ui.Keyboard;
  */
 class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 {
-	var rawKeyStates:Map<Int, Bool>;
+	var pressedKeys:Map<Int, Bool>;
 	var keyStates:Map<Int, KeyState>;
 	
 	public function new() 
 	{
 		super(KeyboardControlledNode, updateNode);
 		
-		rawKeyStates = [];
-		keyStates = [];
+		pressedKeys = new Map<Int, Bool>();
+		keyStates = new Map<Int, KeyState>();
 		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
@@ -30,47 +30,51 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 	
 	function onKeyDown(e:KeyboardEvent):Void 
 	{
-		
-		rawKeyStates[e.keyCode] = true;
-		/*
-		var rawKeyState = rawKeyStates[e.keyCode];
-		if (rawKeyState == null || rawKeyState == KeyState.Released || rawKeyState == KeyState.JustReleased)
-		{
-			keyStates[e.keyCode] = KeyState.JustPressed;
-		}
-		else 
-		{
-			keyStates[e.keyCode] = KeyState.Pressed;
-		}
-		trace(e.keyCode, rawKeyState);
-		*/
+		pressedKeys[e.keyCode] = true;
 	}
 	
 	function onKeyUp(e:KeyboardEvent):Void 
 	{
-		rawKeyStates[e.keyCode] = false;
-		/*
-		var keyState = keyStates[e.keyCode];
-		if (keyState == null || keyState == KeyState.Pressed || keyState == KeyState.JustPressed)
-		{
-			keyStates[e.keyCode] = KeyState.JustReleased;
-		}
-		else 
-		{
-			keyStates[e.keyCode] = KeyState.Released;
-		}
-		trace(e.keyCode, keyState);
-		*/
+		pressedKeys[e.keyCode] = false;
 	}
 	
-	
+	override public function update(time:Float)
+	{
+		trace("update");
+		for (key in pressedKeys.keys())
+		{
+			if (pressedKeys[key])
+			{
+				if (keyStates[key] == null || keyStates[key] == KeyState.Released || keyStates[key]==KeyState.JustReleased)
+				{
+					keyStates[key] = KeyState.JustPressed;
+				}
+				else
+				{
+					keyStates[key] = KeyState.Pressed;
+				}
+			}
+			else
+			{
+				if (keyStates[key]==KeyState.Pressed || keyStates[key]==KeyState.JustPressed)
+				{
+					keyStates[key] = KeyState.JustReleased;
+				}
+				else
+				{
+					keyStates[key] = KeyState.Released;
+				}
+			}
+		}
+		
+		super.update(time);
+	}
 	
 	function updateNode(node:KeyboardControlledNode, time:Float) 
 	{
-		for (key in rawKeyStates.keys())
-		{
-			
-		}
+		
+		
+		//trace(keyStates);
 		/*for (key in keyStates.keys())
 		{
 			if (node.controlled.keyMap[key] != null)
