@@ -20,12 +20,10 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 		super(KeyboardControlledNode, updateNode);
 	}
 	
-	
-	
-	
-	
 	function updateNode(node:KeyboardControlledNode, time:Float) 
 	{
+		
+		/*
 		var leftState = keyStates[node.controlled.keySet.left];
 		var upState = keyStates[node.controlled.keySet.up];
 		var rightState = keyStates[node.controlled.keySet.right];
@@ -99,6 +97,7 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 		if (node.controlled.impulse.x != 0 || node.controlled.impulse.y != 0) {			
 			node.body.b2body.applyImpulse(node.controlled.impulse, node.body.b2body.getWorldCenter());
 		}
+		*/
 	}
 	
 	

@@ -9,7 +9,7 @@ import physics.BodyComponent;
 class KeyboardControlledNode extends Node<KeyboardControlledNode>
 {
 	public var controlled:KeyboardControlledComponent;
-	public var body:BodyComponent;
+	//public var body:BodyComponent;
 	
 	
 }
