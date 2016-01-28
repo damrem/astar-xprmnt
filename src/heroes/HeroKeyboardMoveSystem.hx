@@ -1,4 +1,4 @@
-package controls;
+package heroes;
 
 import ash.tools.ListIteratingSystem;
 import box2D.common.math.B2Vec2;
@@ -14,14 +14,13 @@ import openfl.ui.Keyboard;
  */
 class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 {
-	var rawKeyStates:Map<Int, Bool>;
-	var keyStates:Map<Int, KeyState>;
+	
+	var keyStates:Array<KeyState>;
 	
 	public function new() 
 	{
 		super(KeyboardControlledNode, updateNode);
 		
-		rawKeyStates = [];
 		keyStates = [];
 		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
@@ -30,11 +29,8 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 	
 	function onKeyDown(e:KeyboardEvent):Void 
 	{
-		
-		rawKeyStates[e.keyCode] = true;
-		/*
-		var rawKeyState = rawKeyStates[e.keyCode];
-		if (rawKeyState == null || rawKeyState == KeyState.Released || rawKeyState == KeyState.JustReleased)
+		var keyState = keyStates[e.keyCode];
+		if (keyState == null || keyState == KeyState.Released || keyState == KeyState.JustReleased)
 		{
 			keyStates[e.keyCode] = KeyState.JustPressed;
 		}
@@ -42,14 +38,10 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 		{
 			keyStates[e.keyCode] = KeyState.Pressed;
 		}
-		trace(e.keyCode, rawKeyState);
-		*/
 	}
 	
 	function onKeyUp(e:KeyboardEvent):Void 
 	{
-		rawKeyStates[e.keyCode] = false;
-		/*
 		var keyState = keyStates[e.keyCode];
 		if (keyState == null || keyState == KeyState.Pressed || keyState == KeyState.JustPressed)
 		{
@@ -59,31 +51,12 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 		{
 			keyStates[e.keyCode] = KeyState.Released;
 		}
-		trace(e.keyCode, keyState);
-		*/
 	}
 	
 	
 	
 	function updateNode(node:KeyboardControlledNode, time:Float) 
 	{
-		for (key in rawKeyStates.keys())
-		{
-			
-		}
-		/*for (key in keyStates.keys())
-		{
-			if (node.controlled.keyMap[key] != null)
-			{
-				
-				node.controlled.keyStates[key] = keyStates[key];
-				//trace('system', keyStates);
-				//trace('entity', node.controlled.keyStates);
-			}
-			//node.controlled.keyMap
-		}
-		
-		/*
 		var leftState = keyStates[node.controlled.keySet.left];
 		var upState = keyStates[node.controlled.keySet.up];
 		var rightState = keyStates[node.controlled.keySet.right];
@@ -157,7 +130,6 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 		if (node.controlled.impulse.x != 0 || node.controlled.impulse.y != 0) {			
 			node.body.b2body.applyImpulse(node.controlled.impulse, node.body.b2body.getWorldCenter());
 		}
-		*/
 	}
 	
 	

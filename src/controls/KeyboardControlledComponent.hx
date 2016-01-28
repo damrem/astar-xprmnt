@@ -14,10 +14,12 @@ class KeyboardControlledComponent
 	public var hDirection:Direction;
 	public var impulse:B2Vec2;
 	public var reactivity:Float = 5000;
+	public var keyStates:Map<Int, KeyState>;
 
-	public function new(keyMap:Map<Int, Dynamic>)
+	public function new(?keyMap:Map<Int, Dynamic>)
 	{
-		this.keyMap = keyMap;
+		this.keyMap = keyMap == null ? new Map<Int, Dynamic>() : keyMap;
+		keyStates = new Map<Int, KeyState>();
 		//this.keySet = keyCodeSet;
 		impulse = new B2Vec2();
 		hDirection = vDirection = Direction.None;
