@@ -72,7 +72,14 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 	
 	function updateNode(node:KeyboardControlledNode, time:Float) 
 	{
-		
+		for (keyCode in node.controlled.keyMap.keys())
+		{
+			if (this.keyStates[keyCode] != null)
+			{
+				node.controlled.keyStates[keyCode] = this.keyStates[keyCode];
+			}
+		}
+		trace(node.controlled.keyStates);
 		
 		//trace(keyStates);
 		/*for (key in keyStates.keys())
