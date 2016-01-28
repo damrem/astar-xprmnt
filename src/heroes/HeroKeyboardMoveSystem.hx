@@ -15,43 +15,12 @@ import openfl.ui.Keyboard;
 class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 {
 	
-	var keyStates:Array<KeyState>;
-	
 	public function new() 
 	{
 		super(KeyboardControlledNode, updateNode);
-		
-		keyStates = [];
-		
-		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 	}
 	
-	function onKeyDown(e:KeyboardEvent):Void 
-	{
-		var keyState = keyStates[e.keyCode];
-		if (keyState == null || keyState == KeyState.Released || keyState == KeyState.JustReleased)
-		{
-			keyStates[e.keyCode] = KeyState.JustPressed;
-		}
-		else 
-		{
-			keyStates[e.keyCode] = KeyState.Pressed;
-		}
-	}
 	
-	function onKeyUp(e:KeyboardEvent):Void 
-	{
-		var keyState = keyStates[e.keyCode];
-		if (keyState == null || keyState == KeyState.Pressed || keyState == KeyState.JustPressed)
-		{
-			keyStates[e.keyCode] = KeyState.JustReleased;
-		}
-		else 
-		{
-			keyStates[e.keyCode] = KeyState.Released;
-		}
-	}
 	
 	
 	
