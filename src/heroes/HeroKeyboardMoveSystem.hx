@@ -1,68 +1,81 @@
 package heroes;
 
 import ash.tools.ListIteratingSystem;
-import box2D.common.math.B2Vec2;
-import controls.KeyboardControlledNode;
-import openfl.display.Stage;
-import openfl.events.KeyboardEvent;
-import openfl.Lib;
-import openfl.ui.Keyboard;
+import controls.KeyState;
+import heroes.HeroControlNode;
+import heroes.HeroFactory.HeroCommand;
+import hxlpers.Direction;
 
 /**
  * ...
  * @author damrem
  */
-class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
+class HeroKeyboardMoveSystem extends ListIteratingSystem<HeroControlNode>
 {
 	
 	public function new() 
 	{
-		super(KeyboardControlledNode, updateNode);
+		super(HeroControlNode, updateNode);
 	}
 	
-	function updateNode(node:KeyboardControlledNode, time:Float) 
+	function updateNode(node:HeroControlNode, time:Float) 
 	{
+		var isLeftPressed = false;
+		var isUpPressed = false;
+		var isRightPressed = false;
+		var isDownPressed = false;
 		
-		/*
-		var leftState = keyStates[node.controlled.keySet.left];
-		var upState = keyStates[node.controlled.keySet.up];
-		var rightState = keyStates[node.controlled.keySet.right];
-		var downState = keyStates[node.controlled.keySet.down];
-		
-		var isLeftPressed = leftState == KeyState.JustPressed || leftState == KeyState.Pressed;
-		var isUpPressed = upState == KeyState.JustPressed || upState == KeyState.Pressed;
-		var isRightPressed = rightState == KeyState.JustPressed || rightState == KeyState.Pressed;
-		var isDownPressed = downState == KeyState.JustPressed || downState == KeyState.Pressed;
+		for (keyCode in node.controlled.keyStates.keys())
+		{
+			var state = node.controlled.keyStates[keyCode];
+			var command = node.controlled.keyMap[keyCode];
+			
+			switch(command)
+			{
+				case HeroCommand.Left:
+					isLeftPressed = state == KeyState.JustPressed || state == KeyState.Pressed;
+					
+				case HeroCommand.Up:
+					isUpPressed = state == KeyState.JustPressed || state == KeyState.Pressed;
+					
+				case HeroCommand.Right:
+					isRightPressed = state == KeyState.JustPressed || state == KeyState.Pressed;
+					
+				case HeroCommand.Down:
+					isDownPressed = state == KeyState.JustPressed || state == KeyState.Pressed;
+			}
+			
+		}
 		
 
 		if (isLeftPressed)
 		{	
-			node.controlled.hDirection = Left;
+			node.controlled.hDirection = Direction.Left;
 		}
 		
 		if (isUpPressed)
 		{
-			node.controlled.vDirection = Up;
+			node.controlled.vDirection = Direction.Up;
 		}
 		
 		if (isRightPressed)
 		{
-			node.controlled.hDirection = Right;
+			node.controlled.hDirection = Direction.Right;
 		}
 		
 		if (isDownPressed)
 		{
-			node.controlled.vDirection = Down;
+			node.controlled.vDirection = Direction.Down;
 		}
 		
 		if (!isLeftPressed && !isRightPressed)
 		{
-			node.controlled.hDirection = None;
+			node.controlled.hDirection = Direction.None;
 		}
 		
 		if (!isUpPressed && !isDownPressed)
 		{
-			node.controlled.vDirection = None;
+			node.controlled.vDirection = Direction.None;
 		}
 		
 		
@@ -97,7 +110,7 @@ class KeyboardControlSystem extends ListIteratingSystem<KeyboardControlledNode>
 		if (node.controlled.impulse.x != 0 || node.controlled.impulse.y != 0) {			
 			node.body.b2body.applyImpulse(node.controlled.impulse, node.body.b2body.getWorldCenter());
 		}
-		*/
+		
 	}
 	
 	

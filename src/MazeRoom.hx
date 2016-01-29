@@ -7,10 +7,12 @@ import ash.tick.ITickProvider;
 import box2D.dynamics.B2World;
 import controls.KeyboardControlledComponent;
 import controls.KeyboardControlSystem;
-import factories.HeroFactory;
+import heroes.HeroFactory;
 import factories.SimpleEntityCreator;
 import factories.TileFactory;
 import factories.WallFactory;
+import heroes.HeroKeyboardMoveSystem;
+import heroes.HeroKeyboardMoveSystem;
 import hxlpers.colors.Colors;
 import hxlpers.colors.RndColor;
 import hxlpers.game.Room;
@@ -82,6 +84,7 @@ class MazeRoom extends Room
 		//engine.addSystem(new SelectionSystem(), 10);
 		//engine.addSystem(new RenderSystem(this), 15);
 		engine.addSystem(new KeyboardControlSystem(), 18);
+		engine.addSystem(new HeroKeyboardMoveSystem(), 19);
 		engine.addSystem(new B2DebugDrawSystem(this), 20);
 		
 		start();
