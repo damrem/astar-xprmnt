@@ -35,7 +35,7 @@ class Main extends Sprite
 		var mazeRoom = new MazeRoom(stage.stageWidth, stage.stageHeight, 1);
 		game.addRoom("maze", mazeRoom);
 		
-		addChild(mazeRoom.phyDebugSprite);
+		//addChild(mazeRoom.phyDebugSprite);
 		
 		fps = new FPS(10, 10, 0xffffff);
 		addChild(fps);

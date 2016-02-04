@@ -17,7 +17,9 @@ import hxlpers.colors.Colors;
 import hxlpers.colors.RndColor;
 import hxlpers.game.Room;
 import hxlpers.Rnd;
+import labyrinth.MazeComponent;
 import labyrinth.MazeGenerator;
+import labyrinth.MazeMoveRandomSystem;
 import labyrinth.TileToPhysicsConvertSystem;
 import openfl.display.Sprite;
 import openfl.ui.Keyboard;
@@ -53,8 +55,6 @@ class MazeRoom extends Room
 		super(fullWidth, fullHeight, ratio);
 		
 		tickProvider = new FrameTickProvider(this);
-		//cast(tickProvider, HaxeTimerTickProvider).timeAdjustment = 2;
-		//timer = new Timer(1 / 60);
 		
 		phyDebugSprite = new Sprite();
 		
@@ -63,14 +63,19 @@ class MazeRoom extends Room
 		engine = new Engine();
 		
 		
-		engine.addEntity(HeroFactory.createHero(32, 32));
+		engine.addEntity(HeroFactory.createEntity(32, 32));
 		
 		for (entity in createWallEntities())
 		{
 			engine.addEntity(entity);
 		};
 		
-		for (tile in MazeGenerator.create(MAZE_WIDTH, MAZE_HEIGHT))
+		var mazeEntity = new Entity();
+		var tileEntities = MazeGenerator.create(MAZE_WIDTH, MAZE_HEIGHT);
+		mazeEntity.add(new MazeComponent(tileEntities));
+		
+		engine.addEntity(mazeEntity);
+		for (tile in tileEntities)
 		{
 			engine.addEntity(tile);
 		}
@@ -80,6 +85,7 @@ class MazeRoom extends Room
 		
 		engine.addSystem(new TileToPhysicsConvertSystem(), 3);
 		engine.addSystem(new RandomMoveSystem(), 5);
+		engine.addSystem(new MazeMoveRandomSystem(), 10);
 		//engine.addSystem(new PhyToGfxSyncSystem(), 8);
 		//engine.addSystem(new SelectionSystem(), 10);
 		//engine.addSystem(new RenderSystem(this), 15);
