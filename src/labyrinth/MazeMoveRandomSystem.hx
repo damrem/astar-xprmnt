@@ -58,7 +58,7 @@ class MazeMoveRandomSystem extends ListIteratingSystem<MazeNode>
 		
 		if (direction != Direction.None)
 		{
-			node.entity.add(new MazeMoveComponent(Std.random(MazeRoom.MAZE_WIDTH), Std.random(MazeRoom.MAZE_HEIGHT), direction));
+			node.entity.add(new MazeMovementComponent(Std.random(MazeRoom.MAZE_WIDTH), Std.random(MazeRoom.MAZE_HEIGHT), direction));
 		}
 		
 	}
