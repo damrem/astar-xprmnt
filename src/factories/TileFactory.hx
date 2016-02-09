@@ -23,6 +23,9 @@ class TileFactory
 		
 		var bd = B2.createBodyDef((u + 0.5) * TILE_SIZE, (v + 0.5) * TILE_SIZE, B2BodyType.KINEMATIC_BODY);
 		var fd = B2.createFixtureDef();
+		fd.filter.categoryBits = CollisionBits.TILE_CATEGORY;
+		fd.filter.maskBits = CollisionBits.TILE_MASK;
+		trace("boundary", CollisionBits.TILE_CATEGORY, CollisionBits.TILE_MASK);
 		tileEntity.add(new BodyComponent(bd, fd));
 		
 		return tileEntity;

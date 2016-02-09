@@ -13,18 +13,18 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 {
 	var cornerBlockSize:Float;
 	var cornerBlockCoords:Array<Float>;
-	var fixtureDef:B2FixtureDef;
+	//var fixtureDef:B2FixtureDef;
 	var cornerBlockAbsCoord:Float;
 	var wallLength:Float;
 	
 	public function new() 
 	{
 		super(TileNode, nodeUpdate, nodeAdded, nodeRemoved);
-		
+		/*
 		fixtureDef = B2.createFixtureDef();
 		fixtureDef.filter.categoryBits = CollisionBits.TILE_CATEGORY;
 		fixtureDef.filter.maskBits = CollisionBits.TILE_MASK;
-		
+		*/
 		cornerBlockSize = (TileFactory.TILE_SIZE - TileFactory.TUNNEL_SIZE) / 4;
 		cornerBlockAbsCoord = (TileFactory.TUNNEL_SIZE) / 2 + cornerBlockSize;
 		trace(cornerBlockAbsCoord);
@@ -46,30 +46,30 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 		{
 			for (y in cornerBlockCoords)
 			{
-				fixtureDef.shape = B2.createSquareShape(cornerBlockSize, x, y);
-				node.body.b2body.createFixture(fixtureDef);
+				node.body.fixtureDef.shape = B2.createSquareShape(cornerBlockSize, x, y);
+				node.body.b2body.createFixture(node.body.fixtureDef);
 			}
 		}
 		
 		if (!node.aperture.bottom)
 		{
-			fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, cornerBlockAbsCoord);
-			node.body.b2body.createFixture(fixtureDef);
+			node.body.fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, cornerBlockAbsCoord);
+			node.body.b2body.createFixture(node.body.fixtureDef);
 		}
 		if (!node.aperture.top)
 		{
-			fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, -cornerBlockAbsCoord);
-			node.body.b2body.createFixture(fixtureDef);
+			node.body.fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, -cornerBlockAbsCoord);
+			node.body.b2body.createFixture(node.body.fixtureDef);
 		}
 		if (!node.aperture.right)
 		{
-			fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
-			node.body.b2body.createFixture(fixtureDef);
+			node.body.fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
+			node.body.b2body.createFixture(node.body.fixtureDef);
 		}
 		if (!node.aperture.left)
 		{
-			fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
-			node.body.b2body.createFixture(fixtureDef);
+			node.body.fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
+			node.body.b2body.createFixture(node.body.fixtureDef);
 		}
 		
 	}
