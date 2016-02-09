@@ -8,9 +8,11 @@ import hxlpers.Direction;
  */
 class TileMovementComponent
 {
-
+	public var direction:Direction;
+	
 	public function new(direction:Direction) 
 	{
+		this.direction = direction;
 		
 	}
 	

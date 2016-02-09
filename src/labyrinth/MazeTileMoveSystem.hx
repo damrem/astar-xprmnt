@@ -18,22 +18,22 @@ class MazeTileMoveSystem extends ListIteratingSystem<MovingMazeNode>
 		super(MovingMazeNode, nodeUpdate);
 	}
 	
-	function nodeUpdate(node:MovingMazeNode, dt:Float) 
+	function nodeUpdate(movingMazeNode:MovingMazeNode, dt:Float) 
 	{
-		var movingTileEntities:Array<Entity>;
+		var movingTileEntities:Array<Entity> = [];
 		
-		if(node.movement.direction==Direction.Left||node.movement.direction==Direction.Right)
+		if (movingMazeNode.movement.direction == Direction.Left || movingMazeNode.movement.direction == Direction.Right)
 		{
-			node.maze.tiles.getRow(node.movement.y, movingTileEntities);
+			movingMazeNode.maze.tiles.getRow(movingMazeNode.movement.y, movingTileEntities);
 		}
-		else if(node.movement.direction==Direction.Up||node.movement.direction==Direction.Down)
+		else if (movingMazeNode.movement.direction == Direction.Up || movingMazeNode.movement.direction == Direction.Down)
 		{
-			node.maze.tiles.getCol(node.movement.x, movingTileEntities);
+			movingMazeNode.maze.tiles.getCol(movingMazeNode.movement.x, movingTileEntities);
 		}
 		
 		for (tileEntity in movingTileEntities)
 		{
-			tileEntity.add(new TileMovementComponent(node.movement.direction));
+			tileEntity.add(new TileMovementComponent(movingMazeNode.movement.direction));
 		}
 	}
 	

@@ -5,13 +5,11 @@ import ash.core.Entity;
 import ash.tick.FrameTickProvider;
 import ash.tick.ITickProvider;
 import box2D.dynamics.B2World;
-import controls.KeyboardControlledComponent;
 import controls.KeyboardControlSystem;
-import heroes.HeroFactory;
 import factories.SimpleEntityCreator;
 import factories.TileFactory;
 import factories.WallFactory;
-import heroes.HeroKeyboardMoveSystem;
+import heroes.HeroFactory;
 import heroes.HeroKeyboardMoveSystem;
 import hxlpers.colors.Colors;
 import hxlpers.colors.RndColor;
@@ -20,9 +18,10 @@ import hxlpers.Rnd;
 import labyrinth.MazeComponent;
 import labyrinth.MazeGenerator;
 import labyrinth.MazeMoveRandomSystem;
+import labyrinth.MazeTileMoveSystem;
+import labyrinth.MoveTileSystem;
 import labyrinth.TileToPhysicsConvertSystem;
 import openfl.display.Sprite;
-import openfl.ui.Keyboard;
 import openfl.utils.Timer;
 import physics.B2;
 import physics.B2DebugDrawSystem;
@@ -67,7 +66,7 @@ class MazeRoom extends Room
 		
 		for (entity in createWallEntities())
 		{
-			engine.addEntity(entity);
+			//engine.addEntity(entity);
 		};
 		
 		var mazeEntity = new Entity();
@@ -86,6 +85,8 @@ class MazeRoom extends Room
 		engine.addSystem(new TileToPhysicsConvertSystem(), 3);
 		engine.addSystem(new RandomMoveSystem(), 5);
 		engine.addSystem(new MazeMoveRandomSystem(), 10);
+		engine.addSystem(new MazeTileMoveSystem(), 11);
+		engine.addSystem(new MoveTileSystem(), 12);
 		//engine.addSystem(new PhyToGfxSyncSystem(), 8);
 		//engine.addSystem(new SelectionSystem(), 10);
 		//engine.addSystem(new RenderSystem(this), 15);
