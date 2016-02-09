@@ -4,7 +4,7 @@ import box2D.dynamics.B2World;
 import controls.KeyboardControlledComponent;
 import factories.SimpleEntityCreator;
 import openfl.ui.Keyboard;
-import physics.BodyComponent;
+import physics.PhysicalComponent;
 
 /**
  * ...

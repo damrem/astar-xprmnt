@@ -1,9 +1,10 @@
 package factories;
 import ash.core.Entity;
+import box2D.collision.shapes.B2Shape;
 import box2D.dynamics.B2BodyType;
 import labyrinth.TileApertureComponent;
 import physics.B2;
-import physics.BodyComponent;
+import physics.PhysicalComponent;
 
 /**
  * ...
@@ -25,8 +26,8 @@ class TileFactory
 		var fd = B2.createFixtureDef();
 		fd.filter.categoryBits = CollisionBits.TILE_CATEGORY;
 		fd.filter.maskBits = CollisionBits.TILE_MASK;
-		trace("boundary", CollisionBits.TILE_CATEGORY, CollisionBits.TILE_MASK);
-		tileEntity.add(new BodyComponent(bd, fd));
+		
+		tileEntity.add(new PhysicalComponent(bd, fd, B2.createSquareShape(0.1)));
 		
 		return tileEntity;
 	}

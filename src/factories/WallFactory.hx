@@ -3,7 +3,7 @@ import ash.core.Entity;
 import box2D.dynamics.B2BodyType;
 import hxlpers.shapes.BoxShape;
 import physics.B2;
-import physics.BodyComponent;
+import physics.PhysicalComponent;
 import rendering.EntitySprite;
 import rendering.Gfx;
 
@@ -25,11 +25,10 @@ class WallFactory
 		
 		var bodyDef = B2.createBodyDef(_x, _y, B2BodyType.STATIC_BODY);
 		var fixtureDef = B2.createFixtureDef();
-		fixtureDef.shape = B2.createSquareShape(size);
 		fixtureDef.filter.categoryBits = CollisionBits.BOUNDARY_CATEGORY;
 		fixtureDef.filter.maskBits = CollisionBits.BOUNDARY_MASK;
 		trace("boundary", CollisionBits.BOUNDARY_CATEGORY, CollisionBits.BOUNDARY_MASK);
-		entity.add(new BodyComponent(bodyDef, fixtureDef));
+		entity.add(new PhysicalComponent(bodyDef, fixtureDef, B2.createSquareShape(size)));
 		
 		return entity;
 	}

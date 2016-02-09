@@ -1,6 +1,6 @@
 package controls;
 import ash.core.Node;
-import physics.BodyComponent;
+import physics.PhysicalComponent;
 
 /**
  * ...

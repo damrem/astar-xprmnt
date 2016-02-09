@@ -40,36 +40,38 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 	
 	function nodeAdded(node:TileNode)
 	{
-		node.body.b2body = B2.world.createBody(node.body.bodyDef);
+		node.physical.body = B2.world.createBody(node.physical.bodyDef);
+		
+		//node.physical.body.getFixtureList().destroy();
 		
 		for (x in cornerBlockCoords)
 		{
 			for (y in cornerBlockCoords)
 			{
-				node.body.fixtureDef.shape = B2.createSquareShape(cornerBlockSize, x, y);
-				node.body.b2body.createFixture(node.body.fixtureDef);
+				node.physical.fixtureDef.shape = B2.createSquareShape(cornerBlockSize, x, y);
+				node.physical.body.createFixture(node.physical.fixtureDef);
 			}
 		}
 		
 		if (!node.aperture.bottom)
 		{
-			node.body.fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, cornerBlockAbsCoord);
-			node.body.b2body.createFixture(node.body.fixtureDef);
+			node.physical.fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, cornerBlockAbsCoord);
+			node.physical.body.createFixture(node.physical.fixtureDef);
 		}
 		if (!node.aperture.top)
 		{
-			node.body.fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, -cornerBlockAbsCoord);
-			node.body.b2body.createFixture(node.body.fixtureDef);
+			node.physical.fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, -cornerBlockAbsCoord);
+			node.physical.body.createFixture(node.physical.fixtureDef);
 		}
 		if (!node.aperture.right)
 		{
-			node.body.fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
-			node.body.b2body.createFixture(node.body.fixtureDef);
+			node.physical.fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
+			node.physical.body.createFixture(node.physical.fixtureDef);
 		}
 		if (!node.aperture.left)
 		{
-			node.body.fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
-			node.body.b2body.createFixture(node.body.fixtureDef);
+			node.physical.fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
+			node.physical.body.createFixture(node.physical.fixtureDef);
 		}
 		
 	}

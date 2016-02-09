@@ -4,7 +4,7 @@ import box2D.collision.shapes.B2CircleShape;
 import hxlpers.shapes.BoxShape;
 import hxlpers.shapes.DiskShape;
 import physics.B2;
-import physics.BodyComponent;
+import physics.PhysicalComponent;
 import rendering.EntitySprite;
 import rendering.Gfx;
 
@@ -28,10 +28,9 @@ class SimpleEntityCreator
 		var bodyDef = B2.createBodyDef(_x, _y);
 		bodyDef.linearDamping = 25;
 		var fixtureDef = B2.createFixtureDef();
-		fixtureDef.shape = new B2CircleShape(radius);
 		fixtureDef.filter.categoryBits = collisionCategory;
 		fixtureDef.filter.maskBits = collisionMask;
-		entity.add(new BodyComponent(bodyDef, fixtureDef));
+		entity.add(new PhysicalComponent(bodyDef, fixtureDef, new B2CircleShape(radius)));
 		
 		return entity;
 	}
@@ -47,10 +46,9 @@ class SimpleEntityCreator
 		
 		var bodyDef = B2.createBodyDef(_x, _y);
 		var fixtureDef = B2.createFixtureDef();
-		fixtureDef.shape = B2.createSquareShape(size / 2, angle);
 		fixtureDef.filter.categoryBits = collisionCategory;
 		fixtureDef.filter.maskBits = collisionMask;
-		entity.add(new BodyComponent(bodyDef, fixtureDef));
+		entity.add(new PhysicalComponent(bodyDef, fixtureDef, B2.createSquareShape(size / 2, angle)));
 		
 		return entity;
 	}
