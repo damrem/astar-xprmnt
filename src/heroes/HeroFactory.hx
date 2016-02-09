@@ -16,7 +16,8 @@ class HeroFactory
 	
 	public static function createEntity(x:Float, y:Float):Entity
 	{
-		var hero = SimpleEntityCreator.createBallEntity(x, y, 24, 0, 0xff0000);
+		var hero = SimpleEntityCreator.createBallEntity(x, y, 24, 0, 0xff0000, CollisionBits.HERO_CATEGORY, CollisionBits.HERO_MASK);
+		trace("boundary", CollisionBits.HERO_CATEGORY, CollisionBits.HERO_MASK);
 		
 		var keyMap = new Map<Int, Dynamic>();
 		keyMap.set(Keyboard.LEFT, HeroCommand.Left);

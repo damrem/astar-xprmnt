@@ -14,7 +14,7 @@ import rendering.Gfx;
  */
 class SimpleEntityCreator
 {
-	public static function createBallEntity(_x:Float, _y:Float, size:Float, angle:Float, color:UInt):Entity
+	public static function createBallEntity(_x:Float, _y:Float, size:Float, angle:Float, color:UInt, collisionCategory:Int=0x0001, collisionMask:Int=0xffff):Entity
 	{
 		var radius = size / 2;
 		
@@ -29,12 +29,14 @@ class SimpleEntityCreator
 		bodyDef.linearDamping = 25;
 		var fixtureDef = B2.createFixtureDef();
 		fixtureDef.shape = new B2CircleShape(radius);
+		fixtureDef.filter.categoryBits = collisionCategory;
+		fixtureDef.filter.maskBits = collisionMask;
 		entity.add(new BodyComponent(bodyDef, fixtureDef));
 		
 		return entity;
 	}
 	
-	public static function createBoxEntity(_x:Float, _y:Float, size:Float, angle:Float, color:UInt):Entity
+	public static function createBoxEntity(_x:Float, _y:Float, size:Float, angle:Float, color:UInt, collisionCategory:Int=0x0001, collisionMask:Int=0xffff):Entity
 	{
 		var entity = new Entity();
 		
@@ -45,7 +47,9 @@ class SimpleEntityCreator
 		
 		var bodyDef = B2.createBodyDef(_x, _y);
 		var fixtureDef = B2.createFixtureDef();
-		fixtureDef.shape = B2.createSquareShape(size/2, angle);
+		fixtureDef.shape = B2.createSquareShape(size / 2, angle);
+		fixtureDef.filter.categoryBits = collisionCategory;
+		fixtureDef.filter.maskBits = collisionMask;
 		entity.add(new BodyComponent(bodyDef, fixtureDef));
 		
 		return entity;

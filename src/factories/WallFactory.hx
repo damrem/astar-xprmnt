@@ -26,6 +26,9 @@ class WallFactory
 		var bodyDef = B2.createBodyDef(_x, _y, B2BodyType.STATIC_BODY);
 		var fixtureDef = B2.createFixtureDef();
 		fixtureDef.shape = B2.createSquareShape(size);
+		fixtureDef.filter.categoryBits = CollisionBits.BOUNDARY_CATEGORY;
+		fixtureDef.filter.maskBits = CollisionBits.BOUNDARY_MASK;
+		trace("boundary", CollisionBits.BOUNDARY_CATEGORY, CollisionBits.BOUNDARY_MASK);
 		entity.add(new BodyComponent(bodyDef, fixtureDef));
 		
 		return entity;

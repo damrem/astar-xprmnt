@@ -5,13 +5,11 @@ import ash.core.Entity;
 import ash.tick.FrameTickProvider;
 import ash.tick.ITickProvider;
 import box2D.dynamics.B2World;
-import controls.KeyboardControlledComponent;
 import controls.KeyboardControlSystem;
-import heroes.HeroFactory;
 import factories.SimpleEntityCreator;
 import factories.TileFactory;
 import factories.WallFactory;
-import heroes.HeroKeyboardMoveSystem;
+import heroes.HeroFactory;
 import heroes.HeroKeyboardMoveSystem;
 import hxlpers.colors.Colors;
 import hxlpers.colors.RndColor;
@@ -22,7 +20,6 @@ import labyrinth.MazeGenerator;
 import labyrinth.MazeMoveRandomSystem;
 import labyrinth.TileToPhysicsConvertSystem;
 import openfl.display.Sprite;
-import openfl.ui.Keyboard;
 import openfl.utils.Timer;
 import physics.B2;
 import physics.B2DebugDrawSystem;
@@ -121,11 +118,11 @@ class MazeRoom extends Room
 			
 			if (Rnd.chance())
 			{
-				entity = factories.SimpleEntityCreator.createBallEntity(_x, _y, size, angle, color);
+				entity = SimpleEntityCreator.createBallEntity(_x, _y, size, angle, color);
 			}
 			else
 			{
-				entity = factories.SimpleEntityCreator.createBoxEntity(_x, _y, size, angle, color);
+				entity = SimpleEntityCreator.createBoxEntity(_x, _y, size, angle, color);
 			}
 			
 			entity.add(new SimpleComponent());
