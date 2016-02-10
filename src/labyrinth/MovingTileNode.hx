@@ -1,7 +1,7 @@
 package labyrinth;
 
 import ash.core.Node;
-import physics.BodyComponent;
+import physics.PhysicalComponent;
 
 /**
  * ...
@@ -10,7 +10,7 @@ import physics.BodyComponent;
 class MovingTileNode extends Node<MovingTileNode>
 {
 	public var aperture:TileApertureComponent;
-	public var body:BodyComponent;
+	public var physical:PhysicalComponent;
 	public var movement:TileMovementComponent;
 	
 }

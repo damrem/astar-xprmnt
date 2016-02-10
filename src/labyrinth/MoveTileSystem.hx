@@ -16,7 +16,7 @@ class MoveTileSystem extends System
 	var movingTileNodes:NodeList<MovingTileNode>;
 	var mazeNodes:NodeList<MazeNode>;
 	var velocity:B2Vec2;
-	static inline var SPEED:Float = 500;
+	static inline var SPEED:Float = 5000;
 	
 	public function new() 
 	{
@@ -58,9 +58,8 @@ class MoveTileSystem extends System
 					
 				
 			}
-			movingTileNode.body.b2body.setLinearVelocity(velocity);
-			trace(movingTileNode.body.b2body.getLinearVelocity().x, movingTileNode.body.b2body.getLinearVelocity().y);
-			//B2.world.destroyBody(movingTileNode.body.b2body);
+			movingTileNode.physical.body.setLinearVelocity(velocity);
+			movingTileNode.physical.body.setAwake(true);
 		}
 	}
 	
