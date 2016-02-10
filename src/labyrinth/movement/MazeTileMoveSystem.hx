@@ -1,8 +1,9 @@
-package labyrinth;
+package labyrinth.movement;
 
 import ash.core.Entity;
 import ash.tools.ListIteratingSystem;
 import hxlpers.Direction;
+import labyrinth.movement.TileMovementComponent;
 
 using hxlpers.ds.Array2SF;
 

@@ -1,4 +1,4 @@
-package labyrinth;
+package labyrinth.movement;
 import hxlpers.Direction;
 
 /**

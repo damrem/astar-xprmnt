@@ -1,8 +1,9 @@
-package labyrinth;
+package labyrinth.movement;
 
 import ash.tools.ListIteratingSystem;
 import hxlpers.Direction;
 import hxlpers.Rnd;
+import labyrinth.movement.MazeMovementComponent;
 
 /**
  * ...

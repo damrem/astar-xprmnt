@@ -1,6 +1,7 @@
-package labyrinth;
+package labyrinth.movement;
 
 import ash.core.Node;
+import labyrinth.movement.TileMovementComponent;
 import physics.PhysicalComponent;
 
 /**
