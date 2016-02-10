@@ -16,22 +16,13 @@ class B2System extends ListIteratingSystem<PhysicalNode>
 	
 	override public function update(time:Float)
 	{
-		//var adaptedTime = time * Main.THEORICAL_FPS / Main.fps.currentFPS;
-		//trace(time, adaptedTime);
-		//var period:Float = 1 / Main.fps.currentFPS;
 		super.update(time);
-		//if (Math.isFinite(adaptedTime))
-		{
-			//trace(B2.PERIOD, 1 / Main.fps.currentFPS);
-			B2.world.step(time, 8, 3);
-		}
+		B2.world.step(time, 8, 3);
 	}
 	
 	
 	function updateNode(node:PhysicalNode, time:Float)
 	{
-		//node.phy.body.advance(PERIOD);
-		//world.step(PERIOD, 8, 3);
 	}
 	
 	
