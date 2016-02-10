@@ -95,7 +95,7 @@ class Array2SF
 	}
 	
 	
-	static public function move<T>(user:Array2<T>, colIndex:Int, rowIndex:Int, direction:hxlpers.Direction):Array<T>
+	static public function move<T>(user:Array2<T>, colIndex:Int, rowIndex:Int, direction:Direction):Array<T>
 	{
 		var colOrRow:Array<T> = [];
 		

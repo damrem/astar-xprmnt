@@ -31,9 +31,9 @@ class MoveTile extends ListIteratingSystem<MovingTileNode>
 		mazeNodes = engine.getNodeList(MazeNode);
 	}
 	
-	function nodeUpdate(node:MovingTileNode, dt:Float) 
+	function nodeUpdate(movingTileNode:MovingTileNode, dt:Float) 
 	{
-		node.physical.body.setPosition(node.movement.position);
+		movingTileNode.physical.body.setPosition(movingTileNode.movement.position);
 	}
 	
 	function nodeAdded(movingTileNode:MovingTileNode) 
@@ -45,19 +45,15 @@ class MoveTile extends ListIteratingSystem<MovingTileNode>
 			mazeNode.maze.tiles.cellOf(movingTileNode.entity, cell);
 			
 			Actuate
-			.tween(movingTileNode.movement.position, 1.0, { x:TileFactory.posXfromCellX(cell.x), y:TileFactory.posYfromCellY(cell.y) } )
+			.tween(movingTileNode.movement.position, 2.0, { x:TileFactory.posXfromCellX(cell.x), y:TileFactory.posYfromCellY(cell.y) } )
 			.onComplete(removeMovement, [movingTileNode]);
 		}
 	}
 	
-	function removeMovement(node:MovingTileNode)
+	function removeMovement(movingTileNode:MovingTileNode)
 	{
-		trace("removeMovement", node, node.entity);
-		if (node.entity != null)
-		{
-			trace("remove");
-			node.entity.remove(TileMovementComponent);
-		}
+		trace("removeMovement", movingTileNode, movingTileNode.entity);
+		movingTileNode.entity.remove(TileMovementComponent);
 	}
 	
 	

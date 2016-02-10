@@ -32,10 +32,18 @@ class MoveMaze extends ListIteratingSystem<MovingMazeNode>
 	function nodeAdded(movingMazeNode:MovingMazeNode) 
 	{
 		var movingTileEntities:Array<Entity> = [];
+		//var originCell;
 		
 		if (movingMazeNode.movement.direction != Direction.None)
 		{
-			movingMazeNode.maze.tiles.getRow(movingMazeNode.movement.coord, movingTileEntities);
+			movingTileEntities = movingMazeNode.maze.tiles.getRow(movingMazeNode.movement.coord, movingTileEntities);
+		}
+		
+		for (tileEntity in movingTileEntities)
+		{
+			//FIXME: this originCell can't be used later, change it!
+			originCell = movingMazeNode.maze.tiles.cellOf(tileEntity, originCell);
+			//cast(tileEntity.get(CellComponent), CellComponent).
 		}
 		
 		movingMazeNode.maze.tiles.move(movingMazeNode.movement.coord, movingMazeNode.movement.coord, movingMazeNode.movement.direction);
@@ -43,10 +51,10 @@ class MoveMaze extends ListIteratingSystem<MovingMazeNode>
 		for (tileEntity in movingTileEntities)
 		{
 			//tileEntity.add(new TileMovementComponent(movingMazeNode.movement.direction));
-			movingMazeNode.maze.tiles.cellOf(tileEntity, originCell);
-			movingMazeNode.maze.tiles.cellOf(tileEntity, destCell);
 			
-			switch(movingMazeNode.movement.direction)
+			var destCell = movingMazeNode.maze.tiles.cellOf(tileEntity, destCell);
+			
+			/*switch(movingMazeNode.movement.direction)
 			{
 				case Direction.Left:
 					destCell.x --;
@@ -78,7 +86,7 @@ class MoveMaze extends ListIteratingSystem<MovingMazeNode>
 					
 				case Direction.None:
 					
-			}
+			}*/
 			
 			tileEntity.add(new TileMovementComponent(originCell, destCell));
 			//tileEntity.add(new DestinationCell(
