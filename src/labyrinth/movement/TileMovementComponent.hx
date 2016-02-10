@@ -1,6 +1,6 @@
 package labyrinth.movement;
 
-import hxlpers.Direction;
+import box2D.common.math.B2Vec2;
 
 /**
  * ...
@@ -8,12 +8,13 @@ import hxlpers.Direction;
  */
 class TileMovementComponent
 {
-	public var direction:Direction;
 	
-	public function new(direction:Direction) 
+	public var velocity:B2Vec2;
+	
+	public function new() 
 	{
-		this.direction = direction;
-		
+		velocity = new B2Vec2();
 	}
+	
 	
 }

@@ -16,13 +16,13 @@ class TileFactory
 	public static var TUNNEL_SIZE:Float = 32;
 	
 
-	public static function createEntity(u:Int, v:Int):Entity
+	public static function createEntity(x:Int, y:Int):Entity
 	{
 		var tileEntity = new Entity();
 		
 		tileEntity.add(new TileApertureComponent());
 		
-		var bd = B2.createBodyDef((u + 0.5) * TILE_SIZE, (v + 0.5) * TILE_SIZE, B2BodyType.KINEMATIC_BODY);
+		var bd = B2.createBodyDef((x + 0.5) * TILE_SIZE, (y + 0.5) * TILE_SIZE, B2BodyType.KINEMATIC_BODY);
 		var fd = B2.createFixtureDef();
 		fd.filter.categoryBits = CollisionBits.TILE_CATEGORY;
 		fd.filter.maskBits = CollisionBits.TILE_MASK;

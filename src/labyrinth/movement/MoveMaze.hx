@@ -28,9 +28,14 @@ class MoveMaze extends ListIteratingSystem<MovingMazeNode>
 			movingMazeNode.maze.tiles.getRow(movingMazeNode.movement.coord, movingTileEntities);
 		}
 		
+		movingMazeNode.maze.tiles.move(movingMazeNode.movement.coord, movingMazeNode.movement.coord, movingMazeNode.movement.direction);
+		
 		for (tileEntity in movingTileEntities)
 		{
-			tileEntity.add(new TileMovementComponent(movingMazeNode.movement.direction));
+			//tileEntity.add(new TileMovementComponent(movingMazeNode.movement.direction));
+			
+			tileEntity.add(new TileMovementComponent());
+			//tileEntity.add(new DestinationCell(
 		}
 	}
 	

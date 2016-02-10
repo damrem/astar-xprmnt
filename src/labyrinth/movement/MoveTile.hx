@@ -34,6 +34,7 @@ class MoveTile extends System
 	{
 		for (movingTileNode in movingTileNodes)
 		{
+			/*
 			switch(movingTileNode.movement.direction)
 			{
 				case Direction.Left:
@@ -58,6 +59,13 @@ class MoveTile extends System
 					
 				
 			}
+			*/
+			
+			for (mazeNode in mazeNodes)
+			{
+				//mazeNode.maze.tiles.cellOf(
+			}
+			
 			movingTileNode.physical.body.setLinearVelocity(velocity);
 			movingTileNode.physical.body.setAwake(true);
 		}
