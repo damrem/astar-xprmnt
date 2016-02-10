@@ -9,7 +9,7 @@ import labyrinth.movement.MazeMovementComponent;
  * ...
  * @author damrem
  */
-class MazeMoveRandomSystem extends ListIteratingSystem<MazeNode>
+class MoveMazeRandomly extends ListIteratingSystem<MazeNode>
 {
 	
 	var tt:Float = 0;
@@ -41,25 +41,30 @@ class MazeMoveRandomSystem extends ListIteratingSystem<MazeNode>
 		trace("startMoving");
 		
 		var direction = Direction.None;
+		var coord:Int = 0;
 		
 		switch(Std.random(4))
 		{
 			case 0:
 				direction = Direction.Left;
+				coord = Std.random(MazeRoom.MAZE_HEIGHT);
 				
 			case 1:
 				direction = Direction.Up;
+				coord = Std.random(MazeRoom.MAZE_WIDTH);
 				
 			case 2:
 				direction = Direction.Right;
+				coord = Std.random(MazeRoom.MAZE_HEIGHT);
 				
 			case 3:
 				direction = Direction.Down;
+				coord = Std.random(MazeRoom.MAZE_WIDTH);
 		}
 		
 		if (direction != Direction.None)
 		{
-			node.entity.add(new MazeMovementComponent(Std.random(MazeRoom.MAZE_WIDTH), Std.random(MazeRoom.MAZE_HEIGHT), direction));
+			node.entity.add(new MazeMovementComponent(direction, coord));
 		}
 		
 	}

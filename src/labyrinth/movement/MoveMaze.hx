@@ -11,7 +11,7 @@ using hxlpers.ds.Array2SF;
  * ...
  * @author damrem
  */
-class MazeTileMoveSystem extends ListIteratingSystem<MovingMazeNode>
+class MoveMaze extends ListIteratingSystem<MovingMazeNode>
 {
 
 	public function new() 
@@ -23,13 +23,9 @@ class MazeTileMoveSystem extends ListIteratingSystem<MovingMazeNode>
 	{
 		var movingTileEntities:Array<Entity> = [];
 		
-		if (movingMazeNode.movement.direction == Direction.Left || movingMazeNode.movement.direction == Direction.Right)
+		if (movingMazeNode.movement.direction != Direction.None)
 		{
-			movingMazeNode.maze.tiles.getRow(movingMazeNode.movement.y, movingTileEntities);
-		}
-		else if (movingMazeNode.movement.direction == Direction.Up || movingMazeNode.movement.direction == Direction.Down)
-		{
-			movingMazeNode.maze.tiles.getCol(movingMazeNode.movement.x, movingTileEntities);
+			movingMazeNode.maze.tiles.getRow(movingMazeNode.movement.coord, movingTileEntities);
 		}
 		
 		for (tileEntity in movingTileEntities)

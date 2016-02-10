@@ -11,7 +11,7 @@ import physics.B2;
  * ...
  * @author damrem
  */
-class MoveTileSystem extends System
+class MoveTile extends System
 {
 	var movingTileNodes:NodeList<MovingTileNode>;
 	var mazeNodes:NodeList<MazeNode>;

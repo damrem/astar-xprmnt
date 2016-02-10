@@ -8,15 +8,12 @@ import hxlpers.Direction;
 class MazeMovementComponent
 {
 	public var direction:Direction;
-	public var y:Int;
-	public var x:Int;
+	public var coord:Int;
 
-	public function new(x:Int, y:Int, direction:Direction) 
+	public function new(direction:Direction, coord:Int) 
 	{
-		trace(x, y, direction);
-		this.x = x;
-		this.y = y;
 		this.direction = direction;
+		this.coord = coord;
 		
 	}
 	

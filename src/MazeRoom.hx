@@ -17,9 +17,9 @@ import hxlpers.game.Room;
 import hxlpers.Rnd;
 import labyrinth.MazeComponent;
 import labyrinth.MazeGenerator;
-import labyrinth.movement.MazeMoveRandomSystem;
-import labyrinth.movement.MazeTileMoveSystem;
-import labyrinth.movement.MoveTileSystem;
+import labyrinth.movement.MoveMazeRandomly;
+import labyrinth.movement.MoveMaze;
+import labyrinth.movement.MoveTile;
 import labyrinth.TileToPhysicsConvertSystem;
 import openfl.display.Sprite;
 import openfl.utils.Timer;
@@ -84,9 +84,9 @@ class MazeRoom extends Room
 		
 		engine.addSystem(new TileToPhysicsConvertSystem(), 3);
 		engine.addSystem(new RandomMoveSystem(), 5);
-		engine.addSystem(new MazeMoveRandomSystem(), 10);
-		engine.addSystem(new MazeTileMoveSystem(), 11);
-		engine.addSystem(new MoveTileSystem(), 12);
+		engine.addSystem(new MoveMazeRandomly(), 10);
+		engine.addSystem(new MoveMaze(), 11);
+		engine.addSystem(new MoveTile(), 12);
 		//engine.addSystem(new PhyToGfxSyncSystem(), 8);
 		//engine.addSystem(new SelectionSystem(), 10);
 		//engine.addSystem(new RenderSystem(this), 15);
