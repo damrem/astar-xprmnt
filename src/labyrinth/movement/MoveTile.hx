@@ -25,35 +25,10 @@ class MoveTile extends ListIteratingSystem<MovingTileNode>
 		super(MovingTileNode, nodeUpdate, nodeAdded);
 	}
 	
-	function nodeAdded(movingTileNode:MovingTileNode) 
+	override public function addToEngine(engine:Engine)
 	{
-		for (mazeNode in mazeNodes)
-		{
-			var cell:Array2Cell = new Array2Cell();
-			mazeNode.maze.tiles.cellOf(movingTileNode.entity, cell);
-			
-			/*var pos = movingTileNode.physical.body.getPosition();
-			pos.add(new B2Vec2(Rnd.float(5), Rnd.float(5)));
-			movingTileNode.physical.body.setPosition(pos);*/
-			
-			Actuate
-			.tween(movingTileNode.movement.position, 1.0, { x:TileFactory.posXfromCellX(cell.x), y:TileFactory.posYfromCellY(cell.y) } )
-			.onComplete(removeMovement, [movingTileNode]);
-			
-			trace(cell);
-			//switch(mazeNode.
-		}
-		
-		//movingTileNode.physical.body.setLinearVelocity(velocity);
-		//movingTileNode.physical.body.setAwake(true);
-	}
-	
-	function removeMovement(node:MovingTileNode)
-	{
-		if (node.entity != null)
-		{
-			node.entity.remove(TileMovementComponent);
-		}
+		super.addToEngine(engine);
+		mazeNodes = engine.getNodeList(MazeNode);
 	}
 	
 	function nodeUpdate(node:MovingTileNode, dt:Float) 
@@ -61,12 +36,33 @@ class MoveTile extends ListIteratingSystem<MovingTileNode>
 		node.physical.body.setPosition(node.movement.position);
 	}
 	
-	override public function addToEngine(engine:Engine)
+	function nodeAdded(movingTileNode:MovingTileNode) 
 	{
-		super.addToEngine(engine);
-		mazeNodes = engine.getNodeList(MazeNode);
-		
+		for (mazeNode in mazeNodes)
+		{
+			trace("mazeNode", mazeNode);
+			var cell:Array2Cell = new Array2Cell();
+			mazeNode.maze.tiles.cellOf(movingTileNode.entity, cell);
+			
+			Actuate
+			.tween(movingTileNode.movement.position, 1.0, { x:TileFactory.posXfromCellX(cell.x), y:TileFactory.posYfromCellY(cell.y) } )
+			.onComplete(removeMovement, [movingTileNode]);
+		}
 	}
+	
+	function removeMovement(node:MovingTileNode)
+	{
+		trace("removeMovement", node, node.entity);
+		if (node.entity != null)
+		{
+			trace("remove");
+			node.entity.remove(TileMovementComponent);
+		}
+	}
+	
+	
+	
+	
 	
 	
 	

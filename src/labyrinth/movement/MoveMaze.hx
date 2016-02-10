@@ -19,12 +19,17 @@ class MoveMaze extends ListIteratingSystem<MovingMazeNode>
 
 	public function new() 
 	{
-		super(MovingMazeNode, nodeUpdate);
+		super(MovingMazeNode, nodeUpdate, nodeAdded);
 		originCell = new Array2Cell();
 		destCell = new Array2Cell();
 	}
 	
 	function nodeUpdate(movingMazeNode:MovingMazeNode, dt:Float) 
+	{
+		
+	}
+	
+	function nodeAdded(movingMazeNode:MovingMazeNode) 
 	{
 		var movingTileEntities:Array<Entity> = [];
 		
