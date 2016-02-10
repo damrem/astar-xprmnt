@@ -15,6 +15,7 @@ class B2
 	public static var world:B2World;
 	static public var GRAVITY:B2Vec2 = new B2Vec2();
 	static public inline var PERIOD:Float = 1 / 60;
+	static public var NULL_VEC2:B2Vec2 = new B2Vec2();
 
 	
 	public static function createSquareShape(size:Float, x:Float=0, y:Float=0, angle:Float=0):B2PolygonShape 

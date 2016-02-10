@@ -6,12 +6,12 @@ import ash.tools.ListIteratingSystem;
  * ...
  * @author damrem
  */
-class B2System extends ListIteratingSystem<SimpleBodyNode>
+class B2System extends ListIteratingSystem<PhysicalNode>
 {
 	
 	public function new() 
 	{
-		super(SimpleBodyNode, updateNode, nodeAdded, nodeRemoved);
+		super(PhysicalNode, updateNode, nodeAdded, nodeRemoved);
 	}
 	
 	override public function update(time:Float)
@@ -28,23 +28,23 @@ class B2System extends ListIteratingSystem<SimpleBodyNode>
 	}
 	
 	
-	function updateNode(node:SimpleBodyNode, time:Float)
+	function updateNode(node:PhysicalNode, time:Float)
 	{
 		//node.phy.body.advance(PERIOD);
 		//world.step(PERIOD, 8, 3);
 	}
 	
 	
-	function nodeAdded(node:SimpleBodyNode)
+	function nodeAdded(node:PhysicalNode)
 	{
-		node.phy.b2body = B2.world.createBody(node.phy.bodyDef);
-		node.phy.b2body.createFixture(node.phy.fixtureDef);
+		node.physical.body = B2.world.createBody(node.physical.bodyDef);
+		node.physical.body.createFixture(node.physical.fixtureDef);
 	}
 	
-	function nodeRemoved(node:SimpleBodyNode)
+	function nodeRemoved(node:PhysicalNode)
 	{
-		node.phy.b2body.DestroyFixture(node.phy.b2body.getFixtureList());
-		B2.world.destroyBody(node.phy.b2body);
+		node.physical.body.DestroyFixture(node.physical.body.getFixtureList());
+		B2.world.destroyBody(node.physical.body);
 	}
 	
 }

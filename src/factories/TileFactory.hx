@@ -1,9 +1,10 @@
 package factories;
 import ash.core.Entity;
+import box2D.collision.shapes.B2Shape;
 import box2D.dynamics.B2BodyType;
 import labyrinth.TileApertureComponent;
 import physics.B2;
-import physics.BodyComponent;
+import physics.PhysicalComponent;
 
 /**
  * ...
@@ -21,9 +22,12 @@ class TileFactory
 		
 		tileEntity.add(new TileApertureComponent());
 		
-		var bd = B2.createBodyDef((u+0.5)*TILE_SIZE, (v+0.5)*TILE_SIZE, B2BodyType.KINEMATIC_BODY);
+		var bd = B2.createBodyDef((u + 0.5) * TILE_SIZE, (v + 0.5) * TILE_SIZE, B2BodyType.KINEMATIC_BODY);
 		var fd = B2.createFixtureDef();
-		tileEntity.add(new BodyComponent(bd, fd));
+		fd.filter.categoryBits = CollisionBits.TILE_CATEGORY;
+		fd.filter.maskBits = CollisionBits.TILE_MASK;
+		
+		tileEntity.add(new PhysicalComponent(bd, fd, B2.createSquareShape(0.1)));
 		
 		return tileEntity;
 	}

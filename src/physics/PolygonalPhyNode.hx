@@ -11,6 +11,6 @@ class PolygonalPhyNode extends Node<PolygonalPhyNode>
 {
 
 	public var polygon:PolygonComponent;
-	public phy:BodyComponent;
+	public phy:PhysicalComponent;
 	
 }

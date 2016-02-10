@@ -80,7 +80,7 @@ class HeroKeyboardMoveSystem extends ListIteratingSystem<HeroControlNode>
 		
 		
 		
-		var mass = node.body.b2body.getMass();
+		var mass = node.body.body.getMass();
 		
 		switch(node.controlled.hDirection)
 		{
@@ -108,7 +108,7 @@ class HeroKeyboardMoveSystem extends ListIteratingSystem<HeroControlNode>
 		
 		
 		if (node.controlled.impulse.x != 0 || node.controlled.impulse.y != 0) {			
-			node.body.b2body.applyImpulse(node.controlled.impulse, node.body.b2body.getWorldCenter());
+			node.body.body.applyImpulse(node.controlled.impulse, node.body.body.getWorldCenter());
 		}
 		
 	}

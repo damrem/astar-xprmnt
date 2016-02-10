@@ -1,7 +1,7 @@
 package randommove;
 
 import ash.core.Node;
-import physics.BodyComponent;
+import physics.PhysicalComponent;
 import randommove.RandomMove;
 import rendering.Gfx;
 import openfl.display.Sprite;
@@ -12,7 +12,7 @@ import openfl.display.Sprite;
  */
 class RandomMoveNode extends Node<RandomMoveNode>
 {
-	public var phy:BodyComponent;
+	public var phy:PhysicalComponent;
 	public var randomMove:RandomMove;
 	
 }

@@ -122,11 +122,11 @@ class MazeRoom extends Room
 			
 			if (Rnd.chance())
 			{
-				entity = factories.SimpleEntityCreator.createBallEntity(_x, _y, size, angle, color);
+				entity = SimpleEntityCreator.createBallEntity(_x, _y, size, angle, color);
 			}
 			else
 			{
-				entity = factories.SimpleEntityCreator.createBoxEntity(_x, _y, size, angle, color);
+				entity = SimpleEntityCreator.createBoxEntity(_x, _y, size, angle, color);
 			}
 			
 			entity.add(new SimpleComponent());

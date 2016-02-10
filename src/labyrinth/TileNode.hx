@@ -1,6 +1,6 @@
 package labyrinth;
 import ash.core.Node;
-import physics.BodyComponent;
+import physics.PhysicalComponent;
 import rendering.Gfx;
 
 /**
@@ -10,5 +10,5 @@ import rendering.Gfx;
 class TileNode extends Node<TileNode>
 {
 	public var aperture:TileApertureComponent;
-	public var body:BodyComponent;
+	public var physical:PhysicalComponent;
 }
