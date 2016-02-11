@@ -13,17 +13,15 @@ import box2D.dynamics.B2FixtureDef;
  */
 class PhysicalComponent
 {
-	public var shape:B2Shape;
 	public var bodyDef:B2BodyDef;
 	public var fixtureDef:B2FixtureDef;
 	public var body:B2Body;
 	
-	public function new(bodyDef:B2BodyDef, fixtureDef:B2FixtureDef, shape:B2Shape) 
+	public function new(bodyDef:B2BodyDef, fixtureDef:B2FixtureDef) 
 	{
-		this.shape = shape;
 		this.bodyDef = bodyDef;
 		this.fixtureDef = fixtureDef;
-		this.fixtureDef.shape = shape;
+		
 	}
 	
 }

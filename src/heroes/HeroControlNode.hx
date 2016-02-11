@@ -1,7 +1,7 @@
 package heroes;
 import ash.core.Node;
 import controls.KeyboardControlledComponent;
-import physics.PhysicalComponent;
+import physics.PhysicalShapedComponent;
 
 /**
  * ...
@@ -10,6 +10,6 @@ import physics.PhysicalComponent;
 class HeroControlNode extends Node<HeroControlNode>
 {
 	public var controlled:KeyboardControlledComponent;
-	public var body:PhysicalComponent;
+	public var body:PhysicalShapedComponent;
 }
 

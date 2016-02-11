@@ -5,6 +5,7 @@ import hxlpers.shapes.BoxShape;
 import hxlpers.shapes.DiskShape;
 import physics.B2;
 import physics.PhysicalComponent;
+import physics.PhysicalShapedComponent;
 import rendering.EntitySprite;
 import rendering.Gfx;
 
@@ -30,7 +31,7 @@ class SimpleEntityCreator
 		var fixtureDef = B2.createFixtureDef();
 		fixtureDef.filter.categoryBits = collisionCategory;
 		fixtureDef.filter.maskBits = collisionMask;
-		entity.add(new PhysicalComponent(bodyDef, fixtureDef, new B2CircleShape(radius)));
+		entity.add(new PhysicalShapedComponent(bodyDef, fixtureDef, new B2CircleShape(radius)));
 		
 		return entity;
 	}
@@ -48,7 +49,7 @@ class SimpleEntityCreator
 		var fixtureDef = B2.createFixtureDef();
 		fixtureDef.filter.categoryBits = collisionCategory;
 		fixtureDef.filter.maskBits = collisionMask;
-		entity.add(new PhysicalComponent(bodyDef, fixtureDef, B2.createSquareShape(size / 2, angle)));
+		entity.add(new PhysicalShapedComponent(bodyDef, fixtureDef, B2.createSquareShape(size / 2, angle)));
 		
 		return entity;
 	}

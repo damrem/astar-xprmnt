@@ -28,7 +28,7 @@ class TileFactory
 		fd.filter.categoryBits = CollisionBits.TILE_CATEGORY;
 		fd.filter.maskBits = CollisionBits.TILE_MASK;
 		
-		tileEntity.add(new PhysicalComponent(bd, fd, B2.createSquareShape(0.1)));
+		tileEntity.add(new PhysicalComponent(bd, fd));
 		
 		return tileEntity;
 	}

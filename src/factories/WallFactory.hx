@@ -3,7 +3,7 @@ import ash.core.Entity;
 import box2D.dynamics.B2BodyType;
 import hxlpers.shapes.BoxShape;
 import physics.B2;
-import physics.PhysicalComponent;
+import physics.PhysicalShapedComponent;
 import rendering.EntitySprite;
 import rendering.Gfx;
 
@@ -28,7 +28,7 @@ class WallFactory
 		fixtureDef.filter.categoryBits = CollisionBits.BOUNDARY_CATEGORY;
 		fixtureDef.filter.maskBits = CollisionBits.BOUNDARY_MASK;
 		trace("boundary", CollisionBits.BOUNDARY_CATEGORY, CollisionBits.BOUNDARY_MASK);
-		entity.add(new PhysicalComponent(bodyDef, fixtureDef, B2.createSquareShape(size)));
+		entity.add(new PhysicalShapedComponent(bodyDef, fixtureDef, B2.createSquareShape(size)));
 		
 		return entity;
 	}
