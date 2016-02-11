@@ -9,6 +9,6 @@ import rendering.Gfx;
  */
 class TileNode extends Node<TileNode>
 {
-	public var aperture:TileComponent;
+	public var tile:TileComponent;
 	public var physical:PhysicalComponent;
 }

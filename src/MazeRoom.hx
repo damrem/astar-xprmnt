@@ -20,7 +20,7 @@ import labyrinth.MazeGenerator;
 import labyrinth.movement.MoveMazeRandomly;
 import labyrinth.movement.MoveMaze;
 import labyrinth.movement.MoveTile;
-import labyrinth.TileToPhysicsConvertSystem;
+import labyrinth.BuildTileBody;
 import openfl.display.Sprite;
 import openfl.utils.Timer;
 import physics.B2;
@@ -82,7 +82,7 @@ class MazeRoom extends Room
 		
 		engine.addSystem(new B2System(), 1);
 		
-		engine.addSystem(new TileToPhysicsConvertSystem(), 3);
+		engine.addSystem(new BuildTileBody(), 3);
 		engine.addSystem(new RandomMoveSystem(), 5);
 		engine.addSystem(new MoveMazeRandomly(), 10);
 		engine.addSystem(new MoveMaze(), 11);

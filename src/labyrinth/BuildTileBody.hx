@@ -9,7 +9,7 @@ import physics.B2;
  * Converts tile aperture into a compound body. 
  * @author damrem
  */
-class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
+class BuildTileBody extends ListIteratingSystem<TileNode>
 {
 	var cornerBlockSize:Float;
 	var cornerBlockCoords:Array<Float>;
@@ -20,17 +20,11 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 	public function new() 
 	{
 		super(TileNode, nodeUpdate, nodeAdded, nodeRemoved);
-		/*
-		fixtureDef = B2.createFixtureDef();
-		fixtureDef.filter.categoryBits = CollisionBits.TILE_CATEGORY;
-		fixtureDef.filter.maskBits = CollisionBits.TILE_MASK;
-		*/
+		
 		cornerBlockSize = (TileFactory.TILE_SIZE - TileFactory.TUNNEL_SIZE) / 4;
 		cornerBlockAbsCoord = (TileFactory.TUNNEL_SIZE) / 2 + cornerBlockSize;
-		trace(cornerBlockAbsCoord);
 		cornerBlockCoords = [ -cornerBlockAbsCoord, cornerBlockAbsCoord];
 		wallLength = TileFactory.TUNNEL_SIZE / 2;
-		
 	}
 	
 	function nodeUpdate(node:TileNode, time:Float)
@@ -42,8 +36,6 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 	{
 		node.physical.body = B2.world.createBody(node.physical.bodyDef);
 		
-		//node.physical.body.getFixtureList().destroy();
-		
 		for (x in cornerBlockCoords)
 		{
 			for (y in cornerBlockCoords)
@@ -53,22 +45,22 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 			}
 		}
 		
-		if (!node.aperture.bottom)
+		if (!node.tile.bottom)
 		{
 			node.physical.fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, cornerBlockAbsCoord);
 			node.physical.body.createFixture(node.physical.fixtureDef);
 		}
-		if (!node.aperture.top)
+		if (!node.tile.top)
 		{
 			node.physical.fixtureDef.shape = B2.createRectShape(wallLength, cornerBlockSize, 0, -cornerBlockAbsCoord);
 			node.physical.body.createFixture(node.physical.fixtureDef);
 		}
-		if (!node.aperture.right)
+		if (!node.tile.right)
 		{
 			node.physical.fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
 			node.physical.body.createFixture(node.physical.fixtureDef);
 		}
-		if (!node.aperture.left)
+		if (!node.tile.left)
 		{
 			node.physical.fixtureDef.shape = B2.createRectShape(cornerBlockSize, wallLength, cornerBlockAbsCoord, 0);
 			node.physical.body.createFixture(node.physical.fixtureDef);
@@ -78,7 +70,7 @@ class TileToPhysicsConvertSystem extends ListIteratingSystem<TileNode>
 	
 	function nodeRemoved(node:TileNode)
 	{
-		
+		B2.world.destroyBody(node.physical.body);
 	}
 	
 }
