@@ -1,7 +1,7 @@
 package factories;
 import ash.core.Entity;
 import box2D.dynamics.B2BodyType;
-import labyrinth.TileApertureComponent;
+import labyrinth.TileComponent;
 import physics.B2;
 import physics.PhysicalComponent;
 
@@ -19,7 +19,7 @@ class TileFactory
 	{
 		var tileEntity = new Entity();
 		
-		tileEntity.add(new TileApertureComponent());
+		tileEntity.add(new TileComponent(x, y));
 		
 		var bd = B2.createBodyDef(posXfromCellX(x), posYfromCellY(y), B2BodyType.KINEMATIC_BODY);
 		

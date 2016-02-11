@@ -10,7 +10,7 @@ import physics.PhysicalComponent;
  */
 class MovingTileNode extends Node<MovingTileNode>
 {
-	public var aperture:TileApertureComponent;
+	public var tile:TileComponent;
 	public var physical:PhysicalComponent;
 	public var movement:TileMovementComponent;
 	

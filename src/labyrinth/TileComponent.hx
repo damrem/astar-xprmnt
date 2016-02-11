@@ -1,15 +1,19 @@
 package labyrinth;
+import de.polygonal.ds.Array2.Array2Cell;
 
 /**
  * ...
  * @author damrem
  */
-class TileApertureComponent
+class TileComponent
 {
 	var bits:Int;
+	public var cell:Array2Cell;
 	
-	public function new()
+	public function new(x:Int, y:Int)
 	{
+		cell = new Array2Cell(x, y);
+		
 		do
 		{
 			bits = Std.random(16);
