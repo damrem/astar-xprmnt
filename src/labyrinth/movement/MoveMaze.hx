@@ -2,6 +2,7 @@ package labyrinth.movement;
 
 import ash.core.Entity;
 import ash.tools.ListIteratingSystem;
+import box2D.common.math.B2Vec2;
 import de.polygonal.ds.Array2.Array2Cell;
 import hxlpers.Direction;
 import labyrinth.movement.TileMovementComponent;
@@ -54,7 +55,7 @@ class MoveMaze extends ListIteratingSystem<MovingMazeNode>
 		{
 			var destCell = movingMazeNode.maze.tiles.cellOf(tileEntity, destCell);
 			
-			tileEntity.add(new TileMovementComponent(destCell));
+			tileEntity.add(new TileMovementComponent(destCell, movingMazeNode.movement.direction));
 			
 		}
 	}

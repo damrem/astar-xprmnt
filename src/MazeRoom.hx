@@ -15,12 +15,12 @@ import hxlpers.colors.Colors;
 import hxlpers.colors.RndColor;
 import hxlpers.game.Room;
 import hxlpers.Rnd;
+import labyrinth.BuildTileBody;
 import labyrinth.MazeComponent;
 import labyrinth.MazeGenerator;
-import labyrinth.movement.MoveMazeRandomly;
 import labyrinth.movement.MoveMaze;
+import labyrinth.movement.MoveMazeRandomly;
 import labyrinth.movement.MoveTile;
-import labyrinth.BuildTileBody;
 import openfl.display.Sprite;
 import openfl.utils.Timer;
 import physics.B2;
@@ -39,7 +39,7 @@ using hxlpers.display.SpriteSF;
 class MazeRoom extends Room
 {
 	var tickProvider:ITickProvider;
-	var engine:Engine;
+	public static var engine:Engine;
 	var creator:SimpleEntityCreator;
 	var timer:Timer;
 	
@@ -48,7 +48,6 @@ class MazeRoom extends Room
 	public static inline var MAZE_WIDTH:Int = 5;
 	public static inline var MAZE_HEIGHT:Int = 5;
 	
-
 	public function new(fullWidth:Float, fullHeight:Float, ratio:UInt) 
 	{
 		super(fullWidth, fullHeight, ratio);
@@ -66,7 +65,7 @@ class MazeRoom extends Room
 		
 		for (entity in createWallEntities())
 		{
-			//engine.addEntity(entity);
+			engine.addEntity(entity);
 		};
 		
 		var mazeEntity = new Entity();

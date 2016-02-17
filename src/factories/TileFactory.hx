@@ -15,11 +15,11 @@ class TileFactory
 	public static var TUNNEL_SIZE:Float = 32;
 	
 
-	public static function createEntity(x:Int, y:Int):Entity
+	public static function createEntity(x:Int, y:Int, ?bits:Int):Entity
 	{
 		var tileEntity = new Entity();
 		
-		tileEntity.add(new TileComponent(x, y));
+		tileEntity.add(new TileComponent(x, y, bits));
 		
 		var bd = B2.createBodyDef(posXfromCellX(x), posYfromCellY(y), B2BodyType.KINEMATIC_BODY);
 		
