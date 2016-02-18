@@ -11,6 +11,7 @@ import hxlpers.colors.Colors;
 import hxlpers.colors.RndColor;
 import hxlpers.game.Room;
 import hxlpers.Rnd;
+import labyrinth.BuildTileBody;
 import labyrinth.MazeComponent;
 import labyrinth.MazeGenerator;
 import openfl.display.Sprite;
@@ -28,7 +29,7 @@ using hxlpers.display.SpriteSF;
  */
 class MazeRoom extends Room
 {
-	var world:World;
+	var edgeWorld:World;
 	var creator:SimpleEntityCreator;
 	var timer:Timer;
 	
@@ -46,9 +47,9 @@ class MazeRoom extends Room
 		
 		B2.world = new B2World(B2.GRAVITY, true);
 		
-		world = new World();
+		edgeWorld = new World();
 		
-		world.engine.create([HeroFactory.createEntity(32, 32)]);
+		edgeWorld.engine.create([HeroFactory.createEntity(32, 32)]);
 		
 		for (entity in createWallEntities())
 		{
@@ -58,16 +59,16 @@ class MazeRoom extends Room
 		var tileEntities = MazeGenerator.create(MAZE_WIDTH, MAZE_HEIGHT);
 		var mazeEntity = [new MazeComponent(tileEntities)];
 		
-		world.engine.create([mazeEntity]);
+		edgeWorld.engine.create([mazeEntity]);
 		for (tile in tileEntities)
 		{
-			world.engine.create([tile]);
+			edgeWorld.engine.create([tile]);
 		}
 		
 		
-		world.physics.add(new B2System());
+		edgeWorld.physics.add(new B2System());
 		
-		//engine.addSystem(new BuildTileBody(), 3);
+		edgeWorld.physics.add(new BuildTileBody());
 		//engine.addSystem(new RandomMoveSystem(), 5);
 		//engine.addSystem(new MoveMazeRandomly(), 10);
 		//engine.addSystem(new MoveMaze(), 11);
@@ -84,7 +85,8 @@ class MazeRoom extends Room
 	
 	public function start()
 	{
-		world.start();	
+		trace("start");
+		edgeWorld.start();	
 	}
 	
 	

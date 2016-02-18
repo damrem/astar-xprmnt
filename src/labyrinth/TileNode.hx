@@ -1,14 +1,13 @@
 package labyrinth;
-import ash.core.Node;
 import physics.PhysicalComponent;
-import rendering.Gfx;
 
 /**
  * ...
  * @author damrem
  */
-class TileNode extends Node<TileNode>
+typedef TileNode =
 {
-	public var tile:TileComponent;
-	public var physical:PhysicalComponent;
+	tile:TileComponent,
+	physical:PhysicalComponent
 }
+

@@ -1,39 +1,38 @@
 package labyrinth;
 
-import ash.tools.ListIteratingSystem;
-import box2D.dynamics.B2FixtureDef;
+import edge.Entity;
+import edge.ISystem;
 import factories.TileFactory;
 import physics.B2;
+import physics.PhysicalComponent;
 
 /**
  * Converts tile aperture into a compound body. 
  * @author damrem
  */
-class BuildTileBody extends ListIteratingSystem<TileNode>
+class BuildTileBody implements ISystem
 {
 	var cornerBlockSize:Float;
 	var cornerBlockCoords:Array<Float>;
-	//var fixtureDef:B2FixtureDef;
 	var cornerBlockAbsCoord:Float;
 	var wallLength:Float;
 	
 	public function new() 
 	{
-		super(TileNode, nodeUpdate, nodeAdded, nodeRemoved);
-		
 		cornerBlockSize = (TileFactory.TILE_SIZE - TileFactory.TUNNEL_SIZE) / 4;
 		cornerBlockAbsCoord = (TileFactory.TUNNEL_SIZE) / 2 + cornerBlockSize;
 		cornerBlockCoords = [ -cornerBlockAbsCoord, cornerBlockAbsCoord];
 		wallLength = TileFactory.TUNNEL_SIZE / 2;
 	}
 	
-	function nodeUpdate(node:TileNode, time:Float)
+	public function update(tile:TileComponent, physical:PhysicalComponent)
 	{
 		
 	}
 	
-	function nodeAdded(node:TileNode)
+	public function updateAdded(entity:Entity, node:TileNode)
 	{
+		trace("tile node added");
 		node.physical.body = B2.world.createBody(node.physical.bodyDef);
 		
 		for (x in cornerBlockCoords)
@@ -68,7 +67,7 @@ class BuildTileBody extends ListIteratingSystem<TileNode>
 		
 	}
 	
-	function nodeRemoved(node:TileNode)
+	public function updateRemoved(entity:Entity, node:TileNode)
 	{
 		B2.world.destroyBody(node.physical.body);
 	}
