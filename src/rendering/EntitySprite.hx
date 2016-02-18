@@ -1,5 +1,5 @@
 package rendering;
-import ash.core.Entity;
+
 import openfl.display.Sprite;
 
 /**
@@ -9,7 +9,7 @@ import openfl.display.Sprite;
 class EntitySprite extends Sprite
 {
 
-	public var entity:Entity;
+	public var entity:Array<{}>;
 	
 	public function new(entity) 
 	{

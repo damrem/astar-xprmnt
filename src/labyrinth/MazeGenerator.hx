@@ -1,5 +1,5 @@
 package labyrinth;
-import ash.core.Entity;
+
 import de.polygonal.ds.Array2;
 import factories.TileFactory;
 
@@ -9,9 +9,9 @@ import factories.TileFactory;
  */
 class MazeGenerator
 {
-	public static function create(width:Int, height:Int):Array2<Entity>
+	public static function create(width:Int, height:Int):Array2<Ent>
 	{
-		var tiles = new Array2<Entity>(width, height);
+		var tiles = new Array2<Ent>(width, height);
 		
 		for (y in 0...height)
 		{

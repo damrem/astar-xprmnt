@@ -1,5 +1,5 @@
 package factories;
-import ash.core.Entity;
+
 import box2D.dynamics.B2BodyType;
 import labyrinth.TileComponent;
 import physics.B2;
@@ -15,11 +15,11 @@ class TileFactory
 	public static var TUNNEL_SIZE:Float = 32;
 	
 
-	public static function createEntity(x:Int, y:Int):Entity
+	public static function createEntity(x:Int, y:Int):Ent
 	{
-		var tileEntity = new Entity();
+		var tileEntity = new Ent();
 		
-		tileEntity.add(new TileComponent(x, y));
+		tileEntity.push(new TileComponent(x, y));
 		
 		var bd = B2.createBodyDef(posXfromCellX(x), posYfromCellY(y), B2BodyType.KINEMATIC_BODY);
 		
@@ -28,7 +28,7 @@ class TileFactory
 		fd.filter.categoryBits = CollisionBits.TILE_CATEGORY;
 		fd.filter.maskBits = CollisionBits.TILE_MASK;
 		
-		tileEntity.add(new PhysicalComponent(bd, fd));
+		tileEntity.push(new PhysicalComponent(bd, fd));
 		
 		return tileEntity;
 	}

@@ -1,6 +1,6 @@
 package factories;
-import ash.core.Entity;
 import box2D.collision.shapes.B2CircleShape;
+import edge.Entity;
 import hxlpers.shapes.BoxShape;
 import hxlpers.shapes.DiskShape;
 import physics.B2;
@@ -15,41 +15,41 @@ import rendering.Gfx;
  */
 class SimpleEntityCreator
 {
-	public static function createBallEntity(_x:Float, _y:Float, size:Float, angle:Float, color:UInt, collisionCategory:Int=0x0001, collisionMask:Int=0xffff):Entity
+	public static function createBallEntity(_x:Float, _y:Float, size:Float, angle:Float, color:UInt, collisionCategory:Int=0x0001, collisionMask:Int=0xffff):Array<{}>
 	{
 		var radius = size / 2;
 		
-		var entity = new Entity();
+		var entity = [];
 		
 		var shape = new DiskShape(radius, color);
 		var sprite = new EntitySprite(entity);
 		sprite.addChild(shape);
-		entity.add(new Gfx(sprite));
+		entity.push(new Gfx(sprite));
 		
 		var bodyDef = B2.createBodyDef(_x, _y);
 		bodyDef.linearDamping = 25;
 		var fixtureDef = B2.createFixtureDef();
 		fixtureDef.filter.categoryBits = collisionCategory;
 		fixtureDef.filter.maskBits = collisionMask;
-		entity.add(new PhysicalShapedComponent(bodyDef, fixtureDef, new B2CircleShape(radius)));
+		entity.push(new PhysicalShapedComponent(bodyDef, fixtureDef, new B2CircleShape(radius)));
 		
 		return entity;
 	}
 	
-	public static function createBoxEntity(_x:Float, _y:Float, size:Float, angle:Float, color:UInt, collisionCategory:Int=0x0001, collisionMask:Int=0xffff):Entity
+	public static function createBoxEntity(_x:Float, _y:Float, size:Float, angle:Float, color:UInt, collisionCategory:Int=0x0001, collisionMask:Int=0xffff):Array<{}>
 	{
-		var entity = new Entity();
+		var entity = [];
 		
 		var shape = new BoxShape(size, size, color, 0, 0, true);
 		var sprite = new EntitySprite(entity);
 		sprite.addChild(shape);
-		entity.add(new Gfx(sprite));
+		entity.push(new Gfx(sprite));
 		
 		var bodyDef = B2.createBodyDef(_x, _y);
 		var fixtureDef = B2.createFixtureDef();
 		fixtureDef.filter.categoryBits = collisionCategory;
 		fixtureDef.filter.maskBits = collisionMask;
-		entity.add(new PhysicalShapedComponent(bodyDef, fixtureDef, B2.createSquareShape(size / 2, angle)));
+		entity.push(new PhysicalShapedComponent(bodyDef, fixtureDef, B2.createSquareShape(size / 2, angle)));
 		
 		return entity;
 	}

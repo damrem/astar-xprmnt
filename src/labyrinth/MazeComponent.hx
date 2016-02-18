@@ -1,5 +1,5 @@
 package labyrinth;
-import ash.core.Entity;
+
 import de.polygonal.ds.Array2;
 
 /**
@@ -9,9 +9,9 @@ import de.polygonal.ds.Array2;
 class MazeComponent
 {
 
-	public var tiles:Array2<Entity>;
+	public var tiles:Array2<Ent>;
 	
-	public function new(tiles:Array2<Entity>)
+	public function new(tiles:Array2<Ent>)
 	{
 		this.tiles = tiles;
 		

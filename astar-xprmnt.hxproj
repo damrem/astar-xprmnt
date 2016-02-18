@@ -21,14 +21,16 @@
     <class path="C:\HaxeToolkit\haxe\lib\actuate\1,8,6" />
     <class path="C:\HaxeToolkit\haxe\lib\polygonal-ds\1,4,1" />
     <class path="C:\HaxeToolkit\haxe\lib\polygonal-printf\1,0,2-beta" />
-    <class path="C:\HaxeToolkit\haxe\lib\ash\1,5,4\src" />
+    <class path="C:\HaxeToolkit\haxe\lib\edge\0,6,0\src" />
+    <class path="C:\HaxeToolkit\haxe\lib\thx,core\0,39,0\src" />
     <class path="C:\HaxeToolkit\haxe\lib\box2d\1,2,3" />
+    <class path="C:\HaxeToolkit\haxe\lib\thx,core\0,27,0\src" />
     <class path="src" />
     <class path="bin\flash\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="openfl=3.3.1&#xA;lime=2.6.0&#xA;actuate=1.8.6&#xA;polygonal-ds=1.4.1&#xA;polygonal-printf=1.0.2-beta&#xA;ash=1.5.4&#xA;box2d=1.2.3&#xA;openfl-next&#xA;tools=2.6.0&#xA;no-compilation&#xA;openfl-flash&#xA;web" />
+    <option directives="openfl=3.3.1&#xA;lime=2.6.0&#xA;actuate=1.8.6&#xA;polygonal-ds=1.4.1&#xA;polygonal-printf=1.0.2-beta&#xA;edge=0.6.0&#xA;thx.core=0.39.0&#xA;box2d=1.2.3&#xA;thx_core&#xA;thx.core=0.27.0&#xA;openfl-next&#xA;tools=2.6.0&#xA;no-compilation&#xA;openfl-flash&#xA;web" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
@@ -37,7 +39,7 @@
   </build>
   <!-- haxelib libraries -->
   <haxelib>
-    <!-- example: <library name="..." /> -->
+    <library name="thx.core" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

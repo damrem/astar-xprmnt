@@ -17,8 +17,9 @@
 	<haxelib name="openfl" />
 	<haxelib name="actuate"/>
 	<haxelib name="polygonal-ds" />
-	<haxelib name="ash"/>
+	<haxelib name="edge"/>
 	<haxelib name="box2d"/>
+	<haxelib name="thx.core" version="0.27.0"/>
 	
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />

@@ -1,6 +1,7 @@
 package factories;
-import ash.core.Entity;
+
 import box2D.dynamics.B2BodyType;
+import edge.Entity;
 import hxlpers.shapes.BoxShape;
 import physics.B2;
 import physics.PhysicalShapedComponent;
@@ -14,21 +15,21 @@ import rendering.Gfx;
 class WallFactory
 {
 
-	public static function createWallEntity(_x:Float, _y:Float, size:Float, color:UInt):Entity
+	public static function createWallEntity(_x:Float, _y:Float, size:Float, color:UInt):Ent
 	{
-		var entity = new Entity();
+		var entity = [];
 		
 		var shape = new BoxShape(size, size, color);
 		var sprite = new EntitySprite(entity);
 		sprite.addChild(shape);
-		entity.add(new Gfx(sprite));
+		entity.push(new Gfx(sprite));
 		
 		var bodyDef = B2.createBodyDef(_x, _y, B2BodyType.STATIC_BODY);
 		var fixtureDef = B2.createFixtureDef();
 		fixtureDef.filter.categoryBits = CollisionBits.BOUNDARY_CATEGORY;
 		fixtureDef.filter.maskBits = CollisionBits.BOUNDARY_MASK;
 		trace("boundary", CollisionBits.BOUNDARY_CATEGORY, CollisionBits.BOUNDARY_MASK);
-		entity.add(new PhysicalShapedComponent(bodyDef, fixtureDef, B2.createSquareShape(size)));
+		entity.push(new PhysicalShapedComponent(bodyDef, fixtureDef, B2.createSquareShape(size)));
 		
 		return entity;
 	}
