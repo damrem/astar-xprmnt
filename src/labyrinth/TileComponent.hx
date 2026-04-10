@@ -1,11 +1,12 @@
 package labyrinth;
 import de.polygonal.ds.Array2.Array2Cell;
+import edge.IComponent;
 
 /**
  * ...
  * @author damrem
  */
-class TileComponent
+class TileComponent implements IComponent
 {
 	var bits:Int;
 	public var cell:Array2Cell;

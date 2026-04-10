@@ -18,6 +18,7 @@ import openfl.display.Sprite;
 import openfl.utils.Timer;
 import physics.B2;
 import physics.B2System;
+import physics.B2WorldComponent;
 import randommove.RandomMove;
 import selection.Selectable;
 
@@ -49,6 +50,12 @@ class MazeRoom extends Room
 		
 		edgeWorld = new World();
 		
+		edgeWorld.physics.add(new B2System());
+		
+		edgeWorld.physics.add(new BuildTileBody());
+		
+		edgeWorld.engine.create([new B2WorldComponent(B2.world)]);
+		
 		edgeWorld.engine.create([HeroFactory.createEntity(32, 32)]);
 		
 		for (entity in createWallEntities())
@@ -66,9 +73,7 @@ class MazeRoom extends Room
 		}
 		
 		
-		edgeWorld.physics.add(new B2System());
 		
-		edgeWorld.physics.add(new BuildTileBody());
 		//engine.addSystem(new RandomMoveSystem(), 5);
 		//engine.addSystem(new MoveMazeRandomly(), 10);
 		//engine.addSystem(new MoveMaze(), 11);
